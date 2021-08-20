@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Runner</class>
+ <widget class="QWidget" name="Runner">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>656</width>
+    <height>531</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Runner {
+	background-color: white;
+
+}</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="styleSheet">
+      <string notr="true">#tabWidget {
+	background-color: #007EA6;
+}
+
+QTabBar::tab {
+	background-color: white;
+	font-size: 16px;
+	height: 30px;
+	width: 100px;
+	color: #007EA6;
+}
+
+QTabBar::tab:selected {
+	background-color: #007EA6;
+	color: white;
+}
+
+ QTabWidget::pane {
+	background-color: #007EA6;
+}</string>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="apps_tab">
+      <property name="styleSheet">
+       <string notr="true">#apps_tab {
+	background-color: #007EA6;
+}</string>
+      </property>
+      <attribute name="title">
+       <string>Apps</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>9</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="add_apps_btn_hlayout">
+         <property name="leftMargin">
+          <number>15</number>
+         </property>
+         <property name="rightMargin">
+          <number>15</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="main_add_category_btn">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}</string>
+           </property>
+           <property name="text">
+            <string>Add catergory</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="apps_container_vlayout">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetMinimumSize</enum>
+         </property>
+         <item>
+          <widget class="QScrollArea" name="apps_scroll_area">
+           <property name="styleSheet">
+            <string notr="true">QScrollArea {
+	background-color: #007EA6;
+}</string>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="apps_scroll_area_widget">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>654</width>
+              <height>449</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#apps_scroll_area_widget {
+	background-color: #007EA6;
+}</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="notes_tab">
+      <property name="styleSheet">
+       <string notr="true">#notes_tab {
+	background-color: #007EA6;
+}</string>
+      </property>
+      <attribute name="title">
+       <string>Notes</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <property name="leftMargin">
+          <number>15</number>
+         </property>
+         <property name="rightMargin">
+          <number>15</number>
+         </property>
+         <item>
+          <widget class="QPushButton" name="main_add_notes_btn">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}</string>
+           </property>
+           <property name="text">
+            <string>Add Note</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QScrollArea" name="scrollArea">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="widgetResizable">
+            <bool>true</bool>
+           </property>
+           <widget class="QWidget" name="notes_scroll_area_widget">
+            <property name="geometry">
+             <rect>
+              <x>0</x>
+              <y>0</y>
+              <width>654</width>
+              <height>449</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#notes_scroll_area_widget {
+	background-color: #007EA6;
+}</string>
+            </property>
+           </widget>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
