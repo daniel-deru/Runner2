@@ -17,4 +17,14 @@ class NotesWindow(QDialog, Ui_edit_notes):
         self.hide()
 
     def notes_window_save_clicked(self):
+
+        name = self.ldt_note_title.text()
+        # body = self.txtedt_note_body.text()
+
+        importance_container = self.hbox_importance
+
+        for i in range(0, 3):
+            priority = importance_container.itemAt(i).widget()
+            if (priority.isChecked()):
+                print(priority.text())
         self.hide()

@@ -6,7 +6,7 @@ from PyQt5.QtCore import pyqtSignal
 from uipy.add_url import Ui_add_url_window
 
 # Import the message box
-from MessageBox import Message
+from class_snippets.MessageBox import Message
 
 
 class URLWindow(QDialog, Ui_add_url_window):

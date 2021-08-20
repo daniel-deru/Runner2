@@ -6,7 +6,7 @@ from PyQt5.QtCore import pyqtSignal
 from uipy.add_File import Ui_Add_File_Dialog
 
 # Import the message box
-from MessageBox import Message
+from class_snippets.MessageBox import Message
 
 
 class FileWindow(QDialog, Ui_Add_File_Dialog):
