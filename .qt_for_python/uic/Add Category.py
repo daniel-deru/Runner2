@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Add Category.ui'
+# Form implementation generated from reading ui file 'c:\Users\SATRUST\OneDrive\Desktop\code\Runner2\ui files\Add Category.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -92,13 +92,3 @@ class Ui_add_category(object):
         self.lbl_add_url.setText(_translate("add_category", "Add URL"))
         self.lbl_discard.setText(_translate("add_category", "Discard"))
         self.lbl_save.setText(_translate("add_category", "Save"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    add_category = QtWidgets.QDialog()
-    ui = Ui_add_category()
-    ui.setupUi(add_category)
-    add_category.show()
-    sys.exit(app.exec_())

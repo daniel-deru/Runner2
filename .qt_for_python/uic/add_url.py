@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'add_url.ui'
+# Form implementation generated from reading ui file 'c:\Users\SATRUST\OneDrive\Desktop\code\Runner2\ui files\add_url.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -81,13 +81,3 @@ class Ui_add_url_window(object):
         self.lbl_url.setText(_translate("add_url_window", "URL"))
         self.btn_discard.setText(_translate("add_url_window", "Discard"))
         self.btn_save.setText(_translate("add_url_window", "Save"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    add_url_window = QtWidgets.QDialog()
-    ui = Ui_add_url_window()
-    ui.setupUi(add_url_window)
-    add_url_window.show()
-    sys.exit(app.exec_())

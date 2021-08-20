@@ -52,9 +52,9 @@ QPushButton {
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="hbox_name">
      <item>
-      <widget class="QLabel" name="add_category_name">
+      <widget class="QLabel" name="lbl_name">
        <property name="styleSheet">
         <string notr="true">color: white;
 font-size: 16px;</string>
@@ -76,16 +76,16 @@ padding: 10px;</string>
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="hbox_add_buttons_container">
      <item>
-      <widget class="QPushButton" name="add_category_add_file_btn">
+      <widget class="QPushButton" name="lbl_add_file">
        <property name="text">
         <string>Add File</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="add_category_add_url_btn">
+      <widget class="QPushButton" name="lbl_add_url">
        <property name="focusPolicy">
         <enum>Qt::ClickFocus</enum>
        </property>
@@ -97,7 +97,7 @@ padding: 10px;</string>
     </layout>
    </item>
    <item>
-    <layout class="QVBoxLayout" name="apps_container_vl"/>
+    <layout class="QVBoxLayout" name="vbox_container"/>
    </item>
    <item>
     <spacer name="verticalSpacer">
@@ -113,16 +113,16 @@ padding: 10px;</string>
     </spacer>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <layout class="QHBoxLayout" name="hbox_buttons_container">
      <item>
-      <widget class="QPushButton" name="add_category_discard_btn">
+      <widget class="QPushButton" name="lbl_discard">
        <property name="text">
         <string>Discard</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="add_category_save_btn">
+      <widget class="QPushButton" name="lbl_save">
        <property name="text">
         <string>Save</string>
        </property>

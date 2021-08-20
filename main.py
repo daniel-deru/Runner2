@@ -8,8 +8,7 @@ from os import path as file
 from inspect import currentframe, getframeinfo
 
 # PyQt5 imports
-from PyQt5.QtWidgets import QApplication, QPushButton, QTabWidget, QWidget, QMainWindow
-from PyQt5 import uic
+from PyQt5.QtWidgets import QApplication, QPushButton, QWidget
 
 # Import the main window UI
 from uipy.mainUI import Ui_Runner
@@ -44,8 +43,7 @@ class Main(QWidget, Ui_Runner):
     def add_notes_clicked(self):
         make_note = NotesWindow()
         make_note.exec()
-
-    
+ 
 
         
         
