@@ -33,21 +33,33 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
 
         name = self.lnedit_filename.text()
 
-        if (name and self.path):
+        if ( not name and not self.path):
+            Message("Please enter a name and add a file", "Empty fields")     
+        elif (name and self.path):
             from Add_category import files
             from Add_category import CategoryWindow
-            payload = {
-                'name': name,
-                'path': self.path
-            }
 
-            files.append(payload)
+            is_copy = False
+
+            for file in files:
+                if (name == file['name']):
+                    Message("The name is already being used. Please use another name", "Name already exists.")
+                    is_copy = True
+                elif (self.path == file['path']):
+                    Message("The file is already selected. Cannot add the same file.", "File already exists.")
+                    is_copy = True
             
-            make_category = CategoryWindow()
-            make_category.exec()
-            self.hide()
-        else:
-            Message("Please enter a name and add a file", "Empty fields")
+            if (not is_copy):
+                payload = {
+                    'name': name,
+                    'path': self.path
+                }
+
+                files.append(payload)
+                
+                make_category = CategoryWindow()
+                make_category.exec()
+                self.hide()
 
     def add_file_clicked(self):
         self.path = QFileDialog.getOpenFileName(self, "Open a file", "", "All Files (*.*)")[0]

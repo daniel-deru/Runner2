@@ -34,34 +34,46 @@ class URLWindow(QDialog, Ui_add_url_window):
     
     # Handle the Save Button click
     def save_clicked(self):
-        # Import the websites from the category window to add the websites
-        # Important!!!! the reason why it is imported here is to avoid the circular import error
-        from Add_category import files
+        
 
         # Get the info from URL Window
         name = self.lnedit_name.text()
-        url = self.lnedit_url.text()
+        path = self.lnedit_url.text()
 
         # If there is a name and url create a payload to store in website variable
-        if (name and url):
-            payload = {
-                "name": name,
-                "path": url
-            }
-    
-            files.append(payload)
-
+        if ( not name and not path):
+            # If the user didn't enter all the required information show a message
+            Message("Please fill in all the fields", "There are empty fields")
+        elif (name and path):
             # Import the Category window to create a new instance
             # Important!!!! the reason why it is imported here is to avoid the circular import error
             from Add_category import CategoryWindow
+            # Import the websites from the category window to add the websites
+            from Add_category import files
 
-            # Make the Category window and move to it
-            make_category = CategoryWindow()
-            make_category.exec()
-            self.hide()
-        else:
-            # If the user didn't enter all the required information show a message
-            Message("Please fill in all the fields", "There are empty fields")
+            is_copy = False
+
+            for file in files:
+                if (name == file['name']):
+                    Message("The name is already being used. Please use another name", "Name already exists.")
+                    is_copy = True
+                elif (path == file['path']):
+                    Message("The website is already being used. Cannot add the same website.", "Website already exists.")
+                    is_copy = True
+            
+            if (not is_copy):
+                payload = {
+                    "name": name,
+                    "path": path
+                }
+        
+                files.append(payload)
+
+                # Make the Category window and move to it
+                make_category = CategoryWindow()
+                make_category.exec()
+                self.hide()
+            
     
     # Create a new instance of the Category Window when the user closes the URL window
     def closeEvent(self, event):

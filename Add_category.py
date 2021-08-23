@@ -11,6 +11,9 @@ from URL import URLWindow
 
 from File import FileWindow
 
+# Import message box
+from class_snippets.MessageBox import Message
+
 # container to keep all the websites data in memory before the app category is
 # created and saved in the database
 files = []
@@ -36,11 +39,13 @@ class CategoryWindow(QDialog, Ui_add_category):
         for item in range(0, len(files)):
             files.pop()
         
-        category_name = self.lbl_name.text()
+        category_name = self.add_category_name_input.text()
 
         if (category_name):
-            
+            # Check if the category is in the database
             self.hide()
+        else:
+            Message( "Please enter the name of your category", "Please enter a name")
 
     # Handle the Discard button click
     def add_category_discard_clicked(self):

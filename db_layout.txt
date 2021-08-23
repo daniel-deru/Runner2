@@ -1,0 +1,12 @@
+notes table:
+
+info: title, body, priority, date, id?
+
+
+categories table:
+
+info: name, id?
+
+files table: 
+
+info categories_id, name, path
