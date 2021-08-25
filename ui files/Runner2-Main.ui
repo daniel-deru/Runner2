@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>656</width>
+    <width>603</width>
     <height>531</height>
    </rect>
   </property>
@@ -19,7 +19,7 @@
 
 }</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="runner_main_layout">
    <property name="leftMargin">
     <number>0</number>
    </property>
@@ -137,7 +137,7 @@ QPushButton:pressed {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>654</width>
+              <width>601</width>
               <height>449</height>
              </rect>
             </property>
@@ -162,7 +162,7 @@ QPushButton:pressed {
       <attribute name="title">
        <string>Notes</string>
       </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
+      <layout class="QVBoxLayout" name="notes_tab_layout">
        <property name="leftMargin">
         <number>0</number>
        </property>
@@ -173,7 +173,7 @@ QPushButton:pressed {
         <number>0</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="add_note_layout">
          <property name="leftMargin">
           <number>15</number>
          </property>
@@ -206,9 +206,9 @@ QPushButton:pressed {
         </layout>
        </item>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="notes_scroll_outer_layout">
          <item>
-          <widget class="QScrollArea" name="scrollArea">
+          <widget class="QScrollArea" name="notes_scroll_area">
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
            </property>
@@ -220,7 +220,7 @@ QPushButton:pressed {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>654</width>
+              <width>601</width>
               <height>449</height>
              </rect>
             </property>
@@ -229,6 +229,21 @@ QPushButton:pressed {
 	background-color: #007EA6;
 }</string>
             </property>
+            <layout class="QVBoxLayout" name="notes_scroll_layout">
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
            </widget>
           </widget>
          </item>

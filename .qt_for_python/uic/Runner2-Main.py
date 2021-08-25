@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Runner2-Main.ui'
+# Form implementation generated from reading ui file 'c:\Users\SATRUST\OneDrive\Desktop\code\Runner2\ui files\Runner2-Main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -136,8 +136,8 @@ class Ui_Runner(object):
         self.notes_scroll_area_widget.setObjectName("notes_scroll_area_widget")
         self.notes_scroll_layout = QtWidgets.QVBoxLayout(self.notes_scroll_area_widget)
         self.notes_scroll_layout.setObjectName("notes_scroll_layout")
-        # spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        # self.notes_scroll_layout.addItem(spacerItem)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.notes_scroll_layout.addItem(spacerItem)
         self.notes_scroll_area.setWidget(self.notes_scroll_area_widget)
         self.notes_scroll_outer_layout.addWidget(self.notes_scroll_area)
         self.notes_tab_layout.addLayout(self.notes_scroll_outer_layout)
@@ -155,13 +155,3 @@ class Ui_Runner(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.apps_tab), _translate("Runner", "Apps"))
         self.main_add_notes_btn.setText(_translate("Runner", "Add Note"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notes_tab), _translate("Runner", "Notes"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Runner = QtWidgets.QWidget()
-    ui = Ui_Runner()
-    ui.setupUi(Runner)
-    Runner.show()
-    sys.exit(app.exec_())

@@ -1,7 +1,8 @@
-# Import database 
 import sqlite3
 
 # create database class
+
+
 class DB:
     def __init__(self):
         # connect to database
@@ -35,6 +36,9 @@ class DB:
     # save methode to save to database
     def save(self, table, data):
 
+        if type(data) != list:
+            data = [data]
+
         # determine how many fields there are based on the table passed in
         values = ""
         if table == "notes":
@@ -51,11 +55,10 @@ class DB:
 
         # execute the query to insert the data
         self.cur.executemany(query, data)
+
         # commit the changes
         self.db.commit()
-        # close the connection
         self.db.close()
-
 
     # read method to read data from the database
     def read(self, table):
@@ -82,17 +85,18 @@ class DB:
         query = ""
 
         # check if the table is files or notes because they will have a different query
-        if (table == "files" or table == "notes"):
+        if table == "files" or table == "notes":
             
             # if the table is notes make the label title
-            if table == "notes": label = "title"
+            if table == "notes":
+                label = "title"
 
             # query for notes and files query
             query = f"""
                 DELETE FROM {table} WHERE {label} = '{name}'
             """
         # check if the table is categories because the categories table will have a different query
-        elif (table == "categories"):
+        elif table == "categories":
 
             # query for the categories table
             query = f"""
@@ -109,7 +113,6 @@ class DB:
 
         self.db.commit()
         self.db.close()
-
 
     def create_table(self, command):
         self.cur.execute(command)
