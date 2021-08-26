@@ -121,6 +121,40 @@ class Ui_Runner(object):
 "}")
         self.main_add_notes_btn.setObjectName("main_add_notes_btn")
         self.add_note_layout.addWidget(self.main_add_notes_btn)
+        self.pushButton = QtWidgets.QPushButton(self.notes_tab)
+        self.pushButton.setStyleSheet("QPushButton {\n"
+"    color: white;\n"
+"    border: 2px solid white;\n"
+"    background-color: transparent;\n"
+"    padding: 5px;\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
+"    border-color: #007EA6;\n"
+"}")
+        self.pushButton.setObjectName("pushButton")
+        self.add_note_layout.addWidget(self.pushButton)
+        self.pushButton_2 = QtWidgets.QPushButton(self.notes_tab)
+        self.pushButton_2.setStyleSheet("QPushButton {\n"
+"    color: white;\n"
+"    border: 2px solid white;\n"
+"    background-color: transparent;\n"
+"    padding: 5px;\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
+"    border-color: #007EA6;\n"
+"}")
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.add_note_layout.addWidget(self.pushButton_2)
         self.notes_tab_layout.addLayout(self.add_note_layout)
         self.notes_scroll_outer_layout = QtWidgets.QVBoxLayout()
         self.notes_scroll_outer_layout.setObjectName("notes_scroll_outer_layout")
@@ -153,5 +187,7 @@ class Ui_Runner(object):
         Runner.setWindowTitle(_translate("Runner", "Form"))
         self.main_add_category_btn.setText(_translate("Runner", "Add catergory"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.apps_tab), _translate("Runner", "Apps"))
-        self.main_add_notes_btn.setText(_translate("Runner", "Add Note"))
+        self.main_add_notes_btn.setText(_translate("Runner", "Add"))
+        self.pushButton.setText(_translate("Runner", "Edit"))
+        self.pushButton_2.setText(_translate("Runner", "Delete"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notes_tab), _translate("Runner", "Notes"))

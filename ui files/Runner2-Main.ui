@@ -199,7 +199,53 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Add Note</string>
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}</string>
+           </property>
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}</string>
+           </property>
+           <property name="text">
+            <string>Delete</string>
            </property>
           </widget>
          </item>

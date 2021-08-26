@@ -21,6 +21,7 @@ class NotesWindow(QDialog, Ui_edit_notes):
     def notes_window_discard_clicked(self):
         self.hide()
 
+        
     def notes_window_save_clicked(self):
 
         name = self.ldt_note_title.text()
@@ -47,4 +48,10 @@ class NotesWindow(QDialog, Ui_edit_notes):
             )
             db = DB()
             db.save("notes", note)
+
+            # from main import Main
+            # Main.show_notes = classmethod(Main.show_notes)
+            # Main.show_notes()
+            # main = Main()
+            # main.show_notes()
             self.hide()
