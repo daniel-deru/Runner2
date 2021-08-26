@@ -23,7 +23,7 @@ def make_note_container(data):
     priority = QLabel(data[2])
     date = QLabel(data[3])
 
-    priority.setAlignment(Qt.AlignHCenter)
+    priority.setAlignment(Qt.AlignRight)
     date.setAlignment(Qt.AlignRight)
 
     label_container.addWidget(title)
@@ -43,7 +43,7 @@ def make_note_container(data):
     note_container.setStyleSheet("""
         #note_container {
             background-color: white;
-            min-height: 150px;
+            min-height: 100px;
             font-size: 16px;
             border-radius: 10px;
         }

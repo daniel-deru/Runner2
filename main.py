@@ -14,8 +14,12 @@ from PyQt5.QtCore import Qt
 # Import the main window UI
 from uipy.mainUI import Ui_Runner
 
-# Import windows
+# Import Files Windows
 from Add_category import CategoryWindow
+
+# Import notes windows
+from DeleteNotes import DeleteNotesWindow
+from SelectNotes import SelectNotesWindow
 from Notes import NotesWindow
 
 from db import DB
@@ -30,14 +34,13 @@ class Main(QWidget, Ui_Runner):
         self.setWindowTitle("Runner")
         self.setupUi(self)
         
-
         self.tabWidget.setCurrentIndex(0)
 
-        # Handle Add Category Button Click
+        # Handle Button Click
         self.main_add_category_btn.clicked.connect(self.add_category_clicked)
-
-        # Handle Add Notes Button Click
         self.main_add_notes_btn.clicked.connect(self.add_notes_clicked)
+        self.btn_notes_delete.clicked.connect(self.notes_delete_clicked)
+        self.btn_notes_edit.clicked.connect(self.notes_edit_clicked)
  
         self.show_notes()
     @staticmethod
@@ -62,10 +65,16 @@ class Main(QWidget, Ui_Runner):
         
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.notes_scroll_layout.addItem(spacer)
+
+    def notes_delete_clicked(self):
+        delete_notes = DeleteNotesWindow()
+        delete_notes.exec()
+
+    def notes_edit_clicked(self):
+        select_notes = SelectNotesWindow()
+        select_notes.exec()
       
         
- 
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main = Main()

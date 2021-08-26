@@ -84,7 +84,7 @@ class Ui_Runner(object):
         self.apps_scroll_area.setWidgetResizable(True)
         self.apps_scroll_area.setObjectName("apps_scroll_area")
         self.apps_scroll_area_widget = QtWidgets.QWidget()
-        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 601, 449))
+        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 100, 30))
         self.apps_scroll_area_widget.setStyleSheet("#apps_scroll_area_widget {\n"
 "    background-color: #007EA6;\n"
 "}")
@@ -121,8 +121,8 @@ class Ui_Runner(object):
 "}")
         self.main_add_notes_btn.setObjectName("main_add_notes_btn")
         self.add_note_layout.addWidget(self.main_add_notes_btn)
-        self.pushButton = QtWidgets.QPushButton(self.notes_tab)
-        self.pushButton.setStyleSheet("QPushButton {\n"
+        self.btn_notes_edit = QtWidgets.QPushButton(self.notes_tab)
+        self.btn_notes_edit.setStyleSheet("QPushButton {\n"
 "    color: white;\n"
 "    border: 2px solid white;\n"
 "    background-color: transparent;\n"
@@ -136,10 +136,10 @@ class Ui_Runner(object):
 "    background-color: white;\n"
 "    border-color: #007EA6;\n"
 "}")
-        self.pushButton.setObjectName("pushButton")
-        self.add_note_layout.addWidget(self.pushButton)
-        self.pushButton_2 = QtWidgets.QPushButton(self.notes_tab)
-        self.pushButton_2.setStyleSheet("QPushButton {\n"
+        self.btn_notes_edit.setObjectName("btn_notes_edit")
+        self.add_note_layout.addWidget(self.btn_notes_edit)
+        self.btn_notes_delete = QtWidgets.QPushButton(self.notes_tab)
+        self.btn_notes_delete.setStyleSheet("QPushButton {\n"
 "    color: white;\n"
 "    border: 2px solid white;\n"
 "    background-color: transparent;\n"
@@ -153,8 +153,8 @@ class Ui_Runner(object):
 "    background-color: white;\n"
 "    border-color: #007EA6;\n"
 "}")
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.add_note_layout.addWidget(self.pushButton_2)
+        self.btn_notes_delete.setObjectName("btn_notes_delete")
+        self.add_note_layout.addWidget(self.btn_notes_delete)
         self.notes_tab_layout.addLayout(self.add_note_layout)
         self.notes_scroll_outer_layout = QtWidgets.QVBoxLayout()
         self.notes_scroll_outer_layout.setObjectName("notes_scroll_outer_layout")
@@ -170,8 +170,6 @@ class Ui_Runner(object):
         self.notes_scroll_area_widget.setObjectName("notes_scroll_area_widget")
         self.notes_scroll_layout = QtWidgets.QVBoxLayout(self.notes_scroll_area_widget)
         self.notes_scroll_layout.setObjectName("notes_scroll_layout")
-        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.notes_scroll_layout.addItem(spacerItem)
         self.notes_scroll_area.setWidget(self.notes_scroll_area_widget)
         self.notes_scroll_outer_layout.addWidget(self.notes_scroll_area)
         self.notes_tab_layout.addLayout(self.notes_scroll_outer_layout)
@@ -188,8 +186,8 @@ class Ui_Runner(object):
         self.main_add_category_btn.setText(_translate("Runner", "Add catergory"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.apps_tab), _translate("Runner", "Apps"))
         self.main_add_notes_btn.setText(_translate("Runner", "Add"))
-        self.pushButton.setText(_translate("Runner", "Edit"))
-        self.pushButton_2.setText(_translate("Runner", "Delete"))
+        self.btn_notes_edit.setText(_translate("Runner", "Edit"))
+        self.btn_notes_delete.setText(_translate("Runner", "Delete"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notes_tab), _translate("Runner", "Notes"))
 
 
