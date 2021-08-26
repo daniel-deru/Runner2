@@ -15,26 +15,39 @@ def make_note_container(data):
     label_container = QHBoxLayout()
     date_container = QHBoxLayout()
 
-    note = QLabel(data[1])
+    title_text = data[0]
+    note_text = data[1]
+    priority_text = data[2]
+    date_text = data[3]
+
+
+    note = QLabel(note_text)
     note.setWordWrap(True)
-    note.setObjectName("label")
+    note.setObjectName("note")
 
-    title = QLabel(data[0])
-    priority = QLabel(data[2])
-    date = QLabel(data[3])
+    title = QLabel(title_text)
+    title.setObjectName("title")
 
+    low, medium, high = "90FA00", "FAE700", "D60025"
+    priority_color = high if priority_text == "High" else medium if priority_text == "Medium" else low
+
+    priority = QLabel(priority_text)
+    priority.setObjectName("priority")
     priority.setAlignment(Qt.AlignRight)
+    priority.setStyleSheet(f"color: #{priority_color};")
+
+    date = QLabel(date_text)
+    date.setObjectName("date")
     date.setAlignment(Qt.AlignRight)
+
 
     label_container.addWidget(title)
     label_container.addWidget(priority)
-    
+    # label_container.addWidget(date)
 
-    button_spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-    date_container.addItem(button_spacer)
+    spacer = QSpacerItem(20, 10, QSizePolicy.Expanding, QSizePolicy.Minimum)
+    date_container.addItem(spacer)
     date_container.addWidget(date)
-    
 
     note_layout.addLayout(label_container)
     note_layout.addWidget(note)
@@ -43,21 +56,23 @@ def make_note_container(data):
     note_container.setStyleSheet("""
         #note_container {
             background-color: white;
-            min-height: 100px;
+            min-height: 50px;
             font-size: 16px;
             border-radius: 10px;
         }
         QLabel {
-            height: 10px;
             font-size: 20px;
             color: #007EA6;
         }
 
-        #label {
+        #note {
             font-size: 16px;
             color: black;
             }
 
+        #date {
+            font-size: 12px;
+        }
     """)
     return note_container
 

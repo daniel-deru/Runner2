@@ -68,11 +68,15 @@ class Main(QWidget, Ui_Runner):
 
     def notes_delete_clicked(self):
         delete_notes = DeleteNotesWindow()
+        delete_notes.delete_signal.connect(self.update)
         delete_notes.exec()
 
     def notes_edit_clicked(self):
         select_notes = SelectNotesWindow()
         select_notes.exec()
+    
+    def update(self):
+        print("deleted")
       
         
 if __name__ == "__main__":
