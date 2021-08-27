@@ -113,6 +113,19 @@ class DB:
 
         self.db.commit()
         self.db.close()
+    
+    def get_item(self, table, name):
+
+        label = "name" if table == "categories" else "title"
+
+        query = f"""
+            SELECT * FROM {table} WHERE {label} = '{name}'
+        """
+
+        self.cur.execute(query)
+        data = self.cur.fetchone()
+        self.db.close()
+        return data
 
     def create_table(self, command):
         self.cur.execute(command)

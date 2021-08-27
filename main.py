@@ -9,7 +9,7 @@ from inspect import currentframe, getframeinfo
 
 # PyQt5 imports
 from PyQt5.QtWidgets import QApplication, QCheckBox, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 
 # Import the main window UI
 from uipy.mainUI import Ui_Runner
@@ -19,7 +19,7 @@ from Add_category import CategoryWindow
 
 # Import notes windows
 from DeleteNotes import DeleteNotesWindow
-from SelectNotes import SelectNotesWindow
+from SelectWindow import SelectNotesWindow
 from Notes import NotesWindow
 
 from db import DB
@@ -46,39 +46,53 @@ class Main(QWidget, Ui_Runner):
     @staticmethod
     def add_category_clicked():
         make_category = CategoryWindow()
-        make_category.exec()
+        make_category.exec_()
 
     def add_notes_clicked(self):
         make_note = NotesWindow()
-        make_note.exec()
+        make_note.note_signal.connect(self.update)
+        make_note.exec_()
         
 
     def show_notes(self):
 
+        # This is to remove the previous widgets that were painted so the widgets don't get added twice
+        prevItems = self.notes_scroll_layout.count()
+        # check if there are widgets
+        if prevItems > 0:
+            for i in range(self.notes_scroll_layout.count()):
+                item = self.notes_scroll_layout.itemAt(i)
+                if item.widget():
+                    item.widget().deleteLater()
+                elif item.spacerItem():
+                    self.notes_scroll_layout.removeItem(item.spacerItem())
+
+        # get notes from the database
         db = DB()
         notes = db.read("notes")
 
+        # add notes to the window
         for note in notes:
-            print(note)
             n = make_note_container(note)
             self.notes_scroll_layout.addWidget(n)
         
+        # add spacer to push widgets to the top
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.notes_scroll_layout.addItem(spacer)
 
     def notes_delete_clicked(self):
         delete_notes = DeleteNotesWindow()
         delete_notes.delete_signal.connect(self.update)
-        delete_notes.exec()
+        delete_notes.exec_()
 
     def notes_edit_clicked(self):
-        select_notes = SelectNotesWindow()
-        select_notes.exec()
+        select_notes = SelectNotesWindow("notes")
+        select_notes.exec_()
     
     def update(self):
-        print("deleted")
-      
-        
+        self.show_notes()
+
+    
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main = Main()

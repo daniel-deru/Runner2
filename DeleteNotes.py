@@ -6,7 +6,7 @@ from db import DB
 
 
 class DeleteNotesWindow(QDialog, Ui_DeleteWindow):
-    delete_signal = pyqtSignal()
+    delete_signal = pyqtSignal(str)
     def __init__(self, *args, **kwargs):
         super(DeleteNotesWindow, self).__init__(*args, **kwargs)
 
@@ -36,6 +36,6 @@ class DeleteNotesWindow(QDialog, Ui_DeleteWindow):
                 note = item.text()
                 db = DB()
                 db.delete("notes", note)
-        self.delete_signal.emit()
+        self.delete_signal.emit("delete completed")
         self.close()
 

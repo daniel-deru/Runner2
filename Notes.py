@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtSignal
 from class_snippets.MessageBox import Message
 from PyQt5.QtWidgets import QDialog
 from uipy.edit_notes import Ui_edit_notes
@@ -7,9 +8,12 @@ from datetime import date
 
 
 class NotesWindow(QDialog, Ui_edit_notes):
-    def __init__(self, *args, **kwargs):
-        super(NotesWindow, self).__init__(*args, **kwargs)
 
+    note_signal = pyqtSignal(str)
+    def __init__(self, table = None, name = None):
+        super(NotesWindow, self).__init__()
+        self.table = table
+        self.name = name
         self.setupUi(self)
         self.setModal(True)
 
@@ -17,6 +21,9 @@ class NotesWindow(QDialog, Ui_edit_notes):
 
         self.btn_discard.clicked.connect(self.notes_window_discard_clicked)
         self.btn_save.clicked.connect(self.notes_window_save_clicked)
+
+        if table is not None and name is not None:
+            self.load_data(table, name)
 
     def notes_window_discard_clicked(self):
         self.hide()
@@ -48,10 +55,11 @@ class NotesWindow(QDialog, Ui_edit_notes):
             )
             db = DB()
             db.save("notes", note)
-
-            # from main import Main
-            # Main.show_notes = classmethod(Main.show_notes)
-            # Main.show_notes()
-            # main = Main()
-            # main.show_notes()
+            self.note_signal.emit("note saved")
             self.hide()
+    
+    def load_data(self, table, name):
+        db = DB()
+        
+        item = db.get_item(table, name)
+        print(item)
