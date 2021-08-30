@@ -31,6 +31,7 @@ class NotesWindow(QDialog, Ui_edit_notes):
         
     def notes_window_save_clicked(self):
 
+        # Get the values from the form
         name = self.ldt_note_title.text()
         body = self.txtedt_note_body.toPlainText()
         priority = self.hbox_importance.itemAt(0).widget().text()
@@ -43,18 +44,37 @@ class NotesWindow(QDialog, Ui_edit_notes):
             if priority_box.isChecked():
                 priority = priority_box.text()
 
-        if not name and body:
+        note = (
+            name,
+            body,
+            priority,
+            current_date
+        )
+
+        # Send a Message if there is missing data
+        if not name or not body:
             Message("There are missing fields. Please make sure your note has a title and a body.", "Missing Fields")
-        elif name and body:
-            # Check the database if the not exists or not
-            note = (
-                name,
-                body,
-                priority,
-                current_date
-            )
+
+        # Check if there is a title and body
+        elif not self.table and not self.name:
+            if name and body:
+                # Check if name is already in database
+                db = DB()
+                items = db.read("notes")
+                for item in items:
+                    if item[0] == name:
+                        Message("The title you entered is already being used. Please Choose a different title", "title already used.")
+                    # Make sure it's not an edit
+                    elif not self.table and not self.name:
+                        db = DB()
+                        db.save("notes", note)
+                        self.note_signal.emit("note saved")
+                        self.hide()
+          
+        # Update the existing note in the database
+        elif self.table and self.name:
             db = DB()
-            db.save("notes", note)
+            db.update(self.table, self.name, note)
             self.note_signal.emit("note saved")
             self.hide()
     
@@ -62,4 +82,16 @@ class NotesWindow(QDialog, Ui_edit_notes):
         db = DB()
         
         item = db.get_item(table, name)
-        print(item)
+        # print(item)
+        title = item[0]
+        body = item[1]
+        priority = item[2]
+
+        self.ldt_note_title.setText(title)
+        self.txtedt_note_body.setText(body)
+        count = self.hbox_importance.count()
+
+        for i in range(count):
+            widget = self.hbox_importance.itemAt(i).widget()
+            if priority == widget.text():
+                widget.setChecked(True)

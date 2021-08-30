@@ -1,13 +1,10 @@
 import sqlite3
 
 # create database class
-
-
 class DB:
     def __init__(self):
-        # connect to database
+        # connect to database and create cursor to interact with database
         self.db = sqlite3.connect("runner.db")
-        # create cursor to interact with database
         self.cur = self.db.cursor()
 
         notes_table = """
@@ -48,32 +45,27 @@ class DB:
         elif table == "categories":
             values = "(?)"
 
-        # Query to insert data into table
         query = f"""
             INSERT INTO {table} VALUES {values}
         """
 
-        # execute the query to insert the data
+        # execute the query to insert the data and commit the changes
         self.cur.executemany(query, data)
-
-        # commit the changes
         self.db.commit()
         self.db.close()
 
     # read method to read data from the database
     def read(self, table):
 
-        # query to get all the data from the table passed in
         query = f"""
             SELECT * FROM {table}
         """
-        # execute the query
+        # execute the query and get all the data
         self.cur.execute(query)
-        # get all the data
         data = self.cur.fetchall()
-        # close the connection
+
+        # close the connection and return the data
         self.db.close()
-        # return the data
         return data
 
     # delete method to delete data from the database
@@ -126,6 +118,28 @@ class DB:
         data = self.cur.fetchone()
         self.db.close()
         return data
+    
+    def update(self, table, name, data):
+        # Delete the data and re upload the updated data.
+        # This is different from the delete method because the user can't delete a note or category from
+        # their respective windows this method will only apply when the user updates the information
+        field = "title" if table == "notes" else "category_name"
+        # get the correct identifier depending on the table being updated
+        # identifier = data[0] if table == "notes" else data[2]
+        query = f"""
+            DELETE FROM {table} WHERE {field} = '{name}'
+        """
+
+        if table == "files":
+            query2 = f"""
+                DELETE FROM categories WHERE name = {name}
+            """
+            self.cur.execute(query2)
+
+        self.cur.execute(query)
+        
+        self.save(table, data)
+
 
     def create_table(self, command):
         self.cur.execute(command)

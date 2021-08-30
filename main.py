@@ -87,6 +87,7 @@ class Main(QWidget, Ui_Runner):
 
     def notes_edit_clicked(self):
         select_notes = SelectNotesWindow("notes")
+        select_notes.edit_signal.connect(self.update)
         select_notes.exec_()
     
     def update(self):

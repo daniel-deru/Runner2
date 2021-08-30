@@ -5,6 +5,7 @@ from db import DB
 from Notes import NotesWindow
 
 class SelectNotesWindow(QDialog, Ui_SelectWindow):
+    edit_signal = pyqtSignal(str)
     def __init__(self, table):
         super(SelectNotesWindow, self).__init__()
         self.table = table
@@ -51,12 +52,17 @@ class SelectNotesWindow(QDialog, Ui_SelectWindow):
             if item.widget():
                 if item.widget().isChecked():
                     name = item.widget().text()
-                    self.hide()
                     note = NotesWindow(self.table, name)
+                    note.note_signal.connect(self.send_signal)
                     note.exec_()
+                    self.hide()
 
     def discard_clicked(self):
         self.hide()
+    
+    def send_signal(self, signal):
+        if signal == "note saved":
+            self.edit_signal.emit("note saved")
 
 
     
