@@ -61,11 +61,18 @@ class NotesWindow(QDialog, Ui_edit_notes):
                 # Check if name is already in database
                 db = DB()
                 items = db.read("notes")
+
+                if not items:
+                    db = DB()
+                    db.save("notes", note)
+                    self.note_signal.emit("note saved")
+                    self.hide()
+                    
                 for item in items:
                     if item[0] == name:
                         Message("The title you entered is already being used. Please Choose a different title", "title already used.")
                     # Make sure it's not an edit
-                    elif not self.table and not self.name:
+                    else:
                         db = DB()
                         db.save("notes", note)
                         self.note_signal.emit("note saved")
