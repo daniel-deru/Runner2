@@ -64,7 +64,8 @@ class URLWindow(QDialog, Ui_add_url_window):
             if (not is_copy):
                 payload = {
                     "name": name,
-                    "path": path
+                    "path": path,
+                    "active": True
                 }
         
                 files.append(payload)

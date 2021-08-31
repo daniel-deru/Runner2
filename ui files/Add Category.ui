@@ -48,6 +48,11 @@ QPushButton {
 	padding: 5px;
 	border-radius: 5px;
 	font-size: 16px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">

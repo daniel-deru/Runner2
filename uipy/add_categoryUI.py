@@ -30,6 +30,7 @@ class Ui_add_category(object):
 "\n"
 "QCheckBox {\n"
 "    font-size: 16px;\n"
+"    color: white;\n"
 "}\n"
 "\n"
 "QPushButton {\n"
@@ -39,6 +40,11 @@ class Ui_add_category(object):
 "    padding: 5px;\n"
 "    border-radius: 5px;\n"
 "    font-size: 16px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(add_category)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -65,6 +71,9 @@ class Ui_add_category(object):
         self.lbl_add_url.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.lbl_add_url.setObjectName("lbl_add_url")
         self.hbox_add_buttons_container.addWidget(self.lbl_add_url)
+        self.btn_delete = QtWidgets.QPushButton(add_category)
+        self.btn_delete.setObjectName("btn_delete")
+        self.hbox_add_buttons_container.addWidget(self.btn_delete)
         self.verticalLayout.addLayout(self.hbox_add_buttons_container)
         self.vbox_container = QtWidgets.QVBoxLayout()
         self.vbox_container.setObjectName("vbox_container")
@@ -90,6 +99,7 @@ class Ui_add_category(object):
         self.lbl_name.setText(_translate("add_category", "Name"))
         self.lbl_add_file.setText(_translate("add_category", "Add File"))
         self.lbl_add_url.setText(_translate("add_category", "Add URL"))
+        self.btn_delete.setText(_translate("add_category", "Delete Items"))
         self.lbl_discard.setText(_translate("add_category", "Discard"))
         self.lbl_save.setText(_translate("add_category", "Save"))
 

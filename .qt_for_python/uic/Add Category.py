@@ -39,6 +39,11 @@ class Ui_add_category(object):
 "    padding: 5px;\n"
 "    border-radius: 5px;\n"
 "    font-size: 16px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(add_category)
         self.verticalLayout.setObjectName("verticalLayout")

@@ -38,6 +38,11 @@ class Ui_edit_notes(object):
 "    background-color: transparent;\n"
 "    padding: 5px;\n"
 "    font-size: 16px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(edit_notes)
         self.verticalLayout.setObjectName("verticalLayout")

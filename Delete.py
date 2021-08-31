@@ -4,11 +4,10 @@ from PyQt5.QtCore import pyqtSignal
 
 from db import DB
 
-
-class DeleteNotesWindow(QDialog, Ui_DeleteWindow):
+class DeleteWindow(QDialog, Ui_DeleteWindow):
     delete_signal = pyqtSignal(str)
-    def __init__(self, *args, **kwargs):
-        super(DeleteNotesWindow, self).__init__(*args, **kwargs)
+    def __init__(self, window):
+        super(DeleteWindow, self).__init__()
 
         self.setupUi(self)
         self.setModal(True)
@@ -16,12 +15,17 @@ class DeleteNotesWindow(QDialog, Ui_DeleteWindow):
         self.btn_discard.clicked.connect(self.discard_clicked)
         self.btn_delete.clicked.connect(self.delete_clicked)
 
-        db = DB()
-        notes = db.read("notes")
+        if window == "notes":
+            db = DB()
+            notes = db.read("notes")
 
-        for note in notes:
-            checkbox = QCheckBox(note[0])
-            self.verticalLayout_2.addWidget(checkbox)
+            for note in notes:
+                checkbox = QCheckBox(note[0])
+                self.verticalLayout_2.addWidget(checkbox)
+        
+        else:
+            from Add_category import files
+            print(files)
     
     def discard_clicked(self):
         self.hide()

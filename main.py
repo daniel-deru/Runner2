@@ -18,7 +18,7 @@ from uipy.mainUI import Ui_Runner
 from Add_category import CategoryWindow
 
 # Import notes windows
-from DeleteNotes import DeleteNotesWindow
+from Delete import DeleteWindow
 from SelectWindow import SelectNotesWindow
 from Notes import NotesWindow
 
@@ -81,7 +81,7 @@ class Main(QWidget, Ui_Runner):
         self.notes_scroll_layout.addItem(spacer)
 
     def notes_delete_clicked(self):
-        delete_notes = DeleteNotesWindow()
+        delete_notes = DeleteWindow("notes")
         delete_notes.delete_signal.connect(self.update)
         delete_notes.exec_()
 

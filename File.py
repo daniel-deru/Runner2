@@ -52,7 +52,8 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
             if (not is_copy):
                 payload = {
                     'name': name,
-                    'path': self.path
+                    'path': self.path,
+                    "active": True
                 }
 
                 files.append(payload)
