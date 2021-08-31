@@ -54,10 +54,30 @@ QTabBar::tab:selected {
 
  QTabWidget::pane {
 	background-color: #007EA6;
-}</string>
+}
+
+QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}
+
+
+
+
+</string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="apps_tab">
       <property name="styleSheet">
@@ -82,14 +102,28 @@ QTabBar::tab:selected {
         <number>0</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="add_apps_btn_hlayout">
+        <layout class="QGridLayout" name="gbox_apps_btn_container">
          <property name="leftMargin">
           <number>15</number>
          </property>
          <property name="rightMargin">
           <number>15</number>
          </property>
-         <item>
+         <item row="0" column="2">
+          <widget class="QPushButton" name="apps_btn_delete">
+           <property name="text">
+            <string>Delete</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="apps_btn_edit">
+           <property name="text">
+            <string>Edit</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
           <widget class="QPushButton" name="main_add_category_btn">
            <property name="styleSheet">
             <string notr="true">QPushButton {
@@ -108,7 +142,26 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Add catergory</string>
+            <string>Add</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="btn_run">
+           <property name="styleSheet">
+            <string notr="true">#btn_run {
+	background-color: white;
+	color: #007EA6;
+	border: 2px solid white;
+}
+
+#btn_run:pressed {
+	background-color: transparent;
+	color: white;
+}</string>
+           </property>
+           <property name="text">
+            <string>Run</string>
            </property>
           </widget>
          </item>
@@ -122,9 +175,7 @@ QPushButton:pressed {
          <item>
           <widget class="QScrollArea" name="apps_scroll_area">
            <property name="styleSheet">
-            <string notr="true">QScrollArea {
-	background-color: #007EA6;
-}</string>
+            <string notr="true">background-color: #007ea6;</string>
            </property>
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
@@ -137,15 +188,11 @@ QPushButton:pressed {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>100</width>
-              <height>30</height>
+              <width>601</width>
+              <height>410</height>
              </rect>
             </property>
-            <property name="styleSheet">
-             <string notr="true">#apps_scroll_area_widget {
-	background-color: #007EA6;
-}</string>
-            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3"/>
            </widget>
           </widget>
          </item>

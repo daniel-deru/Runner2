@@ -42,7 +42,27 @@ class Ui_Runner(object):
 "\n"
 " QTabWidget::pane {\n"
 "    background-color: #007EA6;\n"
-"}")
+"}\n"
+"\n"
+"QPushButton {\n"
+"    color: white;\n"
+"    border: 2px solid white;\n"
+"    background-color: transparent;\n"
+"    padding: 5px;\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
+"    border-color: #007EA6;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"")
         self.tabWidget.setObjectName("tabWidget")
         self.apps_tab = QtWidgets.QWidget()
         self.apps_tab.setStyleSheet("#apps_tab {\n"
@@ -52,9 +72,15 @@ class Ui_Runner(object):
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.apps_tab)
         self.verticalLayout_2.setContentsMargins(0, 9, 0, 0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.add_apps_btn_hlayout = QtWidgets.QHBoxLayout()
-        self.add_apps_btn_hlayout.setContentsMargins(15, -1, 15, -1)
-        self.add_apps_btn_hlayout.setObjectName("add_apps_btn_hlayout")
+        self.gbox_apps_btn_container = QtWidgets.QGridLayout()
+        self.gbox_apps_btn_container.setContentsMargins(15, -1, 15, -1)
+        self.gbox_apps_btn_container.setObjectName("gbox_apps_btn_container")
+        self.apps_btn_delete = QtWidgets.QPushButton(self.apps_tab)
+        self.apps_btn_delete.setObjectName("apps_btn_delete")
+        self.gbox_apps_btn_container.addWidget(self.apps_btn_delete, 0, 2, 1, 1)
+        self.apps_btn_edit = QtWidgets.QPushButton(self.apps_tab)
+        self.apps_btn_edit.setObjectName("apps_btn_edit")
+        self.gbox_apps_btn_container.addWidget(self.apps_btn_edit, 0, 1, 1, 1)
         self.main_add_category_btn = QtWidgets.QPushButton(self.apps_tab)
         self.main_add_category_btn.setStyleSheet("QPushButton {\n"
 "    color: white;\n"
@@ -71,24 +97,34 @@ class Ui_Runner(object):
 "    border-color: #007EA6;\n"
 "}")
         self.main_add_category_btn.setObjectName("main_add_category_btn")
-        self.add_apps_btn_hlayout.addWidget(self.main_add_category_btn)
-        self.verticalLayout_2.addLayout(self.add_apps_btn_hlayout)
+        self.gbox_apps_btn_container.addWidget(self.main_add_category_btn, 0, 0, 1, 1)
+        self.btn_run = QtWidgets.QPushButton(self.apps_tab)
+        self.btn_run.setStyleSheet("#btn_run {\n"
+"    background-color: white;\n"
+"    color: #007EA6;\n"
+"    border: 2px solid white;\n"
+"}\n"
+"\n"
+"#btn_run:pressed {\n"
+"    background-color: transparent;\n"
+"    color: white;\n"
+"}")
+        self.btn_run.setObjectName("btn_run")
+        self.gbox_apps_btn_container.addWidget(self.btn_run, 1, 1, 1, 1)
+        self.verticalLayout_2.addLayout(self.gbox_apps_btn_container)
         self.apps_container_vlayout = QtWidgets.QVBoxLayout()
         self.apps_container_vlayout.setSizeConstraint(QtWidgets.QLayout.SetMinimumSize)
         self.apps_container_vlayout.setObjectName("apps_container_vlayout")
         self.apps_scroll_area = QtWidgets.QScrollArea(self.apps_tab)
-        self.apps_scroll_area.setStyleSheet("QScrollArea {\n"
-"    background-color: #007EA6;\n"
-"}")
+        self.apps_scroll_area.setStyleSheet("background-color: #007ea6;")
         self.apps_scroll_area.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.apps_scroll_area.setWidgetResizable(True)
         self.apps_scroll_area.setObjectName("apps_scroll_area")
         self.apps_scroll_area_widget = QtWidgets.QWidget()
-        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 100, 30))
-        self.apps_scroll_area_widget.setStyleSheet("#apps_scroll_area_widget {\n"
-"    background-color: #007EA6;\n"
-"}")
+        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 601, 410))
         self.apps_scroll_area_widget.setObjectName("apps_scroll_area_widget")
+        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.apps_scroll_area_widget)
+        self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.apps_scroll_area.setWidget(self.apps_scroll_area_widget)
         self.apps_container_vlayout.addWidget(self.apps_scroll_area)
         self.verticalLayout_2.addLayout(self.apps_container_vlayout)
@@ -177,13 +213,16 @@ class Ui_Runner(object):
         self.runner_main_layout.addWidget(self.tabWidget)
 
         self.retranslateUi(Runner)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Runner)
 
     def retranslateUi(self, Runner):
         _translate = QtCore.QCoreApplication.translate
         Runner.setWindowTitle(_translate("Runner", "Form"))
-        self.main_add_category_btn.setText(_translate("Runner", "Add catergory"))
+        self.apps_btn_delete.setText(_translate("Runner", "Delete"))
+        self.apps_btn_edit.setText(_translate("Runner", "Edit"))
+        self.main_add_category_btn.setText(_translate("Runner", "Add"))
+        self.btn_run.setText(_translate("Runner", "Run"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.apps_tab), _translate("Runner", "Apps"))
         self.main_add_notes_btn.setText(_translate("Runner", "Add"))
         self.btn_notes_edit.setText(_translate("Runner", "Edit"))

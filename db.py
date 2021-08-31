@@ -15,13 +15,14 @@ class DB:
                 date TEXT NOT NULL
                 )"""
 
-        categories_table = """CREATE TABLE IF NOT EXISTS categories(name TEXT NOT NULL PRIMARY KEY)"""
+        categories_table = """CREATE TABLE IF NOT EXISTS categories(name TEXT NOT NULL PRIMARY KEY, active INT NOT NULL)"""
 
         files_table = """
         CREATE TABLE IF NOT EXISTS files(
             name TEXT NOT NULL PRIMARY KEY,
             path TEXT NOT NULL, 
-            category_name TEXT NOT NULL, 
+            category_name TEXT NOT NULL,
+            active INT NOT NULL,
             FOREIGN KEY(category_name) REFERENCES categories(name)
             )"""
 
