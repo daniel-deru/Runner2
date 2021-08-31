@@ -82,7 +82,9 @@ class CategoryWindow(QDialog, Ui_add_category):
         # filtered = filter(lambda x: x["active"] == True, files)
         for i in range(0, container.count()):
             if container.itemAt(i).widget():
-                print(container.itemAt(i).widget().isChecked())
+                if container.itemAt(i).widget().isChecked():
+                    files.pop(i)
+                
         
         
         self.show_files()
