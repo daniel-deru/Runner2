@@ -23,13 +23,6 @@ class URLWindow(QDialog, Ui_add_url_window):
         
     # Handle the Discard button click
     def discard_clicked(self):
-        # Import the Category window to create a new instance
-        # Important!!!! the reason why it is imported here is to avoid the circular import error
-        from Add_category import CategoryWindow
-
-        # Make the Category window and move to it
-        make_category = CategoryWindow()
-        make_category.exec()
         self.hide()
     
     # Handle the Save Button click
@@ -45,40 +38,31 @@ class URLWindow(QDialog, Ui_add_url_window):
             # If the user didn't enter all the required information show a message
             Message("Please fill in all the fields", "There are empty fields")
         elif (name and path):
-            # Import the Category window to create a new instance
-            # Important!!!! the reason why it is imported here is to avoid the circular import error
-            from Add_category import CategoryWindow
             # Import the websites from the category window to add the websites
             from Add_category import files
 
             is_copy = False
 
             for file in files:
-                if (name == file['name']):
+                if (name == file[0]):
                     Message("The name is already being used. Please use another name", "Name already exists.")
                     is_copy = True
-                elif (path == file['path']):
+                elif (path == file[1]):
                     Message("The website is already being used. Cannot add the same website.", "Website already exists.")
                     is_copy = True
             
             if (not is_copy):
-                payload = {
-                    "name": name,
-                    "path": path,
-                    "active": True
-                }
+                payload = [
+                    name,
+                    path,
+                    1
+                ]
         
                 files.append(payload)
-
-                # Make the Category window and move to it
-                make_category = CategoryWindow()
-                make_category.exec()
                 self.hide()
             
     
     # Create a new instance of the Category Window when the user closes the URL window
     def closeEvent(self, event):
         if (event):
-            from Add_category import CategoryWindow
-            make_category = CategoryWindow()
-            make_category.exec()
+            event.accept()

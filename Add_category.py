@@ -13,6 +13,9 @@ from URL import URLWindow
 from File import FileWindow
 from Delete import DeleteWindow
 
+# Import Database
+from db import DB
+
 # Import message box
 from class_snippets.MessageBox import Message
 
@@ -38,18 +41,25 @@ class CategoryWindow(QDialog, Ui_add_category):
 
     # Handle the Save button click
     def add_category_save_clicked(self):
-
+        
         category_name = self.add_category_name_input.text()
 
         if (category_name):
             # Check if the category is in the database
-            self.hide()
-            print(files)
+            db = DB()
+            categories = db.read("categories")
+            
+            if len(categories) == 0:
+                self.save_db(category_name)
+            for category in categories:
+                if category[0] == category_name:
+                    Message("The category name you entered already exists. Please enter a unique category name", "Invalid Name")
+                else:
+                    self.save_db(category_name)
         else:
             Message( "Please enter the name of your category", "Please enter a name")
         
-        for item in range(0, len(files)):
-            files.pop()
+        
 
     # Handle the Discard button click
     def add_category_discard_clicked(self):
@@ -61,7 +71,7 @@ class CategoryWindow(QDialog, Ui_add_category):
 
     # Open the URL Window 
     def add_url_clicked(self):
-        self.hide()
+        # self.hide()
         url = URLWindow()
         url.exec_()
 
@@ -73,7 +83,7 @@ class CategoryWindow(QDialog, Ui_add_category):
 
 
     def add_file(self):
-        self.hide()
+        # self.hide()
         file_window = FileWindow()
         file_window.exec_()
 
@@ -88,6 +98,22 @@ class CategoryWindow(QDialog, Ui_add_category):
         
         
         self.show_files()
+    
+    def save_db(self, category_name):
+        db_files = []
+        for file in files:
+            file.append(category_name)
+            db_file = tuple(file)
+            db_files.append(db_file)
+            self.hide()
+        
+        db = DB()
+        db.save("categories", (category_name, 1))
+
+        db2 = DB()
+        db2.save("files", db_files)
+        for item in range(0, len(files)):
+            files.pop()
         
     def show_files(self):
         container = self.vbox_container
@@ -100,7 +126,7 @@ class CategoryWindow(QDialog, Ui_add_category):
         if len(files) > 0:
             for file in files:
                 checkbox = QCheckBox()
-                checkbox.setText(file['name'])
+                checkbox.setText(file[0])
                 checkbox.setChecked(True)
                 container.addWidget(checkbox)
             

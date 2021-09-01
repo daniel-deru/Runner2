@@ -21,8 +21,8 @@ class DB:
         CREATE TABLE IF NOT EXISTS files(
             name TEXT NOT NULL PRIMARY KEY,
             path TEXT NOT NULL, 
-            category_name TEXT NOT NULL,
             active INT NOT NULL,
+            category_name TEXT NOT NULL,
             FOREIGN KEY(category_name) REFERENCES categories(name)
             )"""
 
@@ -39,12 +39,10 @@ class DB:
 
         # determine how many fields there are based on the table passed in
         values = ""
-        if table == "notes":
+        if table == "notes" or table == "files":
             values = "(?, ?, ?, ?)"
-        elif table == "files":
-            values = "(?, ?, ?)"
         elif table == "categories":
-            values = "(?)"
+            values = "(?, ?)"
 
         query = f"""
             INSERT INTO {table} VALUES {values}
