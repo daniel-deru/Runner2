@@ -1,9 +1,6 @@
 from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout,QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
-# from db import DB
 
-
-# class Note:
         
 
 def make_note_container(data):
@@ -43,7 +40,6 @@ def make_note_container(data):
 
     label_container.addWidget(title)
     label_container.addWidget(priority)
-    # label_container.addWidget(date)
 
     spacer = QSpacerItem(20, 10, QSizePolicy.Expanding, QSizePolicy.Minimum)
     date_container.addItem(spacer)

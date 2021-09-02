@@ -10,7 +10,7 @@ from class_snippets.MessageBox import Message
 
 
 class FileWindow(QDialog, Ui_Add_File_Dialog):
-
+    file_signal = pyqtSignal(str)
     def __init__(self, *args, **kwargs):
         super(FileWindow, self).__init__(*args, **kwargs)
 
@@ -52,6 +52,7 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
                 ]
 
                 files.append(payload)
+                self.file_signal.emit("file added")
                 self.hide()
 
     def add_file_clicked(self):

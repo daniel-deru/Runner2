@@ -19,10 +19,11 @@ class DB:
 
         files_table = """
         CREATE TABLE IF NOT EXISTS files(
-            name TEXT NOT NULL PRIMARY KEY,
+            name TEXT NOT NULL,
             path TEXT NOT NULL, 
             active INT NOT NULL,
             category_name TEXT NOT NULL,
+            file_id INT PRIMARY KEY,
             FOREIGN KEY(category_name) REFERENCES categories(name)
             )"""
 
@@ -39,8 +40,10 @@ class DB:
 
         # determine how many fields there are based on the table passed in
         values = ""
-        if table == "notes" or table == "files":
+        if table == "notes":
             values = "(?, ?, ?, ?)"
+        elif table == "files":
+            values = "(?, ?, ?, ?, ?)"
         elif table == "categories":
             values = "(?, ?)"
 
@@ -54,11 +57,18 @@ class DB:
         self.db.close()
 
     # read method to read data from the database
-    def read(self, table):
+    def read(self, table, field=None, value=None):
 
-        query = f"""
-            SELECT * FROM {table}
-        """
+        query = ""
+
+        if field == None and value == None:
+            query = f"""
+                SELECT * FROM {table}
+            """
+        else:
+            query = f"""
+                SELECT * FROM {table} WHERE {field} = '{value}'
+            """
         # execute the query and get all the data
         self.cur.execute(query)
         data = self.cur.fetchall()

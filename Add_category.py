@@ -49,13 +49,21 @@ class CategoryWindow(QDialog, Ui_add_category):
             db = DB()
             categories = db.read("categories")
             
+            # if db is empty then just add the data
             if len(categories) == 0:
+                print("if check is running")
                 self.save_db(category_name)
-            for category in categories:
-                if category[0] == category_name:
-                    Message("The category name you entered already exists. Please enter a unique category name", "Invalid Name")
-                else:
-                    self.save_db(category_name)
+            # if the database isn't empty than do the following
+            else:
+                category_count = len(categories)
+                for i in range(0, category_count):
+                    # send a message that the category already exists and break out of the loop
+                    if categories[i][0] == category_name:
+                        Message("The category name you entered already exists. Please enter a unique category name", "Invalid Name")
+                        break
+                    # check to make sure the loop went through the whole database and add the data if the data doesn't exist 
+                    elif i + 1 == category_count: 
+                        self.save_db(category_name)
         else:
             Message( "Please enter the name of your category", "Please enter a name")
         
@@ -71,8 +79,8 @@ class CategoryWindow(QDialog, Ui_add_category):
 
     # Open the URL Window 
     def add_url_clicked(self):
-        # self.hide()
         url = URLWindow()
+        url.url_signal.connect(self.updated)
         url.exec_()
 
     # Remove the websites from memory if the user closes the window
@@ -83,37 +91,59 @@ class CategoryWindow(QDialog, Ui_add_category):
 
 
     def add_file(self):
-        # self.hide()
         file_window = FileWindow()
+        file_window.file_signal.connect(self.updated)
         file_window.exec_()
 
     def delete_clicked(self):
         container = self.vbox_container
-        # filtered = filter(lambda x: x["active"] == True, files)
         for i in range(0, container.count()):
             if container.itemAt(i).widget():
                 if container.itemAt(i).widget().isChecked():
                     files.pop(i)
-                
-        
         
         self.show_files()
     
     def save_db(self, category_name):
         db_files = []
-        for file in files:
+        for file in files:         
+            file_id = self.make_id(category_name, file[0], file[1])
             file.append(category_name)
+            file.append(file_id)
             db_file = tuple(file)
             db_files.append(db_file)
             self.hide()
         
         db = DB()
         db.save("categories", (category_name, 1))
-
+        print(db_files)
         db2 = DB()
         db2.save("files", db_files)
         for item in range(0, len(files)):
             files.pop()
+
+    def updated(self, event):
+        if event == "url added" or event == "file added":
+            self.show_files()
+    
+    def make_id(self, category_name, file_name, file_path):
+        category = 0
+        name = 0
+        path = 0
+
+        for char in category_name:
+            category += ord(char)
+
+        for char in file_name:
+            name += ord(char)
+
+        for char in file_path:
+            path += ord(char)
+        
+        file_id = str(category) + str(name) + str(path)
+        return int(file_id) 
+        
+        
         
     def show_files(self):
         container = self.vbox_container
@@ -129,4 +159,6 @@ class CategoryWindow(QDialog, Ui_add_category):
                 checkbox.setText(file[0])
                 checkbox.setChecked(True)
                 container.addWidget(checkbox)
+
+
             

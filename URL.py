@@ -10,6 +10,7 @@ from class_snippets.MessageBox import Message
 
 
 class URLWindow(QDialog, Ui_add_url_window):
+    url_signal = pyqtSignal(str)
 
     def __init__(self, *args, **kwargs):
         super(URLWindow, self).__init__(*args, **kwargs)
@@ -59,6 +60,7 @@ class URLWindow(QDialog, Ui_add_url_window):
                 ]
         
                 files.append(payload)
+                self.url_signal.emit("url added")
                 self.hide()
             
     

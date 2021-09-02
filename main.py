@@ -25,6 +25,7 @@ from Notes import NotesWindow
 from db import DB
 
 from class_snippets.NoteBox import make_note_container
+from class_snippets.FileBox import make_file_container
 
 
 class Main(QWidget, Ui_Runner):
@@ -43,6 +44,7 @@ class Main(QWidget, Ui_Runner):
         self.btn_notes_edit.clicked.connect(self.notes_edit_clicked)
  
         self.show_notes()
+        self.show_files()
     @staticmethod
     def add_category_clicked():
         make_category = CategoryWindow()
@@ -92,6 +94,15 @@ class Main(QWidget, Ui_Runner):
     
     def update(self):
         self.show_notes()
+
+    def show_files(self):
+        db = DB()
+        categories = db.read("categories")
+        for category in categories:
+            f = make_file_container(category)
+            self.verticalLayout_3.addWidget(f)
+        spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
+        self.verticalLayout_3.addItem(spacer)
 
     
 if __name__ == "__main__":
