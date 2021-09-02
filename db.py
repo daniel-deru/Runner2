@@ -80,34 +80,20 @@ class DB:
     # delete method to delete data from the database
     def delete(self, table, name):
         # the label is used to find the relevant field in the table passed in
-        label = "name"
+        label = "title" if table == "notes" else "name"
 
         # initialize the query
         query = ""
 
         # check if the table is files or notes because they will have a different query
-        if table == "files" or table == "notes":
-            
-            # if the table is notes make the label title
-            if table == "notes":
-                label = "title"
-
-            # query for notes and files query
-            query = f"""
-                DELETE FROM {table} WHERE {label} = '{name}'
-            """
-        # check if the table is categories because the categories table will have a different query
+        if table == "files" or table == "notes":       
+            query = f"""DELETE FROM {table} WHERE {label} = '{name}'"""
+        
         elif table == "categories":
+            query = f"""DELETE FROM categories WHERE {label} = '{name}'"""
 
-            # query for the categories table
-            query = f"""
-                DELETE FROM categories WHERE {label} = '{name}'
-            """
-            
             # second query to delete all the files if the entire category is deleted
-            query2 = f"""
-                DELETE FROM files WHERE category_name = '{name}'
-            """
+            query2 = f"""DELETE FROM files WHERE category_name = '{name}'"""
             self.cur.execute(query2)
 
         self.cur.execute(query)
@@ -128,22 +114,14 @@ class DB:
         self.db.close()
         return data
     
+    # name refers to the old name. the name you want to delete. the new name will be in the data object
     def update(self, table, name, data):
         # Delete the data and re upload the updated data.
         # This is different from the delete method because the user can't delete a note or category from
         # their respective windows this method will only apply when the user updates the information
-        field = "title" if table == "notes" else "category_name"
-        # get the correct identifier depending on the table being updated
-        # identifier = data[0] if table == "notes" else data[2]
-        query = f"""
-            DELETE FROM {table} WHERE {field} = '{name}'
-        """
-
-        if table == "files":
-            query2 = f"""
-                DELETE FROM categories WHERE name = {name}
-            """
-            self.cur.execute(query2)
+        
+        label = "category_name" if table == "files" else "name" if table == "categories" else "title"
+        query = f"""DELETE FROM {table} WHERE {label} = '{name}'"""
 
         self.cur.execute(query)
         

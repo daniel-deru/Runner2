@@ -8,24 +8,22 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
     delete_signal = pyqtSignal(str)
     def __init__(self, window):
         super(DeleteWindow, self).__init__()
-
+        self.window_name = window
         self.setupUi(self)
         self.setModal(True)
 
         self.btn_discard.clicked.connect(self.discard_clicked)
         self.btn_delete.clicked.connect(self.delete_clicked)
 
-        if window == "notes":
-            db = DB()
-            notes = db.read("notes")
-
-            for note in notes:
-                checkbox = QCheckBox(note[0])
-                self.verticalLayout_2.addWidget(checkbox)
         
-        else:
-            from Add_category import files
-            print(files)
+        db = DB()
+        items = db.read(window)
+
+        for item in items:
+            checkbox = QCheckBox(item[0])
+            self.verticalLayout_2.addWidget(checkbox)
+        
+       
     
     def discard_clicked(self):
         self.hide()
@@ -35,11 +33,12 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
 
         
         for index in range(0, items):
-            item = self.verticalLayout_2.itemAt(index).widget()
-            if item.isChecked():
-                note = item.text()
+            checkbox = self.verticalLayout_2.itemAt(index).widget()
+            if checkbox.isChecked():
+                item = checkbox.text()
                 db = DB()
-                db.delete("notes", note)
+                db.delete(self.window_name, item)
+          
         self.delete_signal.emit("delete completed")
         self.close()
 

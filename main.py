@@ -19,7 +19,7 @@ from Add_category import CategoryWindow
 
 # Import notes windows
 from Delete import DeleteWindow
-from SelectWindow import SelectNotesWindow
+from SelectWindow import SelectWindow
 from Notes import NotesWindow
 
 from db import DB
@@ -39,35 +39,57 @@ class Main(QWidget, Ui_Runner):
 
         # Handle Button Click
         self.main_add_category_btn.clicked.connect(self.add_category_clicked)
+        self.apps_btn_delete.clicked.connect(self.delete_category_clicked)
+        self.apps_btn_edit.clicked.connect(self.edit_category_clicked)
+
         self.main_add_notes_btn.clicked.connect(self.add_notes_clicked)
         self.btn_notes_delete.clicked.connect(self.notes_delete_clicked)
         self.btn_notes_edit.clicked.connect(self.notes_edit_clicked)
  
         self.show_notes()
         self.show_files()
-    @staticmethod
-    def add_category_clicked():
+
+    def add_category_clicked(self):
         make_category = CategoryWindow()
+        make_category.category_signal.connect(self.update)
         make_category.exec_()
+    
+    
+    def edit_category_clicked(self):
+        edit_category = SelectWindow("categories")
+        edit_category.edit_signal.connect(self.update)
+        edit_category.exec_()
+    
+    
+    def delete_category_clicked(self):
+        delete_category = DeleteWindow("categories")
+        delete_category.delete_signal.connect(self.show_files)
+        delete_category.exec_()
 
     def add_notes_clicked(self):
         make_note = NotesWindow()
         make_note.note_signal.connect(self.update)
         make_note.exec_()
-        
 
+    def notes_delete_clicked(self):
+        delete_notes = DeleteWindow("notes")
+        delete_notes.delete_signal.connect(self.update)
+        delete_notes.exec_()
+
+    def notes_edit_clicked(self):
+        select_notes = SelectWindow("notes")
+        select_notes.edit_signal.connect(self.update)
+        select_notes.exec_()
+    
+    # Helper methods
+    def update(self, signal):
+        print(signal)
+        self.show_files()
+        self.show_notes()
+    
     def show_notes(self):
 
-        # This is to remove the previous widgets that were painted so the widgets don't get added twice
-        prevItems = self.notes_scroll_layout.count()
-        # check if there are widgets
-        if prevItems > 0:
-            for i in range(self.notes_scroll_layout.count()):
-                item = self.notes_scroll_layout.itemAt(i)
-                if item.widget():
-                    item.widget().deleteLater()
-                elif item.spacerItem():
-                    self.notes_scroll_layout.removeItem(item.spacerItem())
+        self.clear_window(self.notes_scroll_layout)
 
         # get notes from the database
         db = DB()
@@ -82,27 +104,32 @@ class Main(QWidget, Ui_Runner):
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.notes_scroll_layout.addItem(spacer)
 
-    def notes_delete_clicked(self):
-        delete_notes = DeleteWindow("notes")
-        delete_notes.delete_signal.connect(self.update)
-        delete_notes.exec_()
-
-    def notes_edit_clicked(self):
-        select_notes = SelectNotesWindow("notes")
-        select_notes.edit_signal.connect(self.update)
-        select_notes.exec_()
-    
-    def update(self):
-        self.show_notes()
-
     def show_files(self):
+
+        self.clear_window(self.verticalLayout_3)
+
         db = DB()
         categories = db.read("categories")
+
         for category in categories:
             f = make_file_container(category)
             self.verticalLayout_3.addWidget(f)
+
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
         self.verticalLayout_3.addItem(spacer)
+    
+    @staticmethod
+    def clear_window(container):
+        # This is to remove the previous widgets that were painted so the widgets don't get added twice
+        prevItems = container.count()
+        # check if there are widgets
+        if prevItems > 0:
+            for i in range(container.count()):
+                item = container.itemAt(i)
+                if item.widget():
+                    item.widget().deleteLater()
+                elif item.spacerItem():
+                    container.removeItem(item.spacerItem())
 
     
 if __name__ == "__main__":

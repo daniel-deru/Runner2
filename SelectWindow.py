@@ -3,11 +3,12 @@ from uipy.selectNotesUI import Ui_SelectWindow
 from PyQt5.QtWidgets import  QDialog, QRadioButton
 from db import DB
 from Notes import NotesWindow
+from Add_category import CategoryWindow
 
-class SelectNotesWindow(QDialog, Ui_SelectWindow):
+class SelectWindow(QDialog, Ui_SelectWindow):
     edit_signal = pyqtSignal(str)
     def __init__(self, table):
-        super(SelectNotesWindow, self).__init__()
+        super(SelectWindow, self).__init__()
         self.table = table
         self.setupUi(self)
         self.setModal(True)
@@ -52,17 +53,23 @@ class SelectNotesWindow(QDialog, Ui_SelectWindow):
             if item.widget():
                 if item.widget().isChecked():
                     name = item.widget().text()
-                    note = NotesWindow(self.table, name)
-                    note.note_signal.connect(self.send_signal)
-                    note.exec_()
+                    if self.table == "notes":
+                        note = NotesWindow(self.table, name)
+                        note.note_signal.connect(self.send_signal)
+                        note.exec_()
+                    elif self.table == "categories":
+                        app = CategoryWindow(name)
+                        app.category_signal.connect(self.send_signal)
+                        app.exec_()
+
                     self.hide()
 
     def discard_clicked(self):
         self.hide()
     
-    def send_signal(self, signal):
-        if signal == "note saved":
+    def send_signal(self):
             self.edit_signal.emit("note saved")
+        
 
 
     

@@ -56,34 +56,36 @@ class NotesWindow(QDialog, Ui_edit_notes):
             Message("There are missing fields. Please make sure your note has a title and a body.", "Missing Fields")
 
         # Check if there is a title and body
-        elif not self.table and not self.name:
-            if name and body:
+        else:
+            if self.table == None and self.name == None:
+                
                 # Check if name is already in database
                 db = DB()
                 items = db.read("notes")
 
-                if not items:
+                if  len(items) == 0:
+                    print("there are no items in the database")
                     db = DB()
                     db.save("notes", note)
                     self.note_signal.emit("note saved")
                     self.hide()
                     
-                for item in items:
-                    if item[0] == name:
+                for i in range(0, len(items)):
+                    if items[i][0] == name:
                         Message("The title you entered is already being used. Please Choose a different title", "title already used.")
+                        break
                     # Make sure it's not an edit
-                    else:
+                    elif i + 1 == len(items):
                         db = DB()
                         db.save("notes", note)
                         self.note_signal.emit("note saved")
-                        self.hide()
-          
-        # Update the existing note in the database
-        elif self.table and self.name:
-            db = DB()
-            db.update(self.table, self.name, note)
-            self.note_signal.emit("note saved")
-            self.hide()
+                        self.hide()           
+            # Update the existing note in the database
+            else:
+                db = DB()
+                db.update(self.table, self.name, note)
+                self.note_signal.emit("note saved")
+                self.hide()
     
     def load_data(self, table, name):
         db = DB()
