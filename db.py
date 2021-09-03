@@ -119,13 +119,18 @@ class DB:
         # Delete the data and re upload the updated data.
         # This is different from the delete method because the user can't delete a note or category from
         # their respective windows this method will only apply when the user updates the information
-        
+
         label = "category_name" if table == "files" else "name" if table == "categories" else "title"
         query = f"""DELETE FROM {table} WHERE {label} = '{name}'"""
 
         self.cur.execute(query)
-        
         self.save(table, data)
+    
+    def update_category_state(self, name, state):
+        query = f"UPDATE categories SET active = {state} WHERE name = '{name}'"
+        self.cur.execute(query)
+        self.db.commit()
+        self.db.close()
 
 
     def create_table(self, command):

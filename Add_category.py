@@ -1,7 +1,5 @@
-from typing import Coroutine
 from PyQt5.QtWidgets import  QCheckBox, QDialog
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtGui import QFont
 
 # Import Add Category UI
 from uipy.add_categoryUI import Ui_add_category
@@ -18,7 +16,6 @@ from class_snippets.MessageBox import Message
 
 # container to keep all the websites data in memory before the app category is
 # created and saved in the database
-
 files = []
 
 class CategoryWindow(QDialog, Ui_add_category):
@@ -41,7 +38,7 @@ class CategoryWindow(QDialog, Ui_add_category):
         self.lbl_add_url.clicked.connect(self.add_url_clicked)
         self.lbl_add_file.clicked.connect(self.add_file)
         self.btn_delete.clicked.connect(self.delete_clicked)
-
+    
     # Handle the Save button click
     def add_category_save_clicked(self):
         
@@ -56,25 +53,25 @@ class CategoryWindow(QDialog, Ui_add_category):
             # if db is empty then just add the data
             if len(categories) == 0:
                 print("if check is running")
-                self.save_db(category_name)
-                self.category_signal.emit("category saved")
+                self.save_db(category_name)                
             # if the database isn't empty than do the following
             else:
                 category_count = len(categories)
                 for i in range(0, category_count):
                     # send a message that the category already exists and break out of the loop
-                    if categories[i][0] == category_name:
-                        Message("The category name you entered already exists. Please enter a unique category name", "Invalid Name")
-                        break
-                    # check to make sure the loop went through the whole database and add the data if the data doesn't exist 
-                    elif i + 1 == category_count: 
+                    if self.name == None:
+                        if categories[i][0] == category_name:
+                            Message("The category name you entered already exists. Please enter a unique category name", "Invalid Name")
+                            break
+                        # check to make sure the loop went through the whole database and add the data if the data doesn't exist 
+                        elif i + 1 == category_count: 
+                            self.save_db(category_name)
+                    else:
                         self.save_db(category_name)
-                        self.category_signal.emit("category saved")
 
         else:
             Message( "Please enter the name of your category", "Please enter a name")
-        
-        
+   
 
     # Handle the Discard button click
     def add_category_discard_clicked(self):
@@ -113,17 +110,22 @@ class CategoryWindow(QDialog, Ui_add_category):
     
     def save_db(self, category_name):
         db_files = []
-        for file in files:       
-            file_id = self.make_id(category_name, file[0], file[1])
-            file.append(category_name)
-            file.append(file_id)
-            db_file = tuple(file)
+        
+        for i in range(0, len(files)):
+
+            # add file id
+            file_id = self.make_id(category_name, files[i][0], files[i][1])
+            files[i].append(category_name)
+            files[i].append(file_id)
+            db_file = tuple(files[i])
             db_files.append(db_file)
             self.hide()
+        print(db_files)
         
         if self.name == None:
             db = DB()
             db.save("categories", (category_name, 1))
+
             
             db2 = DB()
             db2.save("files", db_files)
@@ -133,10 +135,11 @@ class CategoryWindow(QDialog, Ui_add_category):
 
             db2 = DB()
             db2.update("files", self.name, db_files)
-            print(db_files)
 
         for item in range(0, len(files)):
             files.pop()
+
+        self.category_signal.emit("category saved")
 
     def updated(self, event):
         if event == "url added" or event == "file added":
@@ -172,13 +175,13 @@ class CategoryWindow(QDialog, Ui_add_category):
             for file in files:
                 checkbox = QCheckBox()
                 checkbox.setText(file[0])
-                checkbox.setChecked(True)
+                checkbox.setChecked(file[2])
+                checkbox.stateChanged.connect(lambda: self.checkbox_event_handler(checkbox.text(), checkbox.isChecked()))
                 container.addWidget(checkbox)
     
     def load_data(self, name):
         db = DB()
         db_files = db.read("files", "category_name", name)
-        print(files)
 
         self.add_category_name_input.setText(name)
 
@@ -187,6 +190,9 @@ class CategoryWindow(QDialog, Ui_add_category):
             files.append(list(file))
 
         self.show_files()
-
-
-            
+    
+    def checkbox_event_handler(self, name, state):
+        value = 1 if state == True else 0
+        for file in files:
+            if file[0] == name:
+                file[2] = value       

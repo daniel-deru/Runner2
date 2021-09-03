@@ -1,4 +1,4 @@
-# Python Imports
+import re
 from  PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import pyqtSignal
 
@@ -29,10 +29,17 @@ class URLWindow(QDialog, Ui_add_url_window):
     # Handle the Save Button click
     def save_clicked(self):
         
-
+        
         # Get the info from URL Window
         name = self.lnedit_name.text()
         path = self.lnedit_url.text()
+
+        websiteReg = "^(https?://)|(www\.).+\."
+        match = re.search(websiteReg, path)
+
+        if match == None:
+            Message("The URL you entered is invalid. Please enter a valid url.", "Invalid URL")
+            return
 
         # If there is a name and url create a payload to store in website variable
         if ( not name and not path):

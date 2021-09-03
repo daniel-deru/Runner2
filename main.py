@@ -112,7 +112,7 @@ class Main(QWidget, Ui_Runner):
         categories = db.read("categories")
 
         for category in categories:
-            f = make_file_container(category)
+            f = make_file_container(category, self.update_category)
             self.verticalLayout_3.addWidget(f)
 
         spacer = QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding)
@@ -130,6 +130,12 @@ class Main(QWidget, Ui_Runner):
                     item.widget().deleteLater()
                 elif item.spacerItem():
                     container.removeItem(item.spacerItem())
+    
+    def update_category(self, name, state):
+        value = 1 if state == True else 0
+        db = DB()
+        db.update_category_state(name, value)
+        
 
     
 if __name__ == "__main__":

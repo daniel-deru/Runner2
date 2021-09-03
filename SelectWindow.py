@@ -55,11 +55,11 @@ class SelectWindow(QDialog, Ui_SelectWindow):
                     name = item.widget().text()
                     if self.table == "notes":
                         note = NotesWindow(self.table, name)
-                        note.note_signal.connect(self.send_signal)
+                        note.note_signal.connect(lambda: self.edit_signal.emit("note saved"))
                         note.exec_()
                     elif self.table == "categories":
                         app = CategoryWindow(name)
-                        app.category_signal.connect(self.send_signal)
+                        app.category_signal.connect(lambda: self.edit_signal.emit("category saved"))
                         app.exec_()
 
                     self.hide()
@@ -67,8 +67,6 @@ class SelectWindow(QDialog, Ui_SelectWindow):
     def discard_clicked(self):
         self.hide()
     
-    def send_signal(self):
-            self.edit_signal.emit("note saved")
         
 
 

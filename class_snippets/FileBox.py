@@ -9,7 +9,7 @@ db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 from db import DB
 
-def make_file_container(data):
+def make_file_container(data, call):
     db = DB()
     files = db.read("files", "category_name", data[0])
     
@@ -33,8 +33,9 @@ def make_file_container(data):
     active = QCheckBox()
     active.setObjectName("active")
     active.setText("Active")
-    if data[1]:
-        active.setChecked(True)
+    
+    active.setChecked(data[1])
+    active.stateChanged.connect(lambda: call(data[0], active.isChecked()))
     
     title_hbox.addWidget(title)
     title_hbox.addWidget(active)
