@@ -101,8 +101,10 @@ class DB:
         self.db.commit()
         self.db.close()
     
+    # Get a single item
     def get_item(self, table, name):
 
+        # identify the label depending on the table
         label = "name" if table == "categories" else "title"
 
         query = f"""
@@ -135,16 +137,3 @@ class DB:
 
     def create_table(self, command):
         self.cur.execute(command)
-
-
-db = DB()
-
-# db.delete("files", "testname")
-
-# data = db.read("files")
-# print(data)
-
-# table = "notes"
-# data = [("testnote", "this is the body of the note", "Low", "2 aug 2021")]
-
-# db.save(table, data)

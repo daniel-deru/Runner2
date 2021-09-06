@@ -5,13 +5,16 @@ from PyQt5.QtCore import pyqtSignal
 from db import DB
 
 class DeleteWindow(QDialog, Ui_DeleteWindow):
+    # signal to be sent when delete was successfull
     delete_signal = pyqtSignal(str)
     def __init__(self, window):
         super(DeleteWindow, self).__init__()
+        # get the window name to determine what to delete
         self.window_name = window
         self.setupUi(self)
         self.setModal(True)
 
+        # connect signals to slots
         self.btn_discard.clicked.connect(self.discard_clicked)
         self.btn_delete.clicked.connect(self.delete_clicked)
 
@@ -19,6 +22,7 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
         db = DB()
         items = db.read(window)
 
+        # show the items in the window
         for item in items:
             checkbox = QCheckBox(item[0])
             self.verticalLayout_2.addWidget(checkbox)
@@ -28,6 +32,7 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
     def discard_clicked(self):
         self.hide()
 
+    # delete the selected items
     def delete_clicked(self):
         items = self.verticalLayout_2.count()
 

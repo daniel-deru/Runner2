@@ -52,7 +52,6 @@ class CategoryWindow(QDialog, Ui_add_category):
             
             # if db is empty then just add the data
             if len(categories) == 0:
-                print("if check is running")
                 self.save_db(category_name)                
             # if the database isn't empty than do the following
             else:
@@ -67,7 +66,9 @@ class CategoryWindow(QDialog, Ui_add_category):
                         elif i + 1 == category_count: 
                             self.save_db(category_name)
                     else:
+                        print("line 71 save db")
                         self.save_db(category_name)
+                        break
 
         else:
             Message( "Please enter the name of your category", "Please enter a name")
@@ -75,10 +76,9 @@ class CategoryWindow(QDialog, Ui_add_category):
 
     # Handle the Discard button click
     def add_category_discard_clicked(self):
-        
+        # remove items from memory
         for item in range(0, len(files)):
             files.pop()
-
         self.hide()
 
     # Open the URL Window 
@@ -93,12 +93,13 @@ class CategoryWindow(QDialog, Ui_add_category):
             for item in range(0, len(files)):
                 files.pop()
 
-
+    # Open the file window 
     def add_file(self):
         file_window = FileWindow()
         file_window.file_signal.connect(self.updated)
         file_window.exec_()
 
+    # delete the selected items
     def delete_clicked(self):
         container = self.vbox_container
         for i in range(0, container.count()):
@@ -108,27 +109,30 @@ class CategoryWindow(QDialog, Ui_add_category):
         
         self.show_files()
     
+    # handle saving data to database
     def save_db(self, category_name):
+        # make empty list to edit append information
         db_files = []
-        
         for i in range(0, len(files)):
-
-            # add file id
+            # custom function to make file id
             file_id = self.make_id(category_name, files[i][0], files[i][1])
+
+            # Add category name and file id in this specific order DON'T SWAP THE ORDER
             files[i].append(category_name)
             files[i].append(file_id)
             db_file = tuple(files[i])
             db_files.append(db_file)
             self.hide()
-        print(db_files)
         
+        
+        # save data if it is not an edit
         if self.name == None:
             db = DB()
             db.save("categories", (category_name, 1))
 
-            
             db2 = DB()
             db2.save("files", db_files)
+        # update information if it is an edit
         else:
             db = DB()
             db.update("categories", self.name, (category_name, 1))
@@ -136,15 +140,19 @@ class CategoryWindow(QDialog, Ui_add_category):
             db2 = DB()
             db2.update("files", self.name, db_files)
 
+        # Clear memory
         for item in range(0, len(files)):
             files.pop()
 
+        # send signal save was successfull
         self.category_signal.emit("category saved")
 
+    # update the add category window when a new url or file is added
     def updated(self, event):
         if event == "url added" or event == "file added":
             self.show_files()
     
+    # make id for files
     def make_id(self, category_name, file_name, file_path):
         category = 0
         name = 0
@@ -162,15 +170,15 @@ class CategoryWindow(QDialog, Ui_add_category):
         file_id = str(category) + str(name) + str(path)
         return int(file_id) 
         
-     
+    # show the files from the files list 
     def show_files(self):
         container = self.vbox_container
-
         count = container.count()
         for i in range(count):
             if container.itemAt(i).widget():
                 container.itemAt(i).widget().deleteLater()
     
+        # Create checkbox and add it to the window
         if len(files) > 0:
             for file in files:
                 checkbox = QCheckBox()
@@ -179,6 +187,7 @@ class CategoryWindow(QDialog, Ui_add_category):
                 checkbox.stateChanged.connect(lambda: self.checkbox_event_handler(checkbox.text(), checkbox.isChecked()))
                 container.addWidget(checkbox)
     
+    # load the data from database if it is an edit window
     def load_data(self, name):
         db = DB()
         db_files = db.read("files", "category_name", name)
@@ -189,8 +198,10 @@ class CategoryWindow(QDialog, Ui_add_category):
             file = file[0:3]
             files.append(list(file))
 
+        # show the files after the files list is updated
         self.show_files()
     
+    # update the files list when checkbox is checked
     def checkbox_event_handler(self, name, state):
         value = 1 if state == True else 0
         for file in files:

@@ -6,6 +6,7 @@ from Notes import NotesWindow
 from Add_category import CategoryWindow
 
 class SelectWindow(QDialog, Ui_SelectWindow):
+    # signal for show edit was successfully handled
     edit_signal = pyqtSignal(str)
     def __init__(self, table):
         super(SelectWindow, self).__init__()
@@ -14,15 +15,17 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         self.setModal(True)
         self.show(table)
 
+        # button click connections
         self.btn_discard.clicked.connect(self.discard_clicked)
         self.btn_edit.clicked.connect(self.edit_clicked)
     
-
+    # get the data from database
     def show(self, table):
         db = DB()
         items = db.read(table)
         self.make_buttons(items)
 
+    # make the buttons
     def make_buttons(self, items):
         for item in items:
             name = item[0]
@@ -44,6 +47,7 @@ class SelectWindow(QDialog, Ui_SelectWindow):
             """)
             self.verticalLayout.addWidget(self.radio)
 
+    # note or category when one is selected
     def edit_clicked(self):
         items = self.verticalLayout.count()
 
@@ -53,10 +57,12 @@ class SelectWindow(QDialog, Ui_SelectWindow):
             if item.widget():
                 if item.widget().isChecked():
                     name = item.widget().text()
+                    # open notes if it is a note
                     if self.table == "notes":
                         note = NotesWindow(self.table, name)
                         note.note_signal.connect(lambda: self.edit_signal.emit("note saved"))
                         note.exec_()
+                        # open categories if it is a category
                     elif self.table == "categories":
                         app = CategoryWindow(name)
                         app.category_signal.connect(lambda: self.edit_signal.emit("category saved"))
@@ -65,10 +71,4 @@ class SelectWindow(QDialog, Ui_SelectWindow):
                     self.hide()
 
     def discard_clicked(self):
-        self.hide()
-    
-        
-
-
-    
-        
+        self.hide()      
