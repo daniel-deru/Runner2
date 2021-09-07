@@ -1,8 +1,12 @@
 from uipy.deleteNotes import Ui_DeleteWindow
 from PyQt5.QtWidgets import QCheckBox, QDialog
 from PyQt5.QtCore import pyqtSignal
+import os
+import sys
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
 
-from db import DB
+from database.db import DB
 
 class DeleteWindow(QDialog, Ui_DeleteWindow):
     # signal to be sent when delete was successfull

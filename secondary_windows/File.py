@@ -8,6 +8,11 @@ from uipy.add_File import Ui_Add_File_Dialog
 # Import the message box
 from class_snippets.MessageBox import Message
 
+import os
+import sys
+root = os.path.abspath(os.getcwd())
+sys.path.insert(0, root)
+
 
 class FileWindow(QDialog, Ui_Add_File_Dialog):
     file_signal = pyqtSignal(str)
@@ -35,7 +40,7 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
             Message("Please enter a name and add a file", "Empty fields")     
         elif (name and self.path):
             # import files here to avoid a circular import error
-            from Add_category import files
+            from primary_windows.Add_category import files
             # set is copy to false when the button is clicked
             is_copy = False
 

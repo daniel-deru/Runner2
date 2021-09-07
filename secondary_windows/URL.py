@@ -8,6 +8,11 @@ from uipy.add_url import Ui_add_url_window
 # Import the message box
 from class_snippets.MessageBox import Message
 
+import os
+import sys
+root = os.path.abspath(os.getcwd())
+sys.path.insert(0, root)
+
 
 class URLWindow(QDialog, Ui_add_url_window):
     url_signal = pyqtSignal(str)
@@ -47,7 +52,7 @@ class URLWindow(QDialog, Ui_add_url_window):
             Message("Please fill in all the fields", "There are empty fields")
         elif (name and path):
             # Import the websites from the category window to add the websites
-            from Add_category import files
+            from primary_windows.Add_category import files
 
             is_copy = False
 
