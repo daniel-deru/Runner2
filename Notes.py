@@ -1,9 +1,12 @@
 from PyQt5.QtCore import pyqtSignal
-from class_snippets.MessageBox import Message
 from PyQt5.QtWidgets import QDialog
+from PyQt5.QtGui import QFontDatabase, QFont
+
 from uipy.edit_notes import Ui_edit_notes
+
 from db import DB
 from datetime import date
+from class_snippets.MessageBox import Message
 
 
 
@@ -16,6 +19,10 @@ class NotesWindow(QDialog, Ui_edit_notes):
         self.name = name
         self.setupUi(self)
         self.setModal(True)
+
+        QFontDatabase.addApplicationFont("montserrat.regular.ttf")
+        app_font = QFont("Montserrat", 18)
+        self.setFont(app_font)
 
         # check the first radiobutton
         self.hbox_importance.itemAt(0).widget().setChecked(True)

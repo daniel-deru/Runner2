@@ -1,5 +1,6 @@
 from PyQt5.QtCore import QAbstractEventDispatcher
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QCheckBox, QLabel, QFrame
+from PyQt5.QtGui import QFont, QFontDatabase
 
 
 import os
@@ -9,6 +10,41 @@ db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 from db import DB
 
+
+file_stylesheet = """
+    QCheckBox::indicator {
+        width: 15px;
+        height: 15px
+    }
+    QCheckBox::indicator:checked {
+        image: url(tick.png);
+        width: 15px;
+        height: 15px
+    }
+    QCheckBox::indicator:unchecked {
+        image: url(cross.png);
+        width: 15px;
+        height: 15px;
+    }
+"""
+
+active_stylesheet = """
+ QCheckBox::indicator {
+        width: 25px;
+        height: 25px
+    }
+    QCheckBox::indicator:checked {
+        image: url(tick.png);
+        width: 25px;
+        height: 25px
+    }
+    QCheckBox::indicator:unchecked {
+        image: url(cross.png);
+        width: 25px;
+        height: 25px;
+    }
+"""
+
 def make_file_container(data, call):
     db = DB()
     files = db.read("files", "category_name", data[0])
@@ -16,11 +52,17 @@ def make_file_container(data, call):
     file_container = QWidget()
     file_container.setObjectName("file_container")
 
+    QFontDatabase.addApplicationFont("Nunito-SemiBoldItalic.ttf")
+    app_font = QFont("Nunito SemiBold", 18)
+    
+
     file_layout = QVBoxLayout()
     file_container.setLayout(file_layout)
 
     frame = QFrame()
+    frame.setFont(app_font)
     frame.setObjectName("frame")
+    
     title_hbox = QHBoxLayout()
     title_hbox.setObjectName("hbox_title")
 
@@ -29,12 +71,15 @@ def make_file_container(data, call):
 
     title = QLabel()
     title.setObjectName("title")
+    title.setFont(app_font)
     title.setText(data[0])
+
     active = QCheckBox()
+    active.setFont(app_font)
     active.setObjectName("active")
     active.setText("Active")
-    
     active.setChecked(data[1])
+    active.setStyleSheet(active_stylesheet)
     active.stateChanged.connect(lambda: call(data[0], active.isChecked()))
     
     title_hbox.addWidget(title)
@@ -47,6 +92,8 @@ def make_file_container(data, call):
         
         checkbox = QCheckBox()
         checkbox.setObjectName("file")
+        checkbox.setFont(app_font)
+        checkbox.setStyleSheet(file_stylesheet)
         checkbox.setText(files[i][0])
         if files[i][2]:
             checkbox.setChecked(True)
