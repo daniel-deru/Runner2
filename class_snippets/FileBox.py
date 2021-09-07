@@ -8,7 +8,7 @@ import sys
 import math
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
-from db import DB
+from database.db import DB
 
 
 file_stylesheet = """
@@ -17,12 +17,12 @@ file_stylesheet = """
         height: 15px
     }
     QCheckBox::indicator:checked {
-        image: url(tick.png);
+        image: url(images/tick.png);
         width: 15px;
         height: 15px
     }
     QCheckBox::indicator:unchecked {
-        image: url(cross.png);
+        image: url(images/cross.png);
         width: 15px;
         height: 15px;
     }
@@ -34,12 +34,12 @@ active_stylesheet = """
         height: 25px
     }
     QCheckBox::indicator:checked {
-        image: url(tick.png);
+        image: url(images/tick.png);
         width: 25px;
         height: 25px
     }
     QCheckBox::indicator:unchecked {
-        image: url(cross.png);
+        image: url(images/cross.png);
         width: 25px;
         height: 25px;
     }
@@ -52,7 +52,7 @@ def make_file_container(data, call):
     file_container = QWidget()
     file_container.setObjectName("file_container")
 
-    QFontDatabase.addApplicationFont("Nunito-SemiBoldItalic.ttf")
+    QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
     app_font = QFont("Nunito SemiBold", 18)
     
 

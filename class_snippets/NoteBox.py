@@ -5,7 +5,7 @@ from PyQt5.QtGui import QFont, QFontDatabase
         
 
 def make_note_container(data):
-    QFontDatabase.addApplicationFont("Nunito-SemiBoldItalic.ttf")
+    QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
     app_font = QFont("Nunito SemiBold", 18)
     
     note_container = QWidget()

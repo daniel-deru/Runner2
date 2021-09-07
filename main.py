@@ -16,14 +16,20 @@ from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 from uipy.mainUI import Ui_Runner
 
 # Import Files Windows
-from Add_category import CategoryWindow
+from primary_windows.Add_category import CategoryWindow
+from primary_windows.Notes import NotesWindow
 
 # Import notes windows
-from Delete import DeleteWindow
-from SelectWindow import SelectWindow
-from Notes import NotesWindow
+from secondary_windows.Delete import DeleteWindow
+from secondary_windows.SelectWindow import SelectWindow
 
-from db import DB
+import os
+import sys
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
+
+
+from database.db import DB
 
 # Import functions that make the notes and file containers (sub widgets)
 from class_snippets.NoteBox import make_note_container
@@ -37,7 +43,7 @@ class Main(QWidget, Ui_Runner):
         self.setWindowTitle("Runner")
         self.setupUi(self)
 
-        QFontDatabase.addApplicationFont("Nunito-SemiBoldItalic.ttf")
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
         app_font = QFont("Nunito SemiBold", 18)
 
         # add the fonts to all the buttons and tabs in the main window

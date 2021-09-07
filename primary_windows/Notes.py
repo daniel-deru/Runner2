@@ -4,7 +4,12 @@ from PyQt5.QtGui import QFontDatabase, QFont
 
 from uipy.edit_notes import Ui_edit_notes
 
-from db import DB
+import os
+import sys
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
+
+from database.db import DB
 from datetime import date
 from class_snippets.MessageBox import Message
 

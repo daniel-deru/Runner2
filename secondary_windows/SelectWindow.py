@@ -1,9 +1,18 @@
 from PyQt5.QtCore import pyqtSignal
 from uipy.selectNotesUI import Ui_SelectWindow
 from PyQt5.QtWidgets import  QDialog, QRadioButton
-from db import DB
-from Notes import NotesWindow
-from Add_category import CategoryWindow
+
+
+import os
+import sys
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
+
+
+from database.db import DB
+
+from primary_windows.Notes import NotesWindow
+from primary_windows.Add_category import CategoryWindow
 
 class SelectWindow(QDialog, Ui_SelectWindow):
     # signal for show edit was successfully handled

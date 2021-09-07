@@ -1,16 +1,18 @@
 from PyQt5.QtWidgets import  QCheckBox, QDialog
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.sip import delete
+import os
+import sys
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
+from database.db import DB
 
 # Import Add Category UI
 from uipy.add_categoryUI import Ui_add_category
 
 # Import the Windows
-from URL import URLWindow
-from File import FileWindow
+from secondary_windows.URL import URLWindow
+from secondary_windows.File import FileWindow
 
-# Import Database
-from db import DB
 
 # Import message box
 from class_snippets.MessageBox import Message
