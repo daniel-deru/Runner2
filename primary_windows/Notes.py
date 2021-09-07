@@ -1,13 +1,15 @@
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QDialog
-from PyQt5.QtGui import QFontDatabase, QFont
-
-from uipy.edit_notes import Ui_edit_notes
-
 import os
 import sys
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
+
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtGui import QFontDatabase, QFont, QIcon
+
+from uipy.edit_notes import Ui_edit_notes
+
+
 
 from database.db import DB
 from datetime import date
@@ -24,10 +26,28 @@ class NotesWindow(QDialog, Ui_edit_notes):
         self.name = name
         self.setupUi(self)
         self.setModal(True)
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+        if name:
+            self.setWindowTitle(f"Edit {name} Note")
+        else:
+            self.setWindowTitle("Add Note")
 
-        QFontDatabase.addApplicationFont("montserrat.regular.ttf")
-        app_font = QFont("Montserrat", 18)
-        self.setFont(app_font)
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+        app_font = QFont("Nunito SemiBold", 18)
+        self.lbl_note_title.setFont(app_font)
+        self.lbl_importance.setFont(app_font)
+        self.lbl_note_body.setFont(app_font)
+        
+        self.txtedt_note_body.setFont(app_font)
+        self.ldt_note_title.setFont(app_font)
+
+        self.rbtn_high.setFont(app_font)
+        self.rbtn_medium.setFont(app_font)
+        self.rbtn_low.setFont(app_font)
+
+        self.btn_discard.setFont(app_font)
+        self.btn_save.setFont(app_font)
+        
 
         # check the first radiobutton
         self.hbox_importance.itemAt(0).widget().setChecked(True)

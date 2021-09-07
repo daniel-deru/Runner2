@@ -4,7 +4,7 @@ import sqlite3
 class DB:
     def __init__(self):
         # connect to database and create cursor to interact with database
-        self.db = sqlite3.connect("runner.db")
+        self.db = sqlite3.connect("database/runner.db")
         self.cur = self.db.cursor()
 
         notes_table = """

@@ -1,10 +1,13 @@
-from uipy.deleteNotes import Ui_DeleteWindow
-from PyQt5.QtWidgets import QCheckBox, QDialog
-from PyQt5.QtCore import pyqtSignal
 import os
 import sys
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
+
+from uipy.deleteNotes import Ui_DeleteWindow
+
+from PyQt5.QtWidgets import QCheckBox, QDialog
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 
 from database.db import DB
 
@@ -18,6 +21,12 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
         self.setupUi(self)
         self.setModal(True)
 
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+        app_font = QFont("Nunito SemiBold")
+
+        self.btn_discard.setFont(app_font)
+        self.btn_delete.setFont(app_font)
+
         # connect signals to slots
         self.btn_discard.clicked.connect(self.discard_clicked)
         self.btn_delete.clicked.connect(self.delete_clicked)
@@ -29,6 +38,7 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
         # show the items in the window
         for item in items:
             checkbox = QCheckBox(item[0])
+            checkbox.setFont(app_font)
             self.verticalLayout_2.addWidget(checkbox)
         
        

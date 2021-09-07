@@ -1,10 +1,12 @@
-from PyQt5.QtWidgets import  QCheckBox, QDialog
-from PyQt5.QtCore import pyqtSignal
 import os
 import sys
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 from database.db import DB
+
+from PyQt5.QtWidgets import  QCheckBox, QDialog
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 
 # Import Add Category UI
 from uipy.add_categoryUI import Ui_add_category
@@ -28,6 +30,20 @@ class CategoryWindow(QDialog, Ui_add_category):
         self.name = name
         self.setupUi(self)
         self.setModal(True)
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+        if name:
+            self.setWindowTitle(f"Edit {name} Category")
+        else:
+            self.setWindowTitle(f"Add Category")
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+        app_font = QFont("Nunito SemiBold")
+        self.lbl_name.setFont(app_font)
+        self.lbl_add_file.setFont(app_font)
+        self.lbl_add_url.setFont(app_font)
+        self.lbl_discard.setFont(app_font)
+        self.lbl_save.setFont(app_font)
+        self.btn_delete.setFont(app_font)
+        self.add_category_name_input.setFont(app_font)
 
         self.show_files()
 

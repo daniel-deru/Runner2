@@ -1,14 +1,13 @@
-from PyQt5.QtCore import pyqtSignal
-from uipy.selectNotesUI import Ui_SelectWindow
-from PyQt5.QtWidgets import  QDialog, QRadioButton
-
-
 import os
 import sys
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import  QDialog, QRadioButton
+from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 
+from uipy.selectNotesUI import Ui_SelectWindow
 from database.db import DB
 
 from primary_windows.Notes import NotesWindow
@@ -23,6 +22,12 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         self.setupUi(self)
         self.setModal(True)
         self.show(table)
+
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+        self.app_font = QFont("Nunito SemiBold")
+
+        self.btn_discard.setFont(self.app_font)
+        self.btn_edit.setFont(self.app_font)
 
         # button click connections
         self.btn_discard.clicked.connect(self.discard_clicked)
@@ -39,6 +44,7 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         for item in items:
             name = item[0]
             self.radio = QRadioButton(name)
+            self.radio.setFont(self.app_font)
             self.radio.setStyleSheet("""
                 QPushButton {
                     font-size: 16px;

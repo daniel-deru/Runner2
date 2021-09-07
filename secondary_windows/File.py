@@ -1,6 +1,12 @@
+import os
+import sys
+root = os.path.abspath(os.getcwd())
+sys.path.insert(0, root)
+
 # Python Imports
 from  PyQt5.QtWidgets import QDialog, QFileDialog
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFontDatabase, QFont, QIcon
 
 # Import the URL Window UI
 from uipy.add_File import Ui_Add_File_Dialog
@@ -8,10 +14,7 @@ from uipy.add_File import Ui_Add_File_Dialog
 # Import the message box
 from class_snippets.MessageBox import Message
 
-import os
-import sys
-root = os.path.abspath(os.getcwd())
-sys.path.insert(0, root)
+
 
 
 class FileWindow(QDialog, Ui_Add_File_Dialog):
@@ -21,6 +24,8 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
 
         self.setupUi(self)
         self.setWindowTitle("Add File")
+
+        
 
         # Connect button click to function
         self.btn_discard.clicked.connect(self.discard_clicked)

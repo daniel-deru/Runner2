@@ -43,6 +43,8 @@ class Main(QWidget, Ui_Runner):
         self.setWindowTitle("Runner")
         self.setupUi(self)
 
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+
         QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
         app_font = QFont("Nunito SemiBold", 18)
 
@@ -215,6 +217,6 @@ class Main(QWidget, Ui_Runner):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main = Main()
-    main.setWindowTitle("App Name")
+    main.setWindowTitle("WorkMate")
     main.show()
     sys.exit(app.exec_())
