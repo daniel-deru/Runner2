@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import  QCheckBox, QDialog
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.sip import delete
 
 # Import Add Category UI
 from uipy.add_categoryUI import Ui_add_category
@@ -66,7 +67,6 @@ class CategoryWindow(QDialog, Ui_add_category):
                         elif i + 1 == category_count: 
                             self.save_db(category_name)
                     else:
-                        print("line 71 save db")
                         self.save_db(category_name)
                         break
 
@@ -101,12 +101,14 @@ class CategoryWindow(QDialog, Ui_add_category):
 
     # delete the selected items
     def delete_clicked(self):
-        container = self.vbox_container
-        for i in range(0, container.count()):
-            if container.itemAt(i).widget():
-                if container.itemAt(i).widget().isChecked():
-                    files.pop(i)
-        
+
+        for i in range(len(files)):
+            # check if the file is selected, remove the file and recursively call the delete function
+            # until there are no more selected checkboxes
+            if files[i][2] == 1:
+                files.pop(i)
+                return self.delete_clicked()
+            
         self.show_files()
     
     # handle saving data to database
@@ -184,8 +186,9 @@ class CategoryWindow(QDialog, Ui_add_category):
                 checkbox = QCheckBox()
                 checkbox.setText(file[0])
                 checkbox.setChecked(file[2])
-                checkbox.stateChanged.connect(lambda: self.checkbox_event_handler(checkbox.text(), checkbox.isChecked()))
+                checkbox.stateChanged.connect(self.checkbox_event_handler)
                 container.addWidget(checkbox)
+            
     
     # load the data from database if it is an edit window
     def load_data(self, name):
@@ -202,8 +205,13 @@ class CategoryWindow(QDialog, Ui_add_category):
         self.show_files()
     
     # update the files list when checkbox is checked
-    def checkbox_event_handler(self, name, state):
-        value = 1 if state == True else 0
-        for file in files:
-            if file[0] == name:
-                file[2] = value       
+    def checkbox_event_handler(self):
+        container = self.vbox_container
+        count = container.count()
+        for i in range(count):
+            # get the checkbox
+            checkbox = container.itemAt(i).widget()
+            # create the state for db
+            state = 1 if checkbox.isChecked() else 0
+            # update the files list
+            files[i][2] = state
