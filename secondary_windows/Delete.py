@@ -11,6 +11,23 @@ from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 
 from database.db import DB
 
+checkbox_styles = """
+     QCheckBox::indicator {
+        width: 15px;
+        height: 15px
+    }
+    QCheckBox::indicator:checked {
+        image: url(images/tick.png);
+        width: 15px;
+        height: 15px
+    }
+    QCheckBox::indicator:unchecked {
+        image: url(images/cross.png);
+        width: 15px;
+        height: 15px;
+    }
+"""
+
 class DeleteWindow(QDialog, Ui_DeleteWindow):
     # signal to be sent when delete was successfull
     delete_signal = pyqtSignal(str)
@@ -21,6 +38,8 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
         self.setupUi(self)
         self.setModal(True)
 
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+        self.setWindowTitle(f"Delete {window.capitalize()}")
         QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
         app_font = QFont("Nunito SemiBold")
 
@@ -39,6 +58,7 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
         for item in items:
             checkbox = QCheckBox(item[0])
             checkbox.setFont(app_font)
+            checkbox.setStyleSheet(checkbox_styles)
             self.verticalLayout_2.addWidget(checkbox)
         
        

@@ -1,6 +1,12 @@
+import os
+import sys
 import re
+root = os.path.abspath(os.getcwd())
+sys.path.insert(0, root)
+
 from  PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 
 # Import the URL Window UI
 from uipy.add_url import Ui_add_url_window
@@ -8,10 +14,7 @@ from uipy.add_url import Ui_add_url_window
 # Import the message box
 from class_snippets.MessageBox import Message
 
-import os
-import sys
-root = os.path.abspath(os.getcwd())
-sys.path.insert(0, root)
+
 
 
 class URLWindow(QDialog, Ui_add_url_window):
@@ -22,6 +25,18 @@ class URLWindow(QDialog, Ui_add_url_window):
 
         self.setupUi(self)
         self.setWindowTitle("Add Website")
+
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+        app_font = QFont("Nunito SemiBold", 18)
+
+        self.btn_discard.setFont(app_font)
+        self.btn_save.setFont(app_font)
+        self.lbl_name.setFont(app_font)
+        self.lbl_url.setFont(app_font)
+        self.lnedit_name.setFont(app_font)
+        self.lnedit_url.setFont(app_font)
 
         # Connections to button click events
         self.btn_discard.clicked.connect(self.discard_clicked)

@@ -25,7 +25,18 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
         self.setupUi(self)
         self.setWindowTitle("Add File")
 
-        
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+
+        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+        app_font = QFont("Nunito SemiBold")
+
+        self.btn_save.setFont(app_font)
+        self.btn_discard.setFont(app_font)
+        self.btn_add_file.setFont(app_font)
+        self.lbl_filename.setFont(app_font)
+        self.lbl_path.setFont(app_font)
+        self.lnedit_filename.setFont(app_font)
+
 
         # Connect button click to function
         self.btn_discard.clicked.connect(self.discard_clicked)

@@ -23,6 +23,23 @@ from class_snippets.MessageBox import Message
 # created and saved in the database
 files = []
 
+checkbox_styles = """
+     QCheckBox::indicator {
+        width: 15px;
+        height: 15px
+    }
+    QCheckBox::indicator:checked {
+        image: url(images/toggle-on.png);
+        width: 15px;
+        height: 15px
+    }
+    QCheckBox::indicator:unchecked {
+        image: url(images/toggle-off.png);
+        width: 15px;
+        height: 15px;
+    }
+"""
+
 class CategoryWindow(QDialog, Ui_add_category):
     category_signal = pyqtSignal(str)
     def __init__(self, name=None):
@@ -203,6 +220,7 @@ class CategoryWindow(QDialog, Ui_add_category):
             for file in files:
                 checkbox = QCheckBox()
                 checkbox.setText(file[0])
+                checkbox.setStyleSheet(checkbox_styles)
                 checkbox.setChecked(file[2])
                 checkbox.stateChanged.connect(self.checkbox_event_handler)
                 container.addWidget(checkbox)

@@ -13,6 +13,20 @@ from database.db import DB
 from primary_windows.Notes import NotesWindow
 from primary_windows.Add_category import CategoryWindow
 
+radio_stylesheet = """
+    QRadioButton::indicator:unchecked {
+        image: url(images/radio-off.png);
+        width: 25px;
+        height: 25px;
+    }
+
+    QRadioButton::indicator:checked {
+        image: url(images/radio-on.png);
+        width: 25px;
+        height: 25px;
+    }
+"""
+
 class SelectWindow(QDialog, Ui_SelectWindow):
     # signal for show edit was successfully handled
     edit_signal = pyqtSignal(str)
@@ -22,9 +36,13 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         self.setupUi(self)
         self.setModal(True)
         self.show(table)
+        
+        self.setWindowIcon(QIcon("images/WorkMate.png"))
+        self.setWindowTitle(f"Edit {table.capitalize()}")
 
         QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
         self.app_font = QFont("Nunito SemiBold")
+        self.radio.setFont(self.app_font)
 
         self.btn_discard.setFont(self.app_font)
         self.btn_edit.setFont(self.app_font)
@@ -44,7 +62,6 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         for item in items:
             name = item[0]
             self.radio = QRadioButton(name)
-            self.radio.setFont(self.app_font)
             self.radio.setStyleSheet("""
                 QPushButton {
                     font-size: 16px;
@@ -60,6 +77,7 @@ class SelectWindow(QDialog, Ui_SelectWindow):
                     background-color: white;
                 }
             """)
+            self.radio.setStyleSheet(radio_stylesheet)
             self.verticalLayout.addWidget(self.radio)
 
     # note or category when one is selected

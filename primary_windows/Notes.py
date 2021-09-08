@@ -15,6 +15,55 @@ from database.db import DB
 from datetime import date
 from class_snippets.MessageBox import Message
 
+radio_stylesheet1 = """
+    QRadioButton::indicator:unchecked {
+        image: url(images/radio-off.png);
+        width: 25px;
+        height: 25px;
+    }
+
+    QRadioButton::indicator:checked {
+        image: url(images/radio-on.png);
+        width: 25px;
+        height: 25px;
+    }
+    QRadioButton {
+        color: #EC4B4B;
+    }
+"""
+radio_stylesheet2 = """
+    QRadioButton::indicator:unchecked {
+        image: url(images/radio-off.png);
+        width: 25px;
+        height: 25px;
+    }
+
+    QRadioButton::indicator:checked {
+        image: url(images/radio-on.png);
+        width: 25px;
+        height: 25px;
+    }
+    QRadioButton {
+        color: #E8ED09;
+    }
+"""
+radio_stylesheet3 = """
+    QRadioButton::indicator:unchecked {
+        image: url(images/radio-off.png);
+        width: 25px;
+        height: 25px;
+    }
+
+    QRadioButton::indicator:checked {
+        image: url(images/radio-on.png);
+        width: 25px;
+        height: 25px;
+    }
+    QRadioButton {
+        color: #36E432;
+    }
+"""
+
 
 
 class NotesWindow(QDialog, Ui_edit_notes):
@@ -44,6 +93,10 @@ class NotesWindow(QDialog, Ui_edit_notes):
         self.rbtn_high.setFont(app_font)
         self.rbtn_medium.setFont(app_font)
         self.rbtn_low.setFont(app_font)
+
+        self.rbtn_high.setStyleSheet(radio_stylesheet1)
+        self.rbtn_medium.setStyleSheet(radio_stylesheet2)
+        self.rbtn_low.setStyleSheet(radio_stylesheet3)
 
         self.btn_discard.setFont(app_font)
         self.btn_save.setFont(app_font)

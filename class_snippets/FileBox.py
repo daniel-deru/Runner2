@@ -13,35 +13,35 @@ from database.db import DB
 
 file_stylesheet = """
     QCheckBox::indicator {
-        width: 15px;
-        height: 15px
+        width: 25px;
+        height: 25px
     }
     QCheckBox::indicator:checked {
-        image: url(images/tick.png);
-        width: 15px;
-        height: 15px
+        image: url(images/toggle-on.png);
+        width: 25px;
+        height: 25px;
     }
     QCheckBox::indicator:unchecked {
-        image: url(images/cross.png);
-        width: 15px;
-        height: 15px;
+        image: url(images/toggle-off.png);
+        width: 25px;
+        height: 25px;
     }
 """
 
 active_stylesheet = """
  QCheckBox::indicator {
-        width: 25px;
-        height: 25px
+        width: 35px;
+        height: 35px
     }
     QCheckBox::indicator:checked {
-        image: url(images/tick.png);
-        width: 25px;
-        height: 25px
+        image: url(images/toggle-on.png);
+        width: 35px;
+        height: 35px
     }
     QCheckBox::indicator:unchecked {
-        image: url(images/cross.png);
-        width: 25px;
-        height: 25px;
+        image: url(images/toggle-off.png);
+        width: 35px;
+        height: 35px;
     }
 """
 
@@ -132,7 +132,7 @@ def make_file_container(data, call):
         #file {
             color: black;
             background-color: white;
-            font-size: 14px;
+            font-size: 16px;
         }
     """)
 
