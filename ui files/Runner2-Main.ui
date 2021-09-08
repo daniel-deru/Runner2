@@ -44,7 +44,7 @@ QTabBar::tab {
 	font-size: 16px;
 	height: 30px;
 	width: 100px;
-	color: #007EA6;
+	color: black;
 }
 
 QTabBar::tab:selected {
@@ -112,14 +112,14 @@ QPushButton:pressed {
          <item row="0" column="2">
           <widget class="QPushButton" name="apps_btn_delete">
            <property name="text">
-            <string>Delete</string>
+            <string>Delete Category</string>
            </property>
           </widget>
          </item>
          <item row="0" column="1">
           <widget class="QPushButton" name="apps_btn_edit">
            <property name="text">
-            <string>Edit</string>
+            <string>Edit Category</string>
            </property>
           </widget>
          </item>
@@ -142,11 +142,11 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Add</string>
+            <string>Add Category</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="1">
+         <item row="0" column="3">
           <widget class="QPushButton" name="btn_run">
            <property name="styleSheet">
             <string notr="true">#btn_run {
@@ -161,7 +161,7 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Run</string>
+            <string>Run Active</string>
            </property>
           </widget>
          </item>
@@ -189,7 +189,7 @@ QPushButton:pressed {
               <x>0</x>
               <y>0</y>
               <width>601</width>
-              <height>410</height>
+              <height>449</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3"/>
@@ -246,7 +246,7 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Add</string>
+            <string>Add Notes</string>
            </property>
           </widget>
          </item>
@@ -269,7 +269,7 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Edit</string>
+            <string>Edit Notes</string>
            </property>
           </widget>
          </item>
@@ -292,7 +292,7 @@ QPushButton:pressed {
 }</string>
            </property>
            <property name="text">
-            <string>Delete</string>
+            <string>Delete Note</string>
            </property>
           </widget>
          </item>

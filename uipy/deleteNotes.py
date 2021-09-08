@@ -71,7 +71,7 @@ class Ui_DeleteWindow(object):
     def retranslateUi(self, DeleteWindow):
         _translate = QtCore.QCoreApplication.translate
         DeleteWindow.setWindowTitle(_translate("DeleteWindow", "Delete Notes"))
-        self.btn_discard.setText(_translate("DeleteWindow", "Discard"))
+        self.btn_discard.setText(_translate("DeleteWindow", "Exit"))
         self.btn_delete.setText(_translate("DeleteWindow", "Delete"))
 
 

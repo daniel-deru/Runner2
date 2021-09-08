@@ -85,7 +85,7 @@ class Ui_SelectWindow(object):
     def retranslateUi(self, SelectWindow):
         _translate = QtCore.QCoreApplication.translate
         SelectWindow.setWindowTitle(_translate("SelectWindow", "Select Notes"))
-        self.btn_discard.setText(_translate("SelectWindow", "Discard"))
+        self.btn_discard.setText(_translate("SelectWindow", "Exit"))
         self.btn_edit.setText(_translate("SelectWindow", "Edit"))
 
 

@@ -97,7 +97,7 @@ QCheckBox {
      <item>
       <widget class="QPushButton" name="btn_discard">
        <property name="text">
-        <string>Discard</string>
+        <string>Exit</string>
        </property>
       </widget>
      </item>

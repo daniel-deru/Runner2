@@ -32,7 +32,7 @@ class Ui_Runner(object):
 "    font-size: 16px;\n"
 "    height: 30px;\n"
 "    width: 100px;\n"
-"    color: #007EA6;\n"
+"    color: black;\n"
 "}\n"
 "\n"
 "QTabBar::tab:selected {\n"
@@ -110,7 +110,7 @@ class Ui_Runner(object):
 "    color: white;\n"
 "}")
         self.btn_run.setObjectName("btn_run")
-        self.gbox_apps_btn_container.addWidget(self.btn_run, 1, 1, 1, 1)
+        self.gbox_apps_btn_container.addWidget(self.btn_run, 0, 3, 1, 1)
         self.verticalLayout_2.addLayout(self.gbox_apps_btn_container)
         self.apps_container_vlayout = QtWidgets.QVBoxLayout()
         self.apps_container_vlayout.setSizeConstraint(QtWidgets.QLayout.SetMinimumSize)
@@ -121,7 +121,7 @@ class Ui_Runner(object):
         self.apps_scroll_area.setWidgetResizable(True)
         self.apps_scroll_area.setObjectName("apps_scroll_area")
         self.apps_scroll_area_widget = QtWidgets.QWidget()
-        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 601, 410))
+        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 601, 449))
         self.apps_scroll_area_widget.setObjectName("apps_scroll_area_widget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.apps_scroll_area_widget)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -219,12 +219,12 @@ class Ui_Runner(object):
     def retranslateUi(self, Runner):
         _translate = QtCore.QCoreApplication.translate
         Runner.setWindowTitle(_translate("Runner", "Form"))
-        self.apps_btn_delete.setText(_translate("Runner", "Delete"))
-        self.apps_btn_edit.setText(_translate("Runner", "Edit"))
-        self.main_add_category_btn.setText(_translate("Runner", "Add"))
-        self.btn_run.setText(_translate("Runner", "Run"))
+        self.apps_btn_delete.setText(_translate("Runner", "Delete Category"))
+        self.apps_btn_edit.setText(_translate("Runner", "Edit Category"))
+        self.main_add_category_btn.setText(_translate("Runner", "Add Category"))
+        self.btn_run.setText(_translate("Runner", "Run Active"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.apps_tab), _translate("Runner", "Apps"))
-        self.main_add_notes_btn.setText(_translate("Runner", "Add"))
-        self.btn_notes_edit.setText(_translate("Runner", "Edit"))
-        self.btn_notes_delete.setText(_translate("Runner", "Delete"))
+        self.main_add_notes_btn.setText(_translate("Runner", "Add Notes"))
+        self.btn_notes_edit.setText(_translate("Runner", "Edit Notes"))
+        self.btn_notes_delete.setText(_translate("Runner", "Delete Note"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.notes_tab), _translate("Runner", "Notes"))

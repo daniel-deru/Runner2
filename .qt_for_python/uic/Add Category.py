@@ -99,5 +99,5 @@ class Ui_add_category(object):
         self.lbl_add_file.setText(_translate("add_category", "Add File"))
         self.lbl_add_url.setText(_translate("add_category", "Add URL"))
         self.btn_delete.setText(_translate("add_category", "Delete Items"))
-        self.lbl_discard.setText(_translate("add_category", "Discard"))
+        self.lbl_discard.setText(_translate("add_category", "Exit"))
         self.lbl_save.setText(_translate("add_category", "Save"))

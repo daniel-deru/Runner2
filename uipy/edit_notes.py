@@ -112,7 +112,7 @@ class Ui_edit_notes(object):
         self.rbtn_low.setText(_translate("edit_notes", "Low"))
         self.rbtn_medium.setText(_translate("edit_notes", "Medium"))
         self.rbtn_high.setText(_translate("edit_notes", "High"))
-        self.btn_discard.setText(_translate("edit_notes", "Discard"))
+        self.btn_discard.setText(_translate("edit_notes", "Exit"))
         self.btn_save.setText(_translate("edit_notes", "Save"))
 
 

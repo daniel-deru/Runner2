@@ -129,7 +129,7 @@ padding: 10px;</string>
      <item>
       <widget class="QPushButton" name="lbl_discard">
        <property name="text">
-        <string>Discard</string>
+        <string>Exit</string>
        </property>
       </widget>
      </item>

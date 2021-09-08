@@ -42,7 +42,8 @@ class SelectWindow(QDialog, Ui_SelectWindow):
 
         QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
         self.app_font = QFont("Nunito SemiBold")
-        self.radio.setFont(self.app_font)
+        
+        # self.radio.setFont(self.app_font)
 
         self.btn_discard.setFont(self.app_font)
         self.btn_edit.setFont(self.app_font)
@@ -62,6 +63,7 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         for item in items:
             name = item[0]
             self.radio = QRadioButton(name)
+            self.radio.setFont(self.app_font)
             self.radio.setStyleSheet("""
                 QPushButton {
                     font-size: 16px;

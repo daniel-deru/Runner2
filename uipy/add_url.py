@@ -79,7 +79,7 @@ class Ui_add_url_window(object):
         add_url_window.setWindowTitle(_translate("add_url_window", "Dialog"))
         self.lbl_name.setText(_translate("add_url_window", "Name"))
         self.lbl_url.setText(_translate("add_url_window", "URL"))
-        self.btn_discard.setText(_translate("add_url_window", "Discard"))
+        self.btn_discard.setText(_translate("add_url_window", "Exit"))
         self.btn_save.setText(_translate("add_url_window", "Save"))
 
 

@@ -91,5 +91,5 @@ class Ui_Add_File_Dialog(object):
         self.lbl_filename.setText(_translate("Add_File_Dialog", "Name"))
         self.btn_add_file.setText(_translate("Add_File_Dialog", "Add File"))
         self.lbl_path.setText(_translate("Add_File_Dialog", "Path:"))
-        self.btn_discard.setText(_translate("Add_File_Dialog", "Discard"))
+        self.btn_discard.setText(_translate("Add_File_Dialog", "Exit"))
         self.btn_save.setText(_translate("Add_File_Dialog", "Save"))
