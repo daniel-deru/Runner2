@@ -25,18 +25,18 @@ files = []
 
 checkbox_styles = """
      QCheckBox::indicator {
-        width: 15px;
-        height: 15px
+        width: 25px;
+        height: 25px;
     }
     QCheckBox::indicator:checked {
         image: url(images/toggle-on.png);
-        width: 15px;
-        height: 15px
+        width: 25px;
+        height: 25px;
     }
     QCheckBox::indicator:unchecked {
         image: url(images/toggle-off.png);
-        width: 15px;
-        height: 15px;
+        width: 25px;
+        height: 25px;
     }
 """
 

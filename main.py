@@ -8,8 +8,7 @@ from os import path as file
 from inspect import currentframe, getframeinfo
 
 # PyQt5 imports
-from PyQt5.QtWidgets import QApplication, QCheckBox, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy
-from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtWidgets import QApplication, QWidget, QSpacerItem, QSizePolicy, QColorDialog
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 
 # Import the main window UI
@@ -75,6 +74,7 @@ class Main(QWidget, Ui_Runner):
         # show the notes and files when the window loads
         self.show_notes()
         self.show_files()
+
 
     # open category window to add categories
     def add_category_clicked(self):
