@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>616</width>
+    <width>612</width>
     <height>531</height>
    </rect>
   </property>
@@ -226,8 +226,8 @@ QPushButton:pressed {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>614</width>
-              <height>449</height>
+              <width>100</width>
+              <height>30</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3"/>
@@ -384,8 +384,8 @@ QPushButton:pressed {
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>614</width>
-              <height>449</height>
+              <width>100</width>
+              <height>30</height>
              </rect>
             </property>
             <property name="styleSheet">
@@ -419,23 +419,23 @@ font-size: 16px;</string>
         <number>15</number>
        </property>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="hbox_color">
          <item>
-          <widget class="QLabel" name="label_2">
+          <widget class="QLabel" name="lbl_main_color">
            <property name="text">
             <string>Main Color:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label">
+          <widget class="QLabel" name="lbl_hex_color">
            <property name="text">
             <string>#007EA6</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="btn_choose_color">
            <property name="styleSheet">
             <string notr="true">QPushButton:pressed {
 	background-color: white;
@@ -451,7 +451,7 @@ font-size: 16px;</string>
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line_3">
+        <widget class="Line" name="line1">
          <property name="frameShadow">
           <enum>QFrame::Plain</enum>
          </property>
@@ -461,16 +461,23 @@ font-size: 16px;</string>
         </widget>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <layout class="QHBoxLayout" name="hbox_font">
          <item>
-          <widget class="QLabel" name="label_3">
+          <widget class="QLabel" name="lbl_font">
            <property name="text">
-            <string>Font</string>
+            <string>Font:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QLabel" name="lbl_font_example">
+           <property name="text">
+            <string>This Is Your Font</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cmb_font">
            <property name="styleSheet">
             <string notr="true">QComboBox {
     border: 2px solid white;
@@ -497,7 +504,7 @@ QComboBox QAbstractItemView {
         </layout>
        </item>
        <item>
-        <widget class="QWidget" name="widget_2" native="true">
+        <widget class="QWidget" name="widget_order" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <property name="leftMargin">
            <number>0</number>
@@ -506,7 +513,7 @@ QComboBox QAbstractItemView {
            <number>0</number>
           </property>
           <item>
-           <widget class="Line" name="line">
+           <widget class="Line" name="line2">
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
             </property>
@@ -516,30 +523,30 @@ QComboBox QAbstractItemView {
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="label_5">
+           <widget class="QLabel" name="lbl_order">
             <property name="text">
              <string>Order Notes By</string>
             </property>
            </widget>
           </item>
           <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <layout class="QHBoxLayout" name="hbox_order">
             <item>
-             <widget class="QRadioButton" name="radioButton_6">
+             <widget class="QRadioButton" name="rbtn_date">
               <property name="text">
                <string>Date</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_5">
+             <widget class="QRadioButton" name="rbtn_title">
               <property name="text">
                <string>Title</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QRadioButton" name="radioButton_4">
+             <widget class="QRadioButton" name="rbtn_priority">
               <property name="text">
                <string>Priority</string>
               </property>
@@ -551,7 +558,7 @@ QComboBox QAbstractItemView {
         </widget>
        </item>
        <item>
-        <spacer name="verticalSpacer">
+        <spacer name="vspcr_main">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
@@ -564,9 +571,9 @@ QComboBox QAbstractItemView {
         </spacer>
        </item>
        <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <layout class="QHBoxLayout" name="hbox_save">
          <item>
-          <spacer name="horizontalSpacer_5">
+          <spacer name="hspcr_left">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
@@ -579,7 +586,7 @@ QComboBox QAbstractItemView {
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="btn_save">
            <property name="minimumSize">
             <size>
              <width>200</width>
@@ -599,7 +606,7 @@ QComboBox QAbstractItemView {
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_6">
+          <spacer name="hspcr_right">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>

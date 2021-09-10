@@ -1,12 +1,15 @@
-# Python Imports
 import os
 import sys
 import json
 import re
-import webbrowser
+import subprocess
 from os import path as file
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
+
 from inspect import currentframe, getframeinfo
 
+from fontTools.ttLib import TTFont
 # PyQt5 imports
 from PyQt5.QtWidgets import QApplication, QWidget, QSpacerItem, QSizePolicy, QColorDialog
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
@@ -22,10 +25,7 @@ from primary_windows.Notes import NotesWindow
 from secondary_windows.Delete import DeleteWindow
 from secondary_windows.SelectWindow import SelectWindow
 
-import os
-import sys
-db_path = os.path.abspath(os.getcwd())
-sys.path.insert(0, db_path)
+
 
 
 from database.db import DB
@@ -33,6 +33,7 @@ from database.db import DB
 # Import functions that make the notes and file containers (sub widgets)
 from class_snippets.NoteBox import make_note_container
 from class_snippets.FileBox import make_file_container
+from class_snippets.fonts import get_sys_fonts
 
 
 class Main(QWidget, Ui_Runner):
@@ -43,20 +44,20 @@ class Main(QWidget, Ui_Runner):
         self.setupUi(self)
 
         self.setWindowIcon(QIcon("images/WorkMate.png"))
-
-        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-        app_font = QFont("Nunito SemiBold", 18)
-
+        
+        self.show_fonts()
+        self.app_font = QFont("Nunito SemiBold", 18)
+       
         # add the fonts to all the buttons and tabs in the main window
-        self.tabWidget.setFont(app_font)
-        self.apps_btn_delete.setFont(app_font)
-        self.apps_btn_edit.setFont(app_font)
-        self.main_add_category_btn.setFont(app_font)
-        self.btn_run.setFont(app_font)
+        self.tabWidget.setFont(self.app_font)
+        self.apps_btn_delete.setFont(self.app_font)
+        self.apps_btn_edit.setFont(self.app_font)
+        self.main_add_category_btn.setFont(self.app_font)
+        self.btn_run.setFont(self.app_font)
 
-        self.btn_notes_delete.setFont(app_font)
-        self.btn_notes_edit.setFont(app_font)
-        self.main_add_notes_btn.setFont(app_font)
+        self.btn_notes_delete.setFont(self.app_font)
+        self.btn_notes_edit.setFont(self.app_font)
+        self.main_add_notes_btn.setFont(self.app_font)
         
         self.tabWidget.setCurrentIndex(0)
 
@@ -70,10 +71,17 @@ class Main(QWidget, Ui_Runner):
         self.main_add_notes_btn.clicked.connect(self.add_notes_clicked)
         self.btn_notes_delete.clicked.connect(self.notes_delete_clicked)
         self.btn_notes_edit.clicked.connect(self.notes_edit_clicked)
+
+        self.tabWidget.currentChanged.connect(self.add_tab_icons)
+        self.cmb_font.activated.connect(self.select_font)
+
+        self.btn_choose_color.clicked.connect(self.select_color)
  
         # show the notes and files when the window loads
         self.show_notes()
         self.show_files()
+        self.add_tab_icons()
+        
 
 
     # open category window to add categories
@@ -212,8 +220,62 @@ class Main(QWidget, Ui_Runner):
         value = 1 if state == True else 0
         db = DB()
         db.update_category_state(name, value)
-
     
+    def add_tab_icons(self): 
+        self.tabWidget.setTabIcon(0, QIcon("images/AppsIconBlack.png"))
+        self.tabWidget.setTabIcon(1, QIcon("images/NotesIconBlack.png"))
+        self.tabWidget.setTabIcon(2, QIcon("images/SettingIconBlack.png"))
+        active_tab_index = self.tabWidget.currentIndex()
+        if active_tab_index == 0:
+            self.tabWidget.setTabIcon(active_tab_index, QIcon("images/AppsIconWhite.png"))
+        elif active_tab_index == 1:
+            self.tabWidget.setTabIcon(active_tab_index, QIcon("images/NotesIconWhite.png"))
+        else:
+            self.tabWidget.setTabIcon(active_tab_index, QIcon("images/SettingsIconWhite.png"))
+    
+    def select_color(self):
+        color = QColorDialog().getColor()
+        print(color.name())
+        self.lbl_hex_color.setText(color.name())
+        self.lbl_hex_color.setStyleSheet(f"color: {color.name()};")
+
+    def show_fonts(self):
+        path = "fonts/"
+        fonts = list(os.scandir(path))
+        display_names = []
+        self.font_names = []
+        for font in fonts:
+            QFontDatabase.addApplicationFont(f"{path}{font.name}")
+            font_file = TTFont(f"{path}{font.name}")
+            # get the name of the font to set the font
+            font_name = font_file["name"].getName(1, 3, 1).toUnicode()
+            self.font_names.append(font_name)
+            def add_space(letter):
+                if letter.isupper():
+                    return f" {letter}"
+                else:
+                    return letter
+            # format the display name and add it to the names list
+            display_name = "".join(map(add_space, "".join(font.name.split("-")))).split(".")[0]
+            display_names.append(display_name)
+        for name in sorted(display_names):
+            self.cmb_font.addItem(name)
+
+       
+
+    def select_font(self):
+        font_index = self.cmb_font.currentIndex()
+        
+        font = QFont(self.font_names[font_index], 18)
+        self.lbl_font_example.setText("This Is Your Font")
+        self.lbl_font_example.setFont(font)
+
+            
+        
+    
+
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main = Main()
