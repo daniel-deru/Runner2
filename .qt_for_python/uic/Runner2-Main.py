@@ -31,7 +31,7 @@ class Ui_Runner(object):
 "    background-color: white;\n"
 "    font-size: 16px;\n"
 "    height: 30px;\n"
-"    width: 100px;\n"
+"    width: 120px;\n"
 "    color: black;\n"
 "}\n"
 "\n"
@@ -129,7 +129,7 @@ class Ui_Runner(object):
         self.apps_scroll_area.setWidgetResizable(True)
         self.apps_scroll_area.setObjectName("apps_scroll_area")
         self.apps_scroll_area_widget = QtWidgets.QWidget()
-        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 100, 30))
+        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 610, 449))
         self.apps_scroll_area_widget.setObjectName("apps_scroll_area_widget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.apps_scroll_area_widget)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -216,7 +216,7 @@ class Ui_Runner(object):
         self.notes_scroll_area.setWidgetResizable(True)
         self.notes_scroll_area.setObjectName("notes_scroll_area")
         self.notes_scroll_area_widget = QtWidgets.QWidget()
-        self.notes_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 100, 30))
+        self.notes_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 610, 449))
         self.notes_scroll_area_widget.setStyleSheet("#notes_scroll_area_widget {\n"
 "    background-color: #007EA6;\n"
 "}")
@@ -320,6 +320,15 @@ class Ui_Runner(object):
         self.hbox_save.setObjectName("hbox_save")
         spacerItem5 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.hbox_save.addItem(spacerItem5)
+        self.btn_reset = QtWidgets.QPushButton(self.settings_tab)
+        self.btn_reset.setMinimumSize(QtCore.QSize(200, 0))
+        self.btn_reset.setStyleSheet("QPushButton:pressed {\n"
+"    background-color: white;\n"
+"    color: #007ea6;\n"
+"\n"
+"}")
+        self.btn_reset.setObjectName("btn_reset")
+        self.hbox_save.addWidget(self.btn_reset)
         self.btn_save = QtWidgets.QPushButton(self.settings_tab)
         self.btn_save.setMinimumSize(QtCore.QSize(200, 0))
         self.btn_save.setStyleSheet("QPushButton:pressed {\n"
@@ -362,5 +371,6 @@ class Ui_Runner(object):
         self.rbtn_date.setText(_translate("Runner", "Date"))
         self.rbtn_title.setText(_translate("Runner", "Title"))
         self.rbtn_priority.setText(_translate("Runner", "Priority"))
+        self.btn_reset.setText(_translate("Runner", "Reset"))
         self.btn_save.setText(_translate("Runner", "Save"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), _translate("Runner", "Settings"))

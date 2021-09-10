@@ -3,13 +3,16 @@ import sys
 import json
 import re
 import subprocess
-from os import path as file
+
+# get the database path in order to use the DB class
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 
 from inspect import currentframe, getframeinfo
 
+# This module is to access the font file
 from fontTools.ttLib import TTFont
+
 # PyQt5 imports
 from PyQt5.QtWidgets import QApplication, QWidget, QSpacerItem, QSizePolicy, QColorDialog
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
@@ -25,27 +28,29 @@ from primary_windows.Notes import NotesWindow
 from secondary_windows.Delete import DeleteWindow
 from secondary_windows.SelectWindow import SelectWindow
 
-
-
-
+# Import the database class
 from database.db import DB
 
 # Import functions that make the notes and file containers (sub widgets)
 from class_snippets.NoteBox import make_note_container
 from class_snippets.FileBox import make_file_container
-from class_snippets.fonts import get_sys_fonts
+from class_snippets.colors import setColors
 
 
 class Main(QWidget, Ui_Runner):
     def __init__(self):
         super(Main, self).__init__()
-        
-        self.setWindowTitle("Runner")
         self.setupUi(self)
-
+        self.setWindowTitle("WorkMate")
         self.setWindowIcon(QIcon("images/WorkMate.png"))
-        
+        self.tabWidget.setCurrentIndex(0)
+
+        # show the notes and files when the window loads
+        self.show_notes()
+        self.show_files()
+        self.add_tab_icons()
         self.show_fonts()
+        self.load_settings()
         self.app_font = QFont("Nunito SemiBold", 18)
        
         # add the fonts to all the buttons and tabs in the main window
@@ -59,7 +64,7 @@ class Main(QWidget, Ui_Runner):
         self.btn_notes_edit.setFont(self.app_font)
         self.main_add_notes_btn.setFont(self.app_font)
         
-        self.tabWidget.setCurrentIndex(0)
+        
 
         # File connections
         self.main_add_category_btn.clicked.connect(self.add_category_clicked)
@@ -72,17 +77,14 @@ class Main(QWidget, Ui_Runner):
         self.btn_notes_delete.clicked.connect(self.notes_delete_clicked)
         self.btn_notes_edit.clicked.connect(self.notes_edit_clicked)
 
-        self.tabWidget.currentChanged.connect(self.add_tab_icons)
+        # Settings connections
+        self.btn_save.clicked.connect(self.save_settings)
         self.cmb_font.activated.connect(self.select_font)
-
         self.btn_choose_color.clicked.connect(self.select_color)
- 
-        # show the notes and files when the window loads
-        self.show_notes()
-        self.show_files()
-        self.add_tab_icons()
-        
+        self.btn_reset.clicked.connect(self.reset_clicked)
 
+        self.tabWidget.currentChanged.connect(self.add_tab_icons)
+        
 
     # open category window to add categories
     def add_category_clicked(self):
@@ -141,8 +143,6 @@ class Main(QWidget, Ui_Runner):
         for file in run_list:
             os.startfile(file)
                         
-
-                
 
     # open the notes window to add notes
     def add_notes_clicked(self):
@@ -221,6 +221,7 @@ class Main(QWidget, Ui_Runner):
         db = DB()
         db.update_category_state(name, value)
     
+    # add the tabicons and change them depending on which window is active
     def add_tab_icons(self): 
         self.tabWidget.setTabIcon(0, QIcon("images/AppsIconBlack.png"))
         self.tabWidget.setTabIcon(1, QIcon("images/NotesIconBlack.png"))
@@ -233,23 +234,30 @@ class Main(QWidget, Ui_Runner):
         else:
             self.tabWidget.setTabIcon(active_tab_index, QIcon("images/SettingsIconWhite.png"))
     
+    # open color dialog and update the color example
     def select_color(self):
         color = QColorDialog().getColor()
-        print(color.name())
         self.lbl_hex_color.setText(color.name())
         self.lbl_hex_color.setStyleSheet(f"color: {color.name()};")
 
     def show_fonts(self):
         path = "fonts/"
+        # get the fonts from the fonts dir
         fonts = list(os.scandir(path))
+
+        # variables to keep track of the font names (to use in QFont class) and names to display to the user
         display_names = []
         self.font_names = []
+
+        # loop over the fonts dir and add them to the font data base
+        # add font names and display names to lists
         for font in fonts:
             QFontDatabase.addApplicationFont(f"{path}{font.name}")
             font_file = TTFont(f"{path}{font.name}")
-            # get the name of the font to set the font
+            # get the name of the font to set the font name
             font_name = font_file["name"].getName(1, 3, 1).toUnicode()
             self.font_names.append(font_name)
+            # callback function for the map called below
             def add_space(letter):
                 if letter.isupper():
                     return f" {letter}"
@@ -258,24 +266,46 @@ class Main(QWidget, Ui_Runner):
             # format the display name and add it to the names list
             display_name = "".join(map(add_space, "".join(font.name.split("-")))).split(".")[0]
             display_names.append(display_name)
+        # add the display names to the combobox
         for name in sorted(display_names):
             self.cmb_font.addItem(name)
 
        
-
+    # get font and update the example text
     def select_font(self):
         font_index = self.cmb_font.currentIndex()
-        
         font = QFont(self.font_names[font_index], 18)
         self.lbl_font_example.setText("This Is Your Font")
         self.lbl_font_example.setFont(font)
-
-            
-        
     
+    # save the current settings
+    def save_settings(self):
+        color = self.lbl_hex_color.text()
+        font = self.cmb_font.currentText()
+        note_order = ""
+        for i in range(self.hbox_order.count()):
+            if self.hbox_order.itemAt(i).widget().isChecked():
+                note_order = self.hbox_order.itemAt(i).widget().text().lower()
+        
+        settings = (color, font, note_order)
+        db = DB()
+        db.update_settings(settings)
 
+    # reset the settings
+    def reset_clicked(self):
+        db = DB()
+        db.first_state(True)
 
-
+    def load_settings(self):
+        db = DB()
+        settings = db.read("settings")
+        self.load_color(settings[0][0])
+        
+    def load_color(self, color):
+        setColors(self.tabWidget, color, "tabWidget")
+        setColors(self.apps_tab, color, "apps_tab")
+        # self.tabWidget.setStyleSheet(tabWidget)
+            
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     main = Main()

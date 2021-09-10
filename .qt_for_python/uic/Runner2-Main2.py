@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Runner2-Main2.ui'
+# Form implementation generated from reading ui file 'c:\Users\SATRUST\OneDrive\Desktop\code\Runner2\ui files\Runner2-Main2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -123,7 +123,7 @@ class Ui_Runner(object):
         self.apps_container_vlayout.addWidget(self.apps_scroll_area)
         self.verticalLayout_2.addLayout(self.apps_container_vlayout)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../images/AppsIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\SATRUST\\OneDrive\\Desktop\\code\\Runner2\\ui files\\../images/AppsIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.apps_tab, icon, "")
         self.notes_tab = QtWidgets.QWidget()
         self.notes_tab.setStyleSheet("")
@@ -203,7 +203,7 @@ class Ui_Runner(object):
         self.notes_scroll_outer_layout.addWidget(self.notes_scroll_area)
         self.notes_tab_layout.addLayout(self.notes_scroll_outer_layout)
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("../images/NotesIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\SATRUST\\OneDrive\\Desktop\\code\\Runner2\\ui files\\../images/NotesIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.notes_tab, icon1, "")
         self.settings_tab = QtWidgets.QWidget()
         self.settings_tab.setStyleSheet("color: white;\n"
@@ -309,7 +309,7 @@ class Ui_Runner(object):
         self.hbox_save.addItem(spacerItem6)
         self.verticalLayout.addLayout(self.hbox_save)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("../images/SettingsIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\SATRUST\\OneDrive\\Desktop\\code\\Runner2\\ui files\\../images/SettingsIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.settings_tab, icon2, "")
         self.runner_main_layout.addWidget(self.tabWidget)
 
@@ -341,13 +341,3 @@ class Ui_Runner(object):
         self.btn_reset.setText(_translate("Runner", "Reset"))
         self.btn_save.setText(_translate("Runner", "Save"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.settings_tab), _translate("Runner", "Settings"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Runner = QtWidgets.QWidget()
-    ui = Ui_Runner()
-    ui.setupUi(Runner)
-    Runner.show()
-    sys.exit(app.exec_())

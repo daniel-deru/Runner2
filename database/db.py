@@ -4,7 +4,7 @@ import sqlite3
 class DB:
     def __init__(self):
         # connect to database and create cursor to interact with database
-        self.db = sqlite3.connect("runner.db")
+        self.db = sqlite3.connect("database/runner.db")
         self.cur = self.db.cursor()
 
         notes_table = """
@@ -147,11 +147,14 @@ class DB:
             self.db.commit()
         self.db.close()
         
-    def first_state(self):
+    def first_state(self, reset):
         self.cur.execute("SELECT color FROM settings")
         data = self.cur.fetchone()
         if not data:
             self.cur.execute("INSERT INTO settings (color, font, note_order) VALUES ('#007EA6', 'Nunito SemiBold', 'title')")
+            self.db.commit()
+        elif reset:
+            self.cur.execute("UPDATE settings SET color = '#007EA6', font = 'Nunito SemiBold', note_order = 'title'")
             self.db.commit()
         self.db.close()
 
