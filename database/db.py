@@ -4,7 +4,7 @@ import sqlite3
 class DB:
     def __init__(self):
         # connect to database and create cursor to interact with database
-        self.db = sqlite3.connect("database/runner.db")
+        self.db = sqlite3.connect("runner.db")
         self.cur = self.db.cursor()
 
         notes_table = """
@@ -26,11 +26,16 @@ class DB:
             file_id INT PRIMARY KEY,
             FOREIGN KEY(category_name) REFERENCES categories(name)
             )"""
+        
+        settings_table = """
+            CREATE TABLE IF NOT EXISTS settings(color TEXT NOT NULL, font TEXT NOT NULL, note_order TEXT NOT NULL)
+        """
 
         # create the necessary tables
         self.create_table(notes_table)
         self.create_table(categories_table)
         self.create_table(files_table)
+        self.create_table(settings_table)
 
     # save methode to save to database
     def save(self, table, data):
@@ -62,15 +67,13 @@ class DB:
         query = ""
 
         if field == None and value == None:
-            query = f"""
-                SELECT * FROM {table}
-            """
+            query = f"""SELECT * FROM {table}"""
+            self.cur.execute(query)
         else:
-            query = f"""
-                SELECT * FROM {table} WHERE {field} = '{value}'
-            """
+            query = f"""SELECT * FROM {table} WHERE {field} = (?)"""
+            self.cur.execute(query, value)
+
         # execute the query and get all the data
-        self.cur.execute(query)
         data = self.cur.fetchall()
 
         # close the connection and return the data
@@ -87,16 +90,16 @@ class DB:
 
         # check if the table is files or notes because they will have a different query
         if table == "files" or table == "notes":       
-            query = f"""DELETE FROM {table} WHERE {label} = '{name}'"""
+            query = f"""DELETE FROM {table} WHERE {label} = (?)"""
         
         elif table == "categories":
-            query = f"""DELETE FROM categories WHERE {label} = '{name}'"""
+            query = f"""DELETE FROM categories WHERE {label} = (?)"""
 
             # second query to delete all the files if the entire category is deleted
-            query2 = f"""DELETE FROM files WHERE category_name = '{name}'"""
-            self.cur.execute(query2)
+            query2 = f"""DELETE FROM files WHERE category_name = (?)"""
+            self.cur.execute(query2, name)
 
-        self.cur.execute(query)
+        self.cur.execute(query, name)
 
         self.db.commit()
         self.db.close()
@@ -108,10 +111,10 @@ class DB:
         label = "name" if table == "categories" else "title"
 
         query = f"""
-            SELECT * FROM {table} WHERE {label} = '{name}'
+            SELECT * FROM {table} WHERE {label} = (?)
         """
 
-        self.cur.execute(query)
+        self.cur.execute(query, name)
         data = self.cur.fetchone()
         self.db.close()
         return data
@@ -123,17 +126,35 @@ class DB:
         # their respective windows this method will only apply when the user updates the information
 
         label = "category_name" if table == "files" else "name" if table == "categories" else "title"
-        query = f"""DELETE FROM {table} WHERE {label} = '{name}'"""
+        query = f"""DELETE FROM {table} WHERE {label} = (?)"""
 
-        self.cur.execute(query)
+        self.cur.execute(query, name)
         self.save(table, data)
     
     def update_category_state(self, name, state):
-        query = f"UPDATE categories SET active = {state} WHERE name = '{name}'"
-        self.cur.execute(query)
+        query = f"UPDATE categories SET active = {state} WHERE name = (?)"
+        self.cur.execute(query, name)
         self.db.commit()
         self.db.close()
-
+    
+    def update_settings(self, data):
+        fields = ("color", "font", "note_order")
+        for i in range(len(fields)):
+            query = f"""
+                UPDATE settings SET {fields[i]} = (?);
+            """
+            self.cur.execute(query, data[i])
+            self.db.commit()
+        self.db.close()
+        
+    def first_state(self):
+        self.cur.execute("SELECT color FROM settings")
+        data = self.cur.fetchone()
+        if not data:
+            self.cur.execute("INSERT INTO settings (color, font, note_order) VALUES ('#007EA6', 'Nunito SemiBold', 'title')")
+            self.db.commit()
+        self.db.close()
 
     def create_table(self, command):
         self.cur.execute(command)
+
