@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Runner2-Main2.ui'
+# Form implementation generated from reading ui file 'Runner2-Main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,16 +14,18 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Runner(object):
     def setupUi(self, Runner):
         Runner.setObjectName("Runner")
-        Runner.resize(612, 531)
+        Runner.resize(612, 522)
         Runner.setStyleSheet("#Runner {\n"
 "    background-color: white;\n"
-"\n"
-"}")
+"}\n"
+"")
         self.runner_main_layout = QtWidgets.QVBoxLayout(Runner)
         self.runner_main_layout.setContentsMargins(0, 0, 0, 0)
         self.runner_main_layout.setObjectName("runner_main_layout")
         self.tabWidget = QtWidgets.QTabWidget(Runner)
-        self.tabWidget.setStyleSheet("\n"
+        self.tabWidget.setStyleSheet("QTabWidget {\n"
+"    background-color: #007EA6;\n"
+"}\n"
 "\n"
 "QTabBar::tab {\n"
 "    background-color: white;\n"
@@ -34,10 +36,19 @@ class Ui_Runner(object):
 "}\n"
 "\n"
 "QTabBar::tab:selected {\n"
+"    background-color: #007EA6;\n"
 "    color: white;\n"
 "}\n"
 "\n"
-"QPushButton {\n"
+" QTabWidget::pane {\n"
+"    background-color: #007EA6;\n"
+"}\n"
+"\n"
+"\n"
+"")
+        self.tabWidget.setObjectName("tabWidget")
+        self.apps_tab = QtWidgets.QWidget()
+        self.apps_tab.setStyleSheet("QPushButton {\n"
 "    color: white;\n"
 "    border: 2px solid white;\n"
 "    background-color: transparent;\n"
@@ -47,16 +58,27 @@ class Ui_Runner(object):
 "}\n"
 "\n"
 "QPushButton:pressed {\n"
+"    color: #007EA6;\n"
 "    background-color: white;\n"
+"    border-color: #007EA6;\n"
 "}\n"
 "\n"
+"#btn_run {\n"
+"    background-color: white;\n"
+"    color: #007EA6;\n"
+"    border: 2px solid white;\n"
+"    min-width: 120px;\n"
+"}\n"
 "\n"
+"#btn_run:pressed {\n"
+"    background-color: transparent;\n"
+"    color: white;\n"
+"}\n"
 "\n"
-"\n"
+"QWidget {\n"
+"    background-color: #007EA6;\n"
+"}\n"
 "")
-        self.tabWidget.setObjectName("tabWidget")
-        self.apps_tab = QtWidgets.QWidget()
-        self.apps_tab.setStyleSheet("")
         self.apps_tab.setObjectName("apps_tab")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.apps_tab)
         self.verticalLayout_2.setContentsMargins(0, 9, 0, 0)
@@ -65,19 +87,7 @@ class Ui_Runner(object):
         self.gbox_apps_btn_container.setContentsMargins(15, -1, 15, -1)
         self.gbox_apps_btn_container.setObjectName("gbox_apps_btn_container")
         self.main_add_category_btn = QtWidgets.QPushButton(self.apps_tab)
-        self.main_add_category_btn.setStyleSheet("QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"    font-size: 16px;\n"
-"    border-radius: 10px;\n"
-"    min-width: 120px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: white;\n"
-"}")
+        self.main_add_category_btn.setStyleSheet("min-width: 120px;")
         self.main_add_category_btn.setObjectName("main_add_category_btn")
         self.gbox_apps_btn_container.addWidget(self.main_add_category_btn, 0, 1, 1, 1)
         self.apps_btn_delete = QtWidgets.QPushButton(self.apps_tab)
@@ -89,16 +99,7 @@ class Ui_Runner(object):
         self.apps_btn_edit.setObjectName("apps_btn_edit")
         self.gbox_apps_btn_container.addWidget(self.apps_btn_edit, 0, 2, 1, 1)
         self.btn_run = QtWidgets.QPushButton(self.apps_tab)
-        self.btn_run.setStyleSheet("#btn_run {\n"
-"    background-color: white;\n"
-"    border: 2px solid white;\n"
-"    min-width: 120px;\n"
-"}\n"
-"\n"
-"#btn_run:pressed {\n"
-"    background-color: transparent;\n"
-"    color: white;\n"
-"}")
+        self.btn_run.setStyleSheet("")
         self.btn_run.setObjectName("btn_run")
         self.gbox_apps_btn_container.addWidget(self.btn_run, 0, 4, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -115,7 +116,7 @@ class Ui_Runner(object):
         self.apps_scroll_area.setWidgetResizable(True)
         self.apps_scroll_area.setObjectName("apps_scroll_area")
         self.apps_scroll_area_widget = QtWidgets.QWidget()
-        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 100, 30))
+        self.apps_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 610, 440))
         self.apps_scroll_area_widget.setObjectName("apps_scroll_area_widget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.apps_scroll_area_widget)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
@@ -126,7 +127,25 @@ class Ui_Runner(object):
         icon.addPixmap(QtGui.QPixmap("../images/AppsIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.apps_tab, icon, "")
         self.notes_tab = QtWidgets.QWidget()
-        self.notes_tab.setStyleSheet("")
+        self.notes_tab.setStyleSheet("QPushButton {\n"
+"    color: white;\n"
+"    border: 2px solid white;\n"
+"    background-color: transparent;\n"
+"    padding: 5px;\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
+"    border-color: #007EA6;\n"
+"}\n"
+"\n"
+"QWidget {\n"
+"    background-color: #007EA6;\n"
+"}\n"
+"")
         self.notes_tab.setObjectName("notes_tab")
         self.notes_tab_layout = QtWidgets.QVBoxLayout(self.notes_tab)
         self.notes_tab_layout.setContentsMargins(0, -1, 0, 0)
@@ -137,51 +156,15 @@ class Ui_Runner(object):
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.add_note_layout.addItem(spacerItem2)
         self.main_add_notes_btn = QtWidgets.QPushButton(self.notes_tab)
-        self.main_add_notes_btn.setStyleSheet("QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"    font-size: 16px;\n"
-"    border-radius: 10px;\n"
-"    min-width: 170px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: white;\n"
-"}")
+        self.main_add_notes_btn.setStyleSheet("min-width: 150px;")
         self.main_add_notes_btn.setObjectName("main_add_notes_btn")
         self.add_note_layout.addWidget(self.main_add_notes_btn)
         self.btn_notes_edit = QtWidgets.QPushButton(self.notes_tab)
-        self.btn_notes_edit.setStyleSheet("QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"    font-size: 16px;\n"
-"    border-radius: 10px;\n"
-"    min-width: 170px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: white;\n"
-"}")
+        self.btn_notes_edit.setStyleSheet("min-width: 150px;")
         self.btn_notes_edit.setObjectName("btn_notes_edit")
         self.add_note_layout.addWidget(self.btn_notes_edit)
         self.btn_notes_delete = QtWidgets.QPushButton(self.notes_tab)
-        self.btn_notes_delete.setStyleSheet("QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"    font-size: 16px;\n"
-"    border-radius: 10px;\n"
-"    min-width: 170px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    background-color: white;\n"
-"}")
+        self.btn_notes_delete.setStyleSheet("min-width: 150px;")
         self.btn_notes_delete.setObjectName("btn_notes_delete")
         self.add_note_layout.addWidget(self.btn_notes_delete)
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -194,7 +177,7 @@ class Ui_Runner(object):
         self.notes_scroll_area.setWidgetResizable(True)
         self.notes_scroll_area.setObjectName("notes_scroll_area")
         self.notes_scroll_area_widget = QtWidgets.QWidget()
-        self.notes_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 100, 30))
+        self.notes_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 610, 440))
         self.notes_scroll_area_widget.setStyleSheet("")
         self.notes_scroll_area_widget.setObjectName("notes_scroll_area_widget")
         self.notes_scroll_layout = QtWidgets.QVBoxLayout(self.notes_scroll_area_widget)
@@ -206,8 +189,53 @@ class Ui_Runner(object):
         icon1.addPixmap(QtGui.QPixmap("../images/NotesIcon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.tabWidget.addTab(self.notes_tab, icon1, "")
         self.settings_tab = QtWidgets.QWidget()
-        self.settings_tab.setStyleSheet("color: white;\n"
-"font-size: 16px;")
+        self.settings_tab.setStyleSheet("QWidget {\n"
+"    background-color: #007EA6;\n"
+"    color: white;\n"
+"    font-size: 16px;\n"
+"}\n"
+"\n"
+"QPushButton {\n"
+"    color: white;\n"
+"    border: 2px solid white;\n"
+"    background-color: transparent;\n"
+"    padding: 5px;\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"}\n"
+"\n"
+"QPushButton:pressed {\n"
+"    color: #007EA6;\n"
+"    background-color: white;\n"
+"    border-color: #007EA6;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"#btn_choose_color:pressed {\n"
+"    background-color: white;\n"
+"    color: #007EA6;\n"
+"\n"
+"}\n"
+"\n"
+"QComboBox {\n"
+"    border: 2px solid white;\n"
+"    border-radius: 5px;\n"
+"    padding: 5;\n"
+"  \n"
+"}\n"
+"\n"
+"QComboBox QAbstractItemView {\n"
+"    border: 2px solid white;\n"
+"    border-radius: 5px;\n"
+"    selection-background-color: #007EA6;\n"
+"    background-color: white;\n"
+"    color: black;\n"
+"    selection-color: white;\n"
+"    outline: none;\n"
+"}\n"
+"\n"
+"")
         self.settings_tab.setObjectName("settings_tab")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.settings_tab)
         self.verticalLayout.setSpacing(15)
@@ -226,6 +254,7 @@ class Ui_Runner(object):
         self.hbox_color.addWidget(self.btn_choose_color)
         self.verticalLayout.addLayout(self.hbox_color)
         self.line1 = QtWidgets.QFrame(self.settings_tab)
+        self.line1.setAutoFillBackground(False)
         self.line1.setFrameShadow(QtWidgets.QFrame.Plain)
         self.line1.setFrameShape(QtWidgets.QFrame.HLine)
         self.line1.setObjectName("line1")
@@ -239,21 +268,7 @@ class Ui_Runner(object):
         self.lbl_font_example.setObjectName("lbl_font_example")
         self.hbox_font.addWidget(self.lbl_font_example)
         self.cmb_font = QtWidgets.QComboBox(self.settings_tab)
-        self.cmb_font.setStyleSheet("QComboBox {\n"
-"    border: 2px solid white;\n"
-"    border-radius: 5px;\n"
-"    padding: 5;\n"
-"  \n"
-"}\n"
-"\n"
-"QComboBox QAbstractItemView {\n"
-"    border: 2px solid white;\n"
-"    border-radius: 5px;\n"
-"    background-color: white;\n"
-"    color: black;\n"
-"    selection-color: white;\n"
-"    outline: none;\n"
-"}")
+        self.cmb_font.setStyleSheet("")
         self.cmb_font.setFrame(True)
         self.cmb_font.setObjectName("cmb_font")
         self.hbox_font.addWidget(self.cmb_font)
@@ -292,17 +307,12 @@ class Ui_Runner(object):
         self.hbox_save.addItem(spacerItem5)
         self.btn_reset = QtWidgets.QPushButton(self.settings_tab)
         self.btn_reset.setMinimumSize(QtCore.QSize(200, 0))
-        self.btn_reset.setStyleSheet("QPushButton:pressed {\n"
-"    background-color: white;\n"
-"\n"
-"}")
+        self.btn_reset.setStyleSheet("")
         self.btn_reset.setObjectName("btn_reset")
         self.hbox_save.addWidget(self.btn_reset)
         self.btn_save = QtWidgets.QPushButton(self.settings_tab)
         self.btn_save.setMinimumSize(QtCore.QSize(200, 0))
-        self.btn_save.setStyleSheet("QPushButton:pressed {\n"
-"    background-color: white;\n"
-"}")
+        self.btn_save.setStyleSheet("")
         self.btn_save.setObjectName("btn_save")
         self.hbox_save.addWidget(self.btn_save)
         spacerItem6 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -314,7 +324,7 @@ class Ui_Runner(object):
         self.runner_main_layout.addWidget(self.tabWidget)
 
         self.retranslateUi(Runner)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Runner)
 
     def retranslateUi(self, Runner):

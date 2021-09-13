@@ -39,33 +39,24 @@ from class_snippets.colors import setColors
 
 class Main(QWidget, Ui_Runner):
     def __init__(self):
-        super(Main, self).__init__()
+        super(Main, self).__init__()  
         self.setupUi(self)
+        self.add_tab_icons()
+        
         self.setWindowTitle("WorkMate")
         self.setWindowIcon(QIcon("images/WorkMate.png"))
         self.tabWidget.setCurrentIndex(0)
 
+        db = DB()
+        db.first_state()
+
         # show the notes and files when the window loads
         self.show_notes()
         self.show_files()
-        self.add_tab_icons()
         self.show_fonts()
         self.load_settings()
-        self.app_font = QFont("Nunito SemiBold", 18)
-       
-        # add the fonts to all the buttons and tabs in the main window
-        self.tabWidget.setFont(self.app_font)
-        self.apps_btn_delete.setFont(self.app_font)
-        self.apps_btn_edit.setFont(self.app_font)
-        self.main_add_category_btn.setFont(self.app_font)
-        self.btn_run.setFont(self.app_font)
-
-        self.btn_notes_delete.setFont(self.app_font)
-        self.btn_notes_edit.setFont(self.app_font)
-        self.main_add_notes_btn.setFont(self.app_font)
         
         
-
         # File connections
         self.main_add_category_btn.clicked.connect(self.add_category_clicked)
         self.apps_btn_delete.clicked.connect(self.delete_category_clicked)
@@ -163,7 +154,7 @@ class Main(QWidget, Ui_Runner):
         select_notes.exec_()
     
     # Helper methods
-    def update(self, signal):
+    def update(self):
         self.show_files()
         self.show_notes()
     
@@ -236,9 +227,9 @@ class Main(QWidget, Ui_Runner):
     
     # open color dialog and update the color example
     def select_color(self):
-        color = QColorDialog().getColor()
-        self.lbl_hex_color.setText(color.name())
-        self.lbl_hex_color.setStyleSheet(f"color: {color.name()};")
+        color = QColorDialog().getColor().name()
+        self.lbl_hex_color.setText(color)
+        self.lbl_hex_color.setStyleSheet(f"color: {color};")
 
     def show_fonts(self):
         path = "fonts/"
@@ -246,7 +237,7 @@ class Main(QWidget, Ui_Runner):
         fonts = list(os.scandir(path))
 
         # variables to keep track of the font names (to use in QFont class) and names to display to the user
-        display_names = []
+        self.display_names = []
         self.font_names = []
 
         # loop over the fonts dir and add them to the font data base
@@ -265,9 +256,9 @@ class Main(QWidget, Ui_Runner):
                     return letter
             # format the display name and add it to the names list
             display_name = "".join(map(add_space, "".join(font.name.split("-")))).split(".")[0]
-            display_names.append(display_name)
+            self.display_names.append(display_name)
         # add the display names to the combobox
-        for name in sorted(display_names):
+        for name in sorted(self.display_names):
             self.cmb_font.addItem(name)
 
        
@@ -280,31 +271,92 @@ class Main(QWidget, Ui_Runner):
     
     # save the current settings
     def save_settings(self):
-        color = self.lbl_hex_color.text()
-        font = self.cmb_font.currentText()
+        db = DB()
+        old_color = db.read("settings")[0][1]
+        new_color = self.lbl_hex_color.text()
+        font = self.cmb_font.currentText().strip()
         note_order = ""
         for i in range(self.hbox_order.count()):
             if self.hbox_order.itemAt(i).widget().isChecked():
                 note_order = self.hbox_order.itemAt(i).widget().text().lower()
         
-        settings = (color, font, note_order)
-        db = DB()
-        db.update_settings(settings)
+        settings = (old_color, new_color, font, note_order)
+        db2 = DB()
+        db2.update_settings(settings)
+        self.load_settings()
+
 
     # reset the settings
     def reset_clicked(self):
         db = DB()
         db.first_state(True)
+        self.load_settings()
 
     def load_settings(self):
         db = DB()
         settings = db.read("settings")
-        self.load_color(settings[0][0])
+
+        # set your current color
+        self.load_color(settings[0][0], settings[0][1])
+        self.lbl_hex_color.setText(settings[0][1])
+        self.lbl_hex_color.setStyleSheet("color: white;")
+
+        #set the current font
+        self.set_font(settings[0][2])
+        font_index = self.cmb_font.findText(f" {settings[0][2]}")
+        self.cmb_font.setCurrentIndex(font_index)
+        current_font = QFont(self.font_names[font_index], 18)
+        self.lbl_font_example.setFont(current_font)
         
-    def load_color(self, color):
-        setColors(self.tabWidget, color, "tabWidget")
-        setColors(self.apps_tab, color, "apps_tab")
-        # self.tabWidget.setStyleSheet(tabWidget)
+
+        # set current note order
+        for i in range(len(self.hbox_order)):
+            if self.hbox_order.itemAt(i).widget().text().lower() == settings[0][3]:
+                self.hbox_order.itemAt(i).widget().setChecked(True)
+        
+       
+        
+    def load_color(self, old_color, new_color):
+        widgets = [self.tabWidget, self.apps_tab, self.notes_tab, self.settings_tab]
+        for widget in widgets:
+            stylesheet = widget.styleSheet()
+            stylesheet_updated = re.sub(f"{old_color}|#007EA6", new_color, stylesheet)
+            widget.setStyleSheet(stylesheet_updated)
+
+    def set_font(self, font):
+        font_index = self.display_names.index(f" {font}")
+        fontname = self.font_names[font_index]
+        font = QFont(fontname, 18)
+        labels = [
+            self.tabWidget,
+            self.apps_btn_delete,
+            self.apps_btn_edit,
+            self.main_add_category_btn,
+            self.btn_run,
+            self.btn_notes_delete,
+            self.btn_notes_edit,
+            self.main_add_notes_btn,
+            self.lbl_main_color,
+            self.lbl_hex_color,
+            self.lbl_font,
+            self.btn_choose_color,
+            self.btn_reset,
+            self.btn_save,
+            self.lbl_order,
+            self.rbtn_date,
+            self.rbtn_priority,
+            self.rbtn_title,
+            self.cmb_font
+        ]
+
+        for label in labels:
+            label.setFont(font)
+        
+
+        
+       
+    
+
             
 if __name__ == "__main__":
     app = QApplication(sys.argv)

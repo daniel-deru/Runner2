@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>612</width>
-    <height>531</height>
+    <height>522</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <property name="styleSheet">
    <string notr="true">#Runner {
 	background-color: white;
-
-}</string>
+}
+</string>
   </property>
   <layout class="QVBoxLayout" name="runner_main_layout">
    <property name="leftMargin">
@@ -35,7 +35,7 @@
    <item>
     <widget class="QTabWidget" name="tabWidget">
      <property name="styleSheet">
-      <string notr="true">#tabWidget {
+      <string notr="true">QTabWidget {
 	background-color: #007EA6;
 }
 
@@ -56,7 +56,15 @@ QTabBar::tab:selected {
 	background-color: #007EA6;
 }
 
-QPushButton {
+
+</string>
+     </property>
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="apps_tab">
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
 	color: white;
 	border: 2px solid white;
 	background-color: transparent;
@@ -71,19 +79,22 @@ QPushButton:pressed {
 	border-color: #007EA6;
 }
 
+#btn_run {
+	background-color: white;
+	color: #007EA6;
+	border: 2px solid white;
+	min-width: 120px;
+}
 
+#btn_run:pressed {
+	background-color: transparent;
+	color: white;
+}
 
-
-</string>
-     </property>
-     <property name="currentIndex">
-      <number>2</number>
-     </property>
-     <widget class="QWidget" name="apps_tab">
-      <property name="styleSheet">
-       <string notr="true">#apps_tab {
+QWidget {
 	background-color: #007EA6;
-}</string>
+}
+</string>
       </property>
       <attribute name="icon">
        <iconset>
@@ -116,21 +127,7 @@ QPushButton:pressed {
          <item row="0" column="1">
           <widget class="QPushButton" name="main_add_category_btn">
            <property name="styleSheet">
-            <string notr="true">QPushButton {
-	color: white;
-	border: 2px solid white;
-	background-color: transparent;
-	padding: 5px;
-	font-size: 16px;
-	border-radius: 10px;
-	min-width: 120px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-	border-color: #007EA6;
-}</string>
+            <string notr="true">min-width: 120px;</string>
            </property>
            <property name="text">
             <string>Add Category</string>
@@ -160,17 +157,7 @@ QPushButton:pressed {
          <item row="0" column="4">
           <widget class="QPushButton" name="btn_run">
            <property name="styleSheet">
-            <string notr="true">#btn_run {
-	background-color: white;
-	color: #007EA6;
-	border: 2px solid white;
-	min-width: 120px;
-}
-
-#btn_run:pressed {
-	background-color: transparent;
-	color: white;
-}</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>Run Active</string>
@@ -213,7 +200,7 @@ QPushButton:pressed {
          <item>
           <widget class="QScrollArea" name="apps_scroll_area">
            <property name="styleSheet">
-            <string notr="true">background-color: #007ea6;</string>
+            <string notr="true"/>
            </property>
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
@@ -227,7 +214,7 @@ QPushButton:pressed {
               <x>0</x>
               <y>0</y>
               <width>610</width>
-              <height>449</height>
+              <height>440</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3"/>
@@ -240,9 +227,25 @@ QPushButton:pressed {
      </widget>
      <widget class="QWidget" name="notes_tab">
       <property name="styleSheet">
-       <string notr="true">#notes_tab {
+       <string notr="true">QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}
+
+QWidget {
 	background-color: #007EA6;
-}</string>
+}
+</string>
       </property>
       <attribute name="icon">
        <iconset>
@@ -285,21 +288,7 @@ QPushButton:pressed {
          <item>
           <widget class="QPushButton" name="main_add_notes_btn">
            <property name="styleSheet">
-            <string notr="true">QPushButton {
-	color: white;
-	border: 2px solid white;
-	background-color: transparent;
-	padding: 5px;
-	font-size: 16px;
-	border-radius: 10px;
-	min-width: 170px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-	border-color: #007EA6;
-}</string>
+            <string notr="true">min-width: 150px;</string>
            </property>
            <property name="text">
             <string>Add Notes</string>
@@ -309,21 +298,7 @@ QPushButton:pressed {
          <item>
           <widget class="QPushButton" name="btn_notes_edit">
            <property name="styleSheet">
-            <string notr="true">QPushButton {
-	color: white;
-	border: 2px solid white;
-	background-color: transparent;
-	padding: 5px;
-	font-size: 16px;
-	border-radius: 10px;
-	min-width: 170px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-	border-color: #007EA6;
-}</string>
+            <string notr="true">min-width: 150px;</string>
            </property>
            <property name="text">
             <string>Edit Notes</string>
@@ -333,21 +308,7 @@ QPushButton:pressed {
          <item>
           <widget class="QPushButton" name="btn_notes_delete">
            <property name="styleSheet">
-            <string notr="true">QPushButton {
-	color: white;
-	border: 2px solid white;
-	background-color: transparent;
-	padding: 5px;
-	font-size: 16px;
-	border-radius: 10px;
-	min-width: 170px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-	border-color: #007EA6;
-}</string>
+            <string notr="true">min-width: 150px;</string>
            </property>
            <property name="text">
             <string>Delete Note</string>
@@ -385,13 +346,11 @@ QPushButton:pressed {
               <x>0</x>
               <y>0</y>
               <width>610</width>
-              <height>449</height>
+              <height>440</height>
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true">#notes_scroll_area_widget {
-	background-color: #007EA6;
-}</string>
+             <string notr="true"/>
             </property>
             <layout class="QVBoxLayout" name="notes_scroll_layout"/>
            </widget>
@@ -403,9 +362,53 @@ QPushButton:pressed {
      </widget>
      <widget class="QWidget" name="settings_tab">
       <property name="styleSheet">
-       <string notr="true">background-color: #007EA6;
-color: white;
-font-size: 16px;</string>
+       <string notr="true">QWidget {
+	background-color: #007EA6;
+	color: white;
+	font-size: 16px;
+}
+
+QPushButton {
+	color: white;
+	border: 2px solid white;
+	background-color: transparent;
+	padding: 5px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+	border-color: #007EA6;
+}
+
+
+
+#btn_choose_color:pressed {
+	background-color: white;
+	color: #007EA6;
+
+}
+
+QComboBox {
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 5;
+  
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid white;
+	border-radius: 5px;
+    selection-background-color: #007EA6;
+	background-color: white;
+	color: black;
+	selection-color: white;
+	outline: none;
+}
+
+</string>
       </property>
       <attribute name="icon">
        <iconset>
@@ -437,11 +440,7 @@ font-size: 16px;</string>
          <item>
           <widget class="QPushButton" name="btn_choose_color">
            <property name="styleSheet">
-            <string notr="true">QPushButton:pressed {
-	background-color: white;
-	color: #007ea6;
-
-}</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>Choose Color</string>
@@ -452,6 +451,9 @@ font-size: 16px;</string>
        </item>
        <item>
         <widget class="Line" name="line1">
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
          <property name="frameShadow">
           <enum>QFrame::Plain</enum>
          </property>
@@ -479,22 +481,7 @@ font-size: 16px;</string>
          <item>
           <widget class="QComboBox" name="cmb_font">
            <property name="styleSheet">
-            <string notr="true">QComboBox {
-    border: 2px solid white;
-    border-radius: 5px;
-    padding: 5;
-  
-}
-
-QComboBox QAbstractItemView {
-    border: 2px solid white;
-	border-radius: 5px;
-    selection-background-color: #007ea6;
-	background-color: white;
-	color: black;
-	selection-color: white;
-	outline: none;
-}</string>
+            <string notr="true"/>
            </property>
            <property name="frame">
             <bool>true</bool>
@@ -594,11 +581,7 @@ QComboBox QAbstractItemView {
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton:pressed {
-	background-color: white;
-	color: #007ea6;
-
-}</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>Reset</string>
@@ -614,11 +597,7 @@ QComboBox QAbstractItemView {
             </size>
            </property>
            <property name="styleSheet">
-            <string notr="true">QPushButton:pressed {
-	background-color: white;
-	color: #007ea6;
-
-}</string>
+            <string notr="true"/>
            </property>
            <property name="text">
             <string>Save</string>

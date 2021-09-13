@@ -28,7 +28,11 @@ class DB:
             )"""
         
         settings_table = """
-            CREATE TABLE IF NOT EXISTS settings(color TEXT NOT NULL, font TEXT NOT NULL, note_order TEXT NOT NULL)
+            CREATE TABLE IF NOT EXISTS settings(
+                old_color TEXT NOT NULL, 
+                new_color TEXT NOT NULL, 
+                font TEXT NOT NULL, 
+                note_order TEXT NOT NULL)
         """
 
         # create the necessary tables
@@ -138,23 +142,23 @@ class DB:
         self.db.close()
     
     def update_settings(self, data):
-        fields = ("color", "font", "note_order")
+        fields = ("old_color", "new_color", "font", "note_order")
         for i in range(len(fields)):
             query = f"""
                 UPDATE settings SET {fields[i]} = (?);
             """
-            self.cur.execute(query, data[i])
-            self.db.commit()
+            self.cur.execute(query, (data[i],))
+        self.db.commit()
         self.db.close()
         
-    def first_state(self, reset):
-        self.cur.execute("SELECT color FROM settings")
+    def first_state(self, reset=False):
+        self.cur.execute("SELECT new_color FROM settings")
         data = self.cur.fetchone()
         if not data:
-            self.cur.execute("INSERT INTO settings (color, font, note_order) VALUES ('#007EA6', 'Nunito SemiBold', 'title')")
+            self.cur.execute("INSERT INTO settings (old_color, new_color, font, note_order) VALUES ('#007EA6', '#007EA6', 'Nunito Semi Bold', 'title')")
             self.db.commit()
         elif reset:
-            self.cur.execute("UPDATE settings SET color = '#007EA6', font = 'Nunito SemiBold', note_order = 'title'")
+            self.cur.execute("UPDATE settings SET old_color = '#007EA6', new_color = '#007EA6', font = 'Nunito Semi Bold', note_order = 'title'")
             self.db.commit()
         self.db.close()
 
