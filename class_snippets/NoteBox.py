@@ -2,10 +2,25 @@ from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayo
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont, QFontDatabase
 
+import os
+import sys
+
+# get the database path in order to use the DB class
+db_path = os.path.abspath(os.getcwd())
+sys.path.insert(0, db_path)
+
+from database.db import DB
+
         
 
 def make_note_container(data):
-    QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+    # get the settings
+    db = DB()
+    settings = db.read("settings")
+    color = settings[0][1]
+    font = settings[0][2]
+    
+    # QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
     app_font = QFont("Nunito SemiBold", 18)
     
     note_container = QWidget()
@@ -58,26 +73,26 @@ def make_note_container(data):
     note_layout.addWidget(note)
     note_layout.addLayout(date_container)
 
-    note_container.setStyleSheet("""
-        #note_container {
+    note_container.setStyleSheet(f"""
+        #note_container {{
             background-color: white;
             min-height: 50px;
             font-size: 16px;
             border-radius: 10px;
-        }
-        QLabel {
+        }}
+        QLabel {{
             font-size: 20px;
-            color: #007EA6;
-        }
+            color: {color};
+        }}
 
-        #note {
+        #note {{
             font-size: 16px;
             color: black;
-            }
+            }}
 
-        #date {
+        #date {{
             font-size: 12px;
-        }
+        }}
     """)
     return note_container
 

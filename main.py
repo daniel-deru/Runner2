@@ -284,6 +284,7 @@ class Main(QWidget, Ui_Runner):
         db2 = DB()
         db2.update_settings(settings)
         self.load_settings()
+        self.update()
 
 
     # reset the settings
@@ -315,18 +316,25 @@ class Main(QWidget, Ui_Runner):
                 self.hbox_order.itemAt(i).widget().setChecked(True)
         
        
-        
+    # set the color of the window
     def load_color(self, old_color, new_color):
+        #list pf widgets to apply the color to
         widgets = [self.tabWidget, self.apps_tab, self.notes_tab, self.settings_tab]
+        # loop over the list and get the stylesheet for every widget change the stylesheet and update the widget
         for widget in widgets:
             stylesheet = widget.styleSheet()
             stylesheet_updated = re.sub(f"{old_color}|#007EA6", new_color, stylesheet)
             widget.setStyleSheet(stylesheet_updated)
 
+    # set the font of the window
     def set_font(self, font):
+        # get the font filename
         font_index = self.display_names.index(f" {font}")
+        # get the fontname to use with QFont
         fontname = self.font_names[font_index]
+        # create font
         font = QFont(fontname, 18)
+        # list of everything the font needs to be applied to
         labels = [
             self.tabWidget,
             self.apps_btn_delete,
@@ -348,7 +356,7 @@ class Main(QWidget, Ui_Runner):
             self.rbtn_title,
             self.cmb_font
         ]
-
+        # loop over the labels and set the font for each
         for label in labels:
             label.setFont(font)
         

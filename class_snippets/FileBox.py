@@ -48,11 +48,15 @@ active_stylesheet = """
 def make_file_container(data, call):
     db = DB()
     files = db.read("files", "category_name", data[0])
+
+    settings = DB().read("settings")
+    color = settings[0][1]
+    font = settings[0][2]
     
     file_container = QWidget()
     file_container.setObjectName("file_container")
 
-    QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
+    # QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
     app_font = QFont("Nunito SemiBold", 18)
     
 
@@ -108,32 +112,32 @@ def make_file_container(data, call):
             frame_grid.addWidget(checkbox, row, column)
 
 
-    file_container.setStyleSheet("""
-        #note_container {
+    file_container.setStyleSheet(f"""
+        #note_container {{
             min-height: 100px;
-        }
-        #frame {
+        }}
+        #frame {{
             border: 2px solid white;
             background-color: white;
-            color: #007EA6;
+            color: {color};
             border-radius: 10px;
-        }
+        }}
 
-        #title {
+        #title {{
             font-size: 20px;
             color: white;
-        }
+        }}
 
-        #active {
+        #active {{
             font-size: 20px;
             color: white;
-        }
+        }}
 
-        #file {
+        #file {{
             color: black;
             background-color: white;
             font-size: 16px;
-        }
+        }}
     """)
 
     return file_container
