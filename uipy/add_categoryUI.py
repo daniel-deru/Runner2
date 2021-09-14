@@ -23,41 +23,17 @@ class Ui_add_category(object):
         add_category.setSizePolicy(sizePolicy)
         add_category.setMaximumSize(QtCore.QSize(16777215, 423))
         add_category.setFocusPolicy(QtCore.Qt.ClickFocus)
-        add_category.setStyleSheet("#add_category {\n"
-"    background-color: #007EA6;\n"
-"\n"
-"}\n"
-"\n"
-"QCheckBox {\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"    border-radius: 5px;\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    color: #007EA6;\n"
-"    background-color: white;\n"
-"}")
+        add_category.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(add_category)
         self.verticalLayout.setObjectName("verticalLayout")
         self.hbox_name = QtWidgets.QHBoxLayout()
         self.hbox_name.setObjectName("hbox_name")
         self.lbl_name = QtWidgets.QLabel(add_category)
-        self.lbl_name.setStyleSheet("color: white;\n"
-"font-size: 16px;")
+        self.lbl_name.setStyleSheet("")
         self.lbl_name.setObjectName("lbl_name")
         self.hbox_name.addWidget(self.lbl_name)
         self.add_category_name_input = QtWidgets.QLineEdit(add_category)
-        self.add_category_name_input.setStyleSheet("font-size: 16px;\n"
-"border-radius: 10px;\n"
-"padding: 10px;")
+        self.add_category_name_input.setStyleSheet("")
         self.add_category_name_input.setObjectName("add_category_name_input")
         self.hbox_name.addWidget(self.add_category_name_input)
         self.verticalLayout.addLayout(self.hbox_name)

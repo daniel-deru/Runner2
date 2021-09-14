@@ -23,39 +23,7 @@ class Ui_add_category(object):
         add_category.setSizePolicy(sizePolicy)
         add_category.setMaximumSize(QtCore.QSize(16777215, 423))
         add_category.setFocusPolicy(QtCore.Qt.ClickFocus)
-        add_category.setStyleSheet("#add_category {\n"
-"    background-color: #007EA6;\n"
-"\n"
-"}\n"
-"\n"
-"QCheckBox {\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"    border-radius: 5px;\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    color: #007EA6;\n"
-"    background-color: white;\n"
-"}\n"
-"\n"
-"QLineEdit {\n"
-"    font-size: 16px;\n"
-"    border-radius: 10px;\n"
-"    padding: 10px;\n"
-"}\n"
-"\n"
-"QLabel {\n"
-"        color: white;\n"
-"        font-size: 16px;\n"
-"}")
+        add_category.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(add_category)
         self.verticalLayout.setObjectName("verticalLayout")
         self.hbox_name = QtWidgets.QHBoxLayout()

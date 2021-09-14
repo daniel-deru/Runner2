@@ -36,13 +36,17 @@ class Ui_DeleteWindow(object):
 "QCheckBox {\n"
 "    color: white;\n"
 "    font-size: 16px;\n"
+"}\n"
+"\n"
+"QWidget {\n"
+"    background-color: #007ea6;\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(DeleteWindow)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.scrl_area_delete_notes = QtWidgets.QScrollArea(DeleteWindow)
-        self.scrl_area_delete_notes.setStyleSheet("background-color: #007ea6;")
+        self.scrl_area_delete_notes.setStyleSheet("")
         self.scrl_area_delete_notes.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrl_area_delete_notes.setWidgetResizable(True)
         self.scrl_area_delete_notes.setObjectName("scrl_area_delete_notes")

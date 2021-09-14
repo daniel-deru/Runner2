@@ -32,39 +32,7 @@
    <string>Add Category</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#add_category {
-	background-color: #007EA6;
-
-}
-
-QCheckBox {
-	font-size: 16px;
-}
-
-QPushButton {
-	color: white;
-	border: 2px solid white;
-	background-color: transparent;
-	padding: 5px;
-	border-radius: 5px;
-	font-size: 16px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-}
-
-QLineEdit {
-	font-size: 16px;
-	border-radius: 10px;
-	padding: 10px;
-}
-
-QLabel {
-		color: white;
-		font-size: 16px;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
