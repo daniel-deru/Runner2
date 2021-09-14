@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout,QSpacerItem, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout,QSpacerItem, QSizePolicy
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QFontDatabase
+from PyQt5.QtGui import QFont
 
 import os
 import sys
@@ -21,7 +21,7 @@ def make_note_container(data):
     font = settings[0][2]
     
     # QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-    app_font = QFont("Nunito SemiBold", 18)
+    app_font = QFont(font, 18)
     
     note_container = QWidget()
     note_container.setObjectName("note_container")
@@ -83,6 +83,7 @@ def make_note_container(data):
         QLabel {{
             font-size: 20px;
             color: {color};
+            background-color: white;
         }}
 
         #note {{

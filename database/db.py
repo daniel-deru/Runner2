@@ -75,7 +75,7 @@ class DB:
             self.cur.execute(query)
         else:
             query = f"""SELECT * FROM {table} WHERE {field} = (?)"""
-            self.cur.execute(query, value)
+            self.cur.execute(query, (value,))
 
         # execute the query and get all the data
         data = self.cur.fetchall()
@@ -101,9 +101,9 @@ class DB:
 
             # second query to delete all the files if the entire category is deleted
             query2 = f"""DELETE FROM files WHERE category_name = (?)"""
-            self.cur.execute(query2, name)
+            self.cur.execute(query2, (name,))
 
-        self.cur.execute(query, name)
+        self.cur.execute(query, (name,))
 
         self.db.commit()
         self.db.close()
@@ -118,7 +118,7 @@ class DB:
             SELECT * FROM {table} WHERE {label} = (?)
         """
 
-        self.cur.execute(query, name)
+        self.cur.execute(query, (name,))
         data = self.cur.fetchone()
         self.db.close()
         return data
@@ -132,12 +132,12 @@ class DB:
         label = "category_name" if table == "files" else "name" if table == "categories" else "title"
         query = f"""DELETE FROM {table} WHERE {label} = (?)"""
 
-        self.cur.execute(query, name)
+        self.cur.execute(query, (name,))
         self.save(table, data)
     
     def update_category_state(self, name, state):
         query = f"UPDATE categories SET active = {state} WHERE name = (?)"
-        self.cur.execute(query, name)
+        self.cur.execute(query, (name,))
         self.db.commit()
         self.db.close()
     
@@ -155,10 +155,10 @@ class DB:
         self.cur.execute("SELECT new_color FROM settings")
         data = self.cur.fetchone()
         if not data:
-            self.cur.execute("INSERT INTO settings (old_color, new_color, font, note_order) VALUES ('#007EA6', '#007EA6', 'Nunito Semi Bold', 'title')")
+            self.cur.execute("INSERT INTO settings (old_color, new_color, font, note_order) VALUES ('#007EA6', '#007EA6', 'Nunito SemiBold', 'title')")
             self.db.commit()
         elif reset:
-            self.cur.execute("UPDATE settings SET old_color = '#007EA6', new_color = '#007EA6', font = 'Nunito Semi Bold', note_order = 'title'")
+            self.cur.execute("UPDATE settings SET old_color = '#007EA6', new_color = '#007EA6', font = 'Nunito SemiBold', note_order = 'title'")
             self.db.commit()
         self.db.close()
 

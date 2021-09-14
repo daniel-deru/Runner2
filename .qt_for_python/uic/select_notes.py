@@ -37,31 +37,23 @@ class Ui_SelectWindow(object):
 "    color: white;\n"
 "    font-size: 16px;\n"
 "}\n"
+"\n"
+"QWidget {\n"
+"    background-color: #007ea6;\n"
+"}\n"
 "")
         self.SelectNoteLayout = QtWidgets.QVBoxLayout(SelectWindow)
         self.SelectNoteLayout.setContentsMargins(0, 0, 0, 0)
         self.SelectNoteLayout.setSpacing(0)
         self.SelectNoteLayout.setObjectName("SelectNoteLayout")
         self.scrl_area_select_notes = QtWidgets.QScrollArea(SelectWindow)
-        self.scrl_area_select_notes.setStyleSheet("background-color: #007ea6;")
+        self.scrl_area_select_notes.setStyleSheet("")
         self.scrl_area_select_notes.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrl_area_select_notes.setWidgetResizable(True)
         self.scrl_area_select_notes.setObjectName("scrl_area_select_notes")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 400, 212))
-        self.scrollAreaWidgetContents.setStyleSheet("QPushButton {\n"
-"    font-size: 16px;\n"
-"    background-color: transparent;\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 20px;\n"
-"    padding: 10px 5px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    color: #007ea6;\n"
-"    background-color: white;\n"
-"}")
+        self.scrollAreaWidgetContents.setStyleSheet("")
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")

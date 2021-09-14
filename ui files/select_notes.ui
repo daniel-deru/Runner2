@@ -36,6 +36,10 @@ QRadioButton {
 	color: white;
 	font-size: 16px;
 }
+
+QWidget {
+	background-color: #007ea6;
+}
 </string>
   </property>
   <layout class="QVBoxLayout" name="SelectNoteLayout">
@@ -57,7 +61,7 @@ QRadioButton {
    <item>
     <widget class="QScrollArea" name="scrl_area_select_notes">
      <property name="styleSheet">
-      <string notr="true">background-color: #007ea6;</string>
+      <string notr="true"/>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -75,19 +79,7 @@ QRadioButton {
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton {
-	font-size: 16px;
-	background-color: transparent;
-	color: white;
-	border: 2px solid white;
-	border-radius: 20px;
-	padding: 10px 5px;
-}
-
-QPushButton:pressed {
-	color: #007ea6;
-	background-color: white;
-}</string>
+       <string notr="true"/>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout"/>
      </widget>

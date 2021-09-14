@@ -1,6 +1,5 @@
-from PyQt5.QtCore import QAbstractEventDispatcher
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QGridLayout, QCheckBox, QLabel, QFrame
-from PyQt5.QtGui import QFont, QFontDatabase
+from PyQt5.QtGui import QFont
 
 
 import os
@@ -56,8 +55,7 @@ def make_file_container(data, call):
     file_container = QWidget()
     file_container.setObjectName("file_container")
 
-    # QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-    app_font = QFont("Nunito SemiBold", 18)
+    app_font = QFont(font, 18)
     
 
     file_layout = QVBoxLayout()

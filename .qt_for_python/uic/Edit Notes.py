@@ -43,6 +43,31 @@ class Ui_edit_notes(object):
 "QPushButton:pressed {\n"
 "    color: #007EA6;\n"
 "    background-color: white;\n"
+"}\n"
+"\n"
+"#rbtn_high {\n"
+"    color: #D60025;\n"
+"}\n"
+"\n"
+"#rbtn_low {\n"
+"    color: #90FA00;\n"
+"}\n"
+"\n"
+"#rbtn_medium {\n"
+"    color: #FAE700;\n"
+"}\n"
+"\n"
+"QLineEdit {\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"    padding:5px;\n"
+"}\n"
+"\n"
+"QTextEdit {\n"
+"    font-size: 16px;\n"
+"    border-radius: 10px;\n"
+"    padding:5px;\n"
+"    background-color: palette(base);\n"
 "}")
         self.verticalLayout = QtWidgets.QVBoxLayout(edit_notes)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -50,49 +75,39 @@ class Ui_edit_notes(object):
         self.lbl_note_title.setObjectName("lbl_note_title")
         self.verticalLayout.addWidget(self.lbl_note_title)
         self.ldt_note_title = QtWidgets.QLineEdit(edit_notes)
-        self.ldt_note_title.setStyleSheet("font-size: 16px;\n"
-"border-radius: 10px;\n"
-"padding:5px;")
+        self.ldt_note_title.setStyleSheet("")
         self.ldt_note_title.setObjectName("ldt_note_title")
         self.verticalLayout.addWidget(self.ldt_note_title)
         self.lbl_note_body = QtWidgets.QLabel(edit_notes)
         self.lbl_note_body.setObjectName("lbl_note_body")
         self.verticalLayout.addWidget(self.lbl_note_body)
         self.txtedt_note_body = QtWidgets.QTextEdit(edit_notes)
-        self.txtedt_note_body.setStyleSheet("font-size: 16px;\n"
-"border-radius: 10px;\n"
-"padding:5px;\n"
-"background-color: palette(base);")
+        self.txtedt_note_body.setStyleSheet("")
         self.txtedt_note_body.setObjectName("txtedt_note_body")
         self.verticalLayout.addWidget(self.txtedt_note_body)
         self.lbl_importance = QtWidgets.QLabel(edit_notes)
-        self.lbl_importance.setStyleSheet("font-size: 18px;")
+        self.lbl_importance.setStyleSheet("")
         self.lbl_importance.setObjectName("lbl_importance")
         self.verticalLayout.addWidget(self.lbl_importance)
         self.hbox_importance = QtWidgets.QHBoxLayout()
         self.hbox_importance.setObjectName("hbox_importance")
         self.rbtn_low = QtWidgets.QRadioButton(edit_notes)
-        self.rbtn_low.setStyleSheet("color: #90FA00;")
+        self.rbtn_low.setStyleSheet("")
         self.rbtn_low.setObjectName("rbtn_low")
         self.hbox_importance.addWidget(self.rbtn_low)
         self.rbtn_medium = QtWidgets.QRadioButton(edit_notes)
-        self.rbtn_medium.setStyleSheet("color: #FAE700;")
+        self.rbtn_medium.setStyleSheet("")
         self.rbtn_medium.setObjectName("rbtn_medium")
         self.hbox_importance.addWidget(self.rbtn_medium)
         self.rbtn_high = QtWidgets.QRadioButton(edit_notes)
-        self.rbtn_high.setStyleSheet("color: #D60025;")
+        self.rbtn_high.setStyleSheet("")
         self.rbtn_high.setObjectName("rbtn_high")
         self.hbox_importance.addWidget(self.rbtn_high)
         self.verticalLayout.addLayout(self.hbox_importance)
         self.hbox_notes_buttons = QtWidgets.QHBoxLayout()
         self.hbox_notes_buttons.setObjectName("hbox_notes_buttons")
         self.btn_discard = QtWidgets.QPushButton(edit_notes)
-        self.btn_discard.setStyleSheet("QpushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 10px;\n"
-"    background-color: transparent;\n"
-"}")
+        self.btn_discard.setStyleSheet("")
         self.btn_discard.setObjectName("btn_discard")
         self.hbox_notes_buttons.addWidget(self.btn_discard)
         self.btn_save = QtWidgets.QPushButton(edit_notes)

@@ -248,17 +248,8 @@ class Main(QWidget, Ui_Runner):
             # get the name of the font to set the font name
             font_name = font_file["name"].getName(1, 3, 1).toUnicode()
             self.font_names.append(font_name)
-            # callback function for the map called below
-            def add_space(letter):
-                if letter.isupper():
-                    return f" {letter}"
-                else:
-                    return letter
-            # format the display name and add it to the names list
-            display_name = "".join(map(add_space, "".join(font.name.split("-")))).split(".")[0]
-            self.display_names.append(display_name)
         # add the display names to the combobox
-        for name in sorted(self.display_names):
+        for name in self.font_names:
             self.cmb_font.addItem(name)
 
        
@@ -304,7 +295,7 @@ class Main(QWidget, Ui_Runner):
 
         #set the current font
         self.set_font(settings[0][2])
-        font_index = self.cmb_font.findText(f" {settings[0][2]}")
+        font_index = self.cmb_font.findText(settings[0][2])
         self.cmb_font.setCurrentIndex(font_index)
         current_font = QFont(self.font_names[font_index], 18)
         self.lbl_font_example.setFont(current_font)
@@ -329,36 +320,37 @@ class Main(QWidget, Ui_Runner):
     # set the font of the window
     def set_font(self, font):
         # get the font filename
-        font_index = self.display_names.index(f" {font}")
+        font_index = self.font_names.index(font)
         # get the fontname to use with QFont
-        fontname = self.font_names[font_index]
-        # create font
-        font = QFont(fontname, 18)
-        # list of everything the font needs to be applied to
-        labels = [
-            self.tabWidget,
-            self.apps_btn_delete,
-            self.apps_btn_edit,
-            self.main_add_category_btn,
-            self.btn_run,
-            self.btn_notes_delete,
-            self.btn_notes_edit,
-            self.main_add_notes_btn,
-            self.lbl_main_color,
-            self.lbl_hex_color,
-            self.lbl_font,
-            self.btn_choose_color,
-            self.btn_reset,
-            self.btn_save,
-            self.lbl_order,
-            self.rbtn_date,
-            self.rbtn_priority,
-            self.rbtn_title,
-            self.cmb_font
-        ]
-        # loop over the labels and set the font for each
-        for label in labels:
-            label.setFont(font)
+        if font_index:
+            fontname = self.font_names[font_index]
+            # create font
+            font = QFont(fontname, 18)
+            # list of everything the font needs to be applied to
+            labels = [
+                self.tabWidget,
+                self.apps_btn_delete,
+                self.apps_btn_edit,
+                self.main_add_category_btn,
+                self.btn_run,
+                self.btn_notes_delete,
+                self.btn_notes_edit,
+                self.main_add_notes_btn,
+                self.lbl_main_color,
+                self.lbl_hex_color,
+                self.lbl_font,
+                self.btn_choose_color,
+                self.btn_reset,
+                self.btn_save,
+                self.lbl_order,
+                self.rbtn_date,
+                self.rbtn_priority,
+                self.rbtn_title,
+                self.cmb_font
+            ]
+            # loop over the labels and set the font for each
+            for label in labels:
+                label.setFont(font)
         
 
         
