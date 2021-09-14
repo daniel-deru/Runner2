@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 
@@ -27,6 +28,33 @@ radio_stylesheet = """
     }
 """
 
+select_stylesheet = """QDialog {
+	background-color: #007EA6;
+    }
+
+    QPushButton {
+                    font-size: 16px;
+                    color: white;
+                    border: 2px solid white;
+                    border-radius: 10px;
+                    padding: 5px;
+                    background-color: transparent;
+                }
+
+    QPushButton:pressed {
+            color: #007EA6;
+            background-color: white;
+    }
+
+    QRadioButton {
+	color: white;
+	font-size: 16px;
+    }
+
+    QWidget {
+	background-color: #007EA6;
+    }"""
+
 class SelectWindow(QDialog, Ui_SelectWindow):
     # signal for show edit was successfully handled
     edit_signal = pyqtSignal(str)
@@ -34,19 +62,12 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         super(SelectWindow, self).__init__()
         self.table = table
         self.setupUi(self)
+        self.load_settings()
         self.setModal(True)
         self.show(table)
         
         self.setWindowIcon(QIcon("images/WorkMate.png"))
         self.setWindowTitle(f"Edit {table.capitalize()}")
-
-        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-        app_font = QFont("Nunito SemiBold")
-        
-        # self.radio.setFont(self.app_font)
-
-        self.btn_discard.setFont(app_font)
-        self.btn_edit.setFont(app_font)
 
         # button click connections
         self.btn_discard.clicked.connect(self.discard_clicked)
@@ -63,8 +84,7 @@ class SelectWindow(QDialog, Ui_SelectWindow):
         for item in items:
             name = item[0]
             self.radio = QRadioButton(name)
-            app_font = QFont("Nunito SemiBold")
-            self.radio.setFont(app_font)
+            self.radio.setFont(self.app_font)
             self.radio.setStyleSheet("""
                 QPushButton {
                     font-size: 16px;
@@ -107,4 +127,15 @@ class SelectWindow(QDialog, Ui_SelectWindow):
                     self.hide()
 
     def discard_clicked(self):
-        self.hide()      
+        self.hide()
+    
+    def load_settings(self):
+        settings = DB().read("settings")
+        self.app_font = QFont(settings[0][2])
+
+        self.btn_discard.setFont(self.app_font)
+        self.btn_edit.setFont(self.app_font)
+
+        updated_stylesheet = re.sub("#007EA6", settings[0][1], select_stylesheet)   
+        self.setStyleSheet(updated_stylesheet)
+        

@@ -60,7 +60,7 @@ QTabBar::tab:selected {
 </string>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="apps_tab">
       <property name="styleSheet">
@@ -127,7 +127,7 @@ QWidget {
          <item row="0" column="1">
           <widget class="QPushButton" name="main_add_category_btn">
            <property name="styleSheet">
-            <string notr="true">min-width: 120px;</string>
+            <string notr="true">min-width: 150px;</string>
            </property>
            <property name="text">
             <string>Add Category</string>
@@ -137,7 +137,7 @@ QWidget {
          <item row="0" column="3">
           <widget class="QPushButton" name="apps_btn_delete">
            <property name="styleSheet">
-            <string notr="true">min-width: 120px;</string>
+            <string notr="true">min-width: 150px;</string>
            </property>
            <property name="text">
             <string>Delete Category</string>
@@ -147,7 +147,7 @@ QWidget {
          <item row="0" column="2">
           <widget class="QPushButton" name="apps_btn_edit">
            <property name="styleSheet">
-            <string notr="true">min-width: 120px;</string>
+            <string notr="true">min-width: 150px;;</string>
            </property>
            <property name="text">
             <string>Edit Category</string>
@@ -157,7 +157,7 @@ QWidget {
          <item row="0" column="4">
           <widget class="QPushButton" name="btn_run">
            <property name="styleSheet">
-            <string notr="true"/>
+            <string notr="true">min-width: 150px;</string>
            </property>
            <property name="text">
             <string>Run Active</string>

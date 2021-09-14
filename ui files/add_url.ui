@@ -2,6 +2,12 @@
 <ui version="4.0">
  <class>add_url_window</class>
  <widget class="QDialog" name="add_url_window">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -26,33 +32,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QDialog {
-	background-color: #007EA6;
-}
-
-QLabel {
-	color: white;
-	font-size: 16px;
-}
-
-QPushButton {
-	color: white;
-	border: 2px solid white;
-	border-radius: 10px;
-	padding: 5px;
-	font-size: 16px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-}
-
-QLineEdit {
-	font-size: 16px;
-	padding: 5px;
-	border-radius: 5px;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

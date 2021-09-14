@@ -14,32 +14,7 @@
    <string>Delete Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QPushButton {
-	color: white;
-	font-size: 16px;
-	border: 2px solid white;
-	border-radius: 10px;
-	background-color: transparent;
-	padding: 5px;
-}
-
-QPushButton:pressed {
-	color: #007ea6;
-	background-color: white;
-}
-
-QDialog {
-	background-color: #007ea6;
-}
-
-QCheckBox {
-	color: white;
-	font-size: 16px;
-}
-
-QWidget {
-	background-color: #007ea6;
-}</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
@@ -74,7 +49,7 @@ QWidget {
         <x>0</x>
         <y>0</y>
         <width>400</width>
-        <height>237</height>
+        <height>247</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2"/>

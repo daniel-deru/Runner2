@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>SelectWindow</class>
  <widget class="QDialog" name="SelectWindow">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -14,33 +17,7 @@
    <string>Select Notes</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QDialog {
-	background-color: #007ea6;
-}
-
- QPushButton {
-                    font-size: 16px;
-                    color: white;
-                    border: 2px solid white;
-                    border-radius: 10px;
-                    padding: 5px;
-                    background-color: transparent;
-                }
-
-QPushButton:pressed {
-            color: #007ea6;
-            background-color: white;
- }
-
-QRadioButton {
-	color: white;
-	font-size: 16px;
-}
-
-QWidget {
-	background-color: #007ea6;
-}
-</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="SelectNoteLayout">
    <property name="spacing">
@@ -75,7 +52,7 @@ QWidget {
         <x>0</x>
         <y>0</y>
         <width>400</width>
-        <height>212</height>
+        <height>222</height>
        </rect>
       </property>
       <property name="styleSheet">

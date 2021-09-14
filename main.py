@@ -166,7 +166,6 @@ class Main(QWidget, Ui_Runner):
         # get notes from the database
         db = DB()
         notes = db.read("notes")
-
         # add notes to the window
         for note in notes:
             n = make_note_container(note)
@@ -280,16 +279,19 @@ class Main(QWidget, Ui_Runner):
 
     # reset the settings
     def reset_clicked(self):
+        color = self.lbl_hex_color.text()
         db = DB()
         db.first_state(True)
-        self.load_settings()
+        self.update()
+        self.load_settings(color)
+        
 
-    def load_settings(self):
+    def load_settings(self, reset_color=False):
         db = DB()
         settings = db.read("settings")
 
         # set your current color
-        self.load_color(settings[0][0], settings[0][1])
+        self.load_color(settings[0][0], settings[0][1], reset_color)
         self.lbl_hex_color.setText(settings[0][1])
         self.lbl_hex_color.setStyleSheet("color: white;")
 
@@ -308,13 +310,16 @@ class Main(QWidget, Ui_Runner):
         
        
     # set the color of the window
-    def load_color(self, old_color, new_color):
+    def load_color(self, old_color, new_color, reset_color):
         #list pf widgets to apply the color to
         widgets = [self.tabWidget, self.apps_tab, self.notes_tab, self.settings_tab]
         # loop over the list and get the stylesheet for every widget change the stylesheet and update the widget
         for widget in widgets:
             stylesheet = widget.styleSheet()
-            stylesheet_updated = re.sub(f"{old_color}|#007EA6", new_color, stylesheet)
+            if reset_color:
+                stylesheet_updated = re.sub(f"{reset_color}|#007EA6", new_color, stylesheet)
+            elif not reset_color:
+                stylesheet_updated = re.sub(f"{old_color}|#007EA6", new_color, stylesheet)
             widget.setStyleSheet(stylesheet_updated)
 
     # set the font of the window

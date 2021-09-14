@@ -2,6 +2,12 @@
 <ui version="4.0">
  <class>Add_File_Dialog</class>
  <widget class="QDialog" name="Add_File_Dialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -20,43 +26,7 @@
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">#Add_File_Dialog {
-	background-color: #007EA6;
-}
-
-#lbl_name{
-	text-align: center;
-}
-
-
-QLineEdit {
-	padding: 5px;
-	border-radius:10px;
-}
-
-QPushButton, QLabel, QLineEdit {
-	font-size: 16px;
-}
-
-
-QPushButton {
-	color: white;
-	background-color: transparent;
-	border: 2px solid white;
-	border-radius: 10px;
-	padding: 5px;
-}
-
-QPushButton:pressed {
-	color: #007EA6;
-	background-color: white;
-}
-
- QLabel {
-	color: white;
-}
-
-</string>
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

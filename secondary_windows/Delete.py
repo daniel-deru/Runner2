@@ -1,5 +1,6 @@
 import os
 import sys
+import re
 db_path = os.path.abspath(os.getcwd())
 sys.path.insert(0, db_path)
 
@@ -28,6 +29,33 @@ checkbox_styles = """
     }
 """
 
+delete_stylesheet = """QPushButton {
+	color: white;
+	font-size: 16px;
+	border: 2px solid white;
+	border-radius: 10px;
+	background-color: transparent;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	color: #007ea6;
+	background-color: white;
+}
+
+QDialog {
+	background-color: #007EA6;
+}
+
+QCheckBox {
+	color: white;
+	font-size: 16px;
+}
+
+QWidget {
+	background-color: #007EA6;
+}"""
+
 class DeleteWindow(QDialog, Ui_DeleteWindow):
     # signal to be sent when delete was successfull
     delete_signal = pyqtSignal(str)
@@ -37,32 +65,15 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
         self.window_name = window
         self.setupUi(self)
         self.setModal(True)
+        self.load_settings()
 
         self.setWindowIcon(QIcon("images/WorkMate.png"))
         self.setWindowTitle(f"Delete {window.capitalize()}")
-        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-        app_font = QFont("Nunito SemiBold")
-
-        self.btn_discard.setFont(app_font)
-        self.btn_delete.setFont(app_font)
 
         # connect signals to slots
         self.btn_discard.clicked.connect(self.discard_clicked)
         self.btn_delete.clicked.connect(self.delete_clicked)
 
-        
-        db = DB()
-        items = db.read(window)
-
-        # show the items in the window
-        for item in items:
-            checkbox = QCheckBox(item[0])
-            checkbox.setFont(app_font)
-            checkbox.setStyleSheet(checkbox_styles)
-            self.verticalLayout_2.addWidget(checkbox)
-        
-       
-    
     def discard_clicked(self):
         self.hide()
 
@@ -80,4 +91,24 @@ class DeleteWindow(QDialog, Ui_DeleteWindow):
           
         self.delete_signal.emit("delete completed")
         self.close()
+    
+    def load_settings(self):
+        settings = DB().read("settings")
+        app_font = QFont(settings[0][2])
+
+        self.btn_discard.setFont(app_font)
+        self.btn_delete.setFont(app_font)
+
+        updated_stylesheet = re.sub("#007EA6", settings[0][1], delete_stylesheet)
+        self.setStyleSheet(updated_stylesheet)
+
+        # show the items in the window
+        db = DB()
+        items = db.read(self.window_name)
+        for item in items:
+            checkbox = QCheckBox(item[0])
+            checkbox.setFont(app_font)
+            checkbox.setStyleSheet(checkbox_styles)
+            self.verticalLayout_2.addWidget(checkbox)
+
 

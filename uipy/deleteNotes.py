@@ -15,32 +15,7 @@ class Ui_DeleteWindow(object):
     def setupUi(self, DeleteWindow):
         DeleteWindow.setObjectName("DeleteWindow")
         DeleteWindow.resize(400, 300)
-        DeleteWindow.setStyleSheet("QPushButton {\n"
-"    color: white;\n"
-"    font-size: 16px;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 10px;\n"
-"    background-color: transparent;\n"
-"    padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    color: #007ea6;\n"
-"    background-color: white;\n"
-"}\n"
-"\n"
-"QDialog {\n"
-"    background-color: #007ea6;\n"
-"}\n"
-"\n"
-"QCheckBox {\n"
-"    color: white;\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QWidget {\n"
-"    background-color: #007ea6;\n"
-"}")
+        DeleteWindow.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(DeleteWindow)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setSpacing(0)
@@ -51,7 +26,7 @@ class Ui_DeleteWindow(object):
         self.scrl_area_delete_notes.setWidgetResizable(True)
         self.scrl_area_delete_notes.setObjectName("scrl_area_delete_notes")
         self.scrl_area_widget = QtWidgets.QWidget()
-        self.scrl_area_widget.setGeometry(QtCore.QRect(0, 0, 400, 237))
+        self.scrl_area_widget.setGeometry(QtCore.QRect(0, 0, 400, 247))
         self.scrl_area_widget.setObjectName("scrl_area_widget")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrl_area_widget)
         self.verticalLayout_2.setObjectName("verticalLayout_2")

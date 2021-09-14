@@ -14,45 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Add_File_Dialog(object):
     def setupUi(self, Add_File_Dialog):
         Add_File_Dialog.setObjectName("Add_File_Dialog")
+        Add_File_Dialog.setWindowModality(QtCore.Qt.NonModal)
+        Add_File_Dialog.setEnabled(True)
         Add_File_Dialog.resize(425, 131)
         Add_File_Dialog.setMaximumSize(QtCore.QSize(16777215, 200))
-        Add_File_Dialog.setStyleSheet("#Add_File_Dialog {\n"
-"    background-color: #007EA6;\n"
-"}\n"
-"\n"
-"#lbl_name{\n"
-"    text-align: center;\n"
-"}\n"
-"\n"
-"\n"
-"QLineEdit {\n"
-"    padding: 5px;\n"
-"    border-radius:10px;\n"
-"}\n"
-"\n"
-"QPushButton, QLabel, QLineEdit {\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"\n"
-"QPushButton {\n"
-"    color: white;\n"
-"    background-color: transparent;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 10px;\n"
-"    padding: 5px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    color: #007EA6;\n"
-"    background-color: white;\n"
-"}\n"
-"\n"
-" QLabel {\n"
-"    color: white;\n"
-"}\n"
-"\n"
-"")
+        Add_File_Dialog.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(Add_File_Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.file_gridlayout = QtWidgets.QGridLayout()

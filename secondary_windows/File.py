@@ -1,12 +1,15 @@
 import os
 import sys
+import re
 root = os.path.abspath(os.getcwd())
 sys.path.insert(0, root)
+
+from database.db import DB
 
 # Python Imports
 from  PyQt5.QtWidgets import QDialog, QFileDialog
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtGui import QFontDatabase, QFont, QIcon
+from PyQt5.QtGui import QFont, QIcon
 
 # Import the URL Window UI
 from uipy.add_File import Ui_Add_File_Dialog
@@ -14,29 +17,53 @@ from uipy.add_File import Ui_Add_File_Dialog
 # Import the message box
 from class_snippets.MessageBox import Message
 
+file_stylesheet = """QDialog {
+	background-color: #007EA6;
+}
 
+#lbl_name{
+	text-align: center;
+}
+
+
+QLineEdit {
+	padding: 5px;
+	border-radius:10px;
+}
+
+QPushButton, QLabel, QLineEdit {
+	font-size: 16px;
+}
+
+
+QPushButton {
+	color: white;
+	background-color: transparent;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 5px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+}
+
+ QLabel {
+	color: white;
+}"""
 
 
 class FileWindow(QDialog, Ui_Add_File_Dialog):
     file_signal = pyqtSignal(str)
-    def __init__(self, *args, **kwargs):
-        super(FileWindow, self).__init__(*args, **kwargs)
-
+    def __init__(self):
+        super(FileWindow, self).__init__()
         self.setupUi(self)
+        self.setModal(True)
+        
+        self.load_settings()
         self.setWindowTitle("Add File")
-
         self.setWindowIcon(QIcon("images/WorkMate.png"))
-
-        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-        app_font = QFont("Nunito SemiBold")
-
-        self.btn_save.setFont(app_font)
-        self.btn_discard.setFont(app_font)
-        self.btn_add_file.setFont(app_font)
-        self.lbl_filename.setFont(app_font)
-        self.lbl_path.setFont(app_font)
-        self.lnedit_filename.setFont(app_font)
-
 
         # Connect button click to function
         self.btn_discard.clicked.connect(self.discard_clicked)
@@ -93,5 +120,24 @@ class FileWindow(QDialog, Ui_Add_File_Dialog):
     def closeEvent(self, event):
         if (event):
             event.accept()
+    
+    def load_settings(self):
+        settings = DB().read("settings")
+        app_font = QFont(settings[0][2])
+
+        widgets = [
+            self.btn_save,
+            self.btn_discard,
+            self.btn_add_file,
+            self.lbl_filename,
+            self.lbl_path,
+            self.lnedit_filename
+        ]
+        
+        for widget in widgets:
+            widget.setFont(app_font)
+
+        updated_stylesheet = re.sub("#007EA6", settings[0][1], file_stylesheet)
+        self.setStyleSheet(updated_stylesheet)
 
        

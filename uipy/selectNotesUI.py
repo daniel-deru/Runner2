@@ -14,34 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SelectWindow(object):
     def setupUi(self, SelectWindow):
         SelectWindow.setObjectName("SelectWindow")
+        SelectWindow.setWindowModality(QtCore.Qt.WindowModal)
         SelectWindow.resize(400, 275)
-        SelectWindow.setStyleSheet("QDialog {\n"
-"    background-color: #007ea6;\n"
-"}\n"
-"\n"
-" QPushButton {\n"
-"                    font-size: 16px;\n"
-"                    color: white;\n"
-"                    border: 2px solid white;\n"
-"                    border-radius: 10px;\n"
-"                    padding: 5px;\n"
-"                    background-color: transparent;\n"
-"                }\n"
-"\n"
-"QPushButton:pressed {\n"
-"            color: #007ea6;\n"
-"            background-color: white;\n"
-" }\n"
-"\n"
-"QRadioButton {\n"
-"    color: white;\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QWidget {\n"
-"    background-color: #007ea6;\n"
-"}\n"
-"")
+        SelectWindow.setStyleSheet("")
         self.SelectNoteLayout = QtWidgets.QVBoxLayout(SelectWindow)
         self.SelectNoteLayout.setContentsMargins(0, 0, 0, 0)
         self.SelectNoteLayout.setSpacing(0)
@@ -52,7 +27,7 @@ class Ui_SelectWindow(object):
         self.scrl_area_select_notes.setWidgetResizable(True)
         self.scrl_area_select_notes.setObjectName("scrl_area_select_notes")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 400, 212))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 400, 222))
         self.scrollAreaWidgetContents.setStyleSheet("")
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)

@@ -244,12 +244,14 @@ class CategoryWindow(QDialog, Ui_add_category):
         for i in range(count):
             if container.itemAt(i).widget():
                 container.itemAt(i).widget().deleteLater()
-    
+        font = DB().read("settings")
+        checkbox_font = QFont(font[0][2], 18)
         # Create checkbox and add it to the window
         if len(files) > 0:
             for file in files:
                 checkbox = QCheckBox()
                 checkbox.setText(file[0])
+                checkbox.setFont(checkbox_font)
                 checkbox.setStyleSheet(checkbox_styles)
                 checkbox.setChecked(file[2])
                 checkbox.stateChanged.connect(self.checkbox_event_handler)

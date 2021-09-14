@@ -14,36 +14,12 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_add_url_window(object):
     def setupUi(self, add_url_window):
         add_url_window.setObjectName("add_url_window")
+        add_url_window.setWindowModality(QtCore.Qt.WindowModal)
+        add_url_window.setEnabled(True)
         add_url_window.resize(500, 129)
         add_url_window.setMinimumSize(QtCore.QSize(300, 0))
         add_url_window.setMaximumSize(QtCore.QSize(16777215, 129))
-        add_url_window.setStyleSheet("QDialog {\n"
-"    background-color: #007EA6;\n"
-"}\n"
-"\n"
-"QLabel {\n"
-"    color: white;\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QPushButton {\n"
-"    color: white;\n"
-"    border: 2px solid white;\n"
-"    border-radius: 10px;\n"
-"    padding: 5px;\n"
-"    font-size: 16px;\n"
-"}\n"
-"\n"
-"QPushButton:pressed {\n"
-"    color: #007EA6;\n"
-"    background-color: white;\n"
-"}\n"
-"\n"
-"QLineEdit {\n"
-"    font-size: 16px;\n"
-"    padding: 5px;\n"
-"    border-radius: 5px;\n"
-"}")
+        add_url_window.setStyleSheet("")
         self.verticalLayout = QtWidgets.QVBoxLayout(add_url_window)
         self.verticalLayout.setObjectName("verticalLayout")
         self.grid_add_url = QtWidgets.QGridLayout()

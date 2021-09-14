@@ -4,6 +4,8 @@ import re
 root = os.path.abspath(os.getcwd())
 sys.path.insert(0, root)
 
+from database.db import DB
+
 from  PyQt5.QtWidgets import QDialog
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
@@ -15,7 +17,33 @@ from uipy.add_url import Ui_add_url_window
 from class_snippets.MessageBox import Message
 
 
+url_stylesheet = """QDialog {
+	background-color: #007EA6;
+}
 
+QLabel {
+	color: white;
+	font-size: 16px;
+}
+
+QPushButton {
+	color: white;
+	border: 2px solid white;
+	border-radius: 10px;
+	padding: 5px;
+	font-size: 16px;
+}
+
+QPushButton:pressed {
+	color: #007EA6;
+	background-color: white;
+}
+
+QLineEdit {
+	font-size: 16px;
+	padding: 5px;
+	border-radius: 5px;
+}"""
 
 class URLWindow(QDialog, Ui_add_url_window):
     url_signal = pyqtSignal(str)
@@ -24,19 +52,11 @@ class URLWindow(QDialog, Ui_add_url_window):
         super(URLWindow, self).__init__(*args, **kwargs)
 
         self.setupUi(self)
+        self.setModal(True)
         self.setWindowTitle("Add Website")
+        self.load_settings()
 
         self.setWindowIcon(QIcon("images/WorkMate.png"))
-
-        QFontDatabase.addApplicationFont("fonts/Nunito-SemiBoldItalic.ttf")
-        app_font = QFont("Nunito SemiBold", 18)
-
-        self.btn_discard.setFont(app_font)
-        self.btn_save.setFont(app_font)
-        self.lbl_name.setFont(app_font)
-        self.lbl_url.setFont(app_font)
-        self.lnedit_name.setFont(app_font)
-        self.lnedit_url.setFont(app_font)
 
         # Connections to button click events
         self.btn_discard.clicked.connect(self.discard_clicked)
@@ -95,3 +115,22 @@ class URLWindow(QDialog, Ui_add_url_window):
     def closeEvent(self, event):
         if (event):
             event.accept()
+    
+    def load_settings(self):
+        settings = DB().read("settings")
+        app_font = QFont(settings[0][2])
+
+        widgets = [
+            self.btn_discard,
+            self.btn_save,
+            self.lbl_name,
+            self.lbl_url,
+            self.lnedit_name,
+            self.lnedit_url,
+        ]
+        
+        for widget in widgets:
+            widget.setFont(app_font)
+
+        updated_stylesheet = re.sub("#007EA6", settings[0][1], url_stylesheet)
+        self.setStyleSheet(updated_stylesheet)
