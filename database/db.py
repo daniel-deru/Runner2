@@ -1,4 +1,3 @@
-from _typeshed import Self
 import sqlite3
 
 # create database class
@@ -16,7 +15,9 @@ class DB:
                 date NUMERIC NOT NULL
                 )"""
 
-        categories_table = """CREATE TABLE IF NOT EXISTS categories(name TEXT NOT NULL PRIMARY KEY, active INT NOT NULL)"""
+        categories_table = """CREATE TABLE IF NOT EXISTS categories(
+            name TEXT NOT NULL PRIMARY KEY,
+            active INT NOT NULL)"""
 
         files_table = """
         CREATE TABLE IF NOT EXISTS files(
@@ -74,7 +75,7 @@ class DB:
         if field == None and value == None:
             query = f"""SELECT * FROM {table}"""
             if table == "notes":
-                order = self.read("settings")[0][3]
+                order = DB().read("settings")[0][3]
                 query = f"SELECT * FROM notes ORDER BY {order}"
             self.cur.execute(query)
         else:

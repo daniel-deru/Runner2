@@ -14,7 +14,7 @@ from inspect import currentframe, getframeinfo
 from fontTools.ttLib import TTFont
 
 # PyQt5 imports
-from PyQt5.QtWidgets import QApplication, QWidget, QSpacerItem, QSizePolicy, QColorDialog
+from PyQt5.QtWidgets import QApplication, QFileDialog, QWidget, QSpacerItem, QSizePolicy, QColorDialog
 from PyQt5.QtGui import QFont, QFontDatabase, QIcon
 
 # Import the main window UI
@@ -34,7 +34,8 @@ from database.db import DB
 # Import functions that make the notes and file containers (sub widgets)
 from class_snippets.NoteBox import make_note_container
 from class_snippets.FileBox import make_file_container
-from class_snippets.colors import setColors
+from class_snippets.export import export_data
+from class_snippets.importcsv import import_data
 
 
 class Main(QWidget, Ui_Runner):
@@ -73,6 +74,11 @@ class Main(QWidget, Ui_Runner):
         self.cmb_font.activated.connect(self.select_font)
         self.btn_choose_color.clicked.connect(self.select_color)
         self.btn_reset.clicked.connect(self.reset_clicked)
+        self.btn_export_apps.clicked.connect(lambda: self.export("categories"))
+        self.btn_export_notes.clicked.connect(lambda: self.export("notes"))
+        self.btn_import_apps.clicked.connect(lambda: self.import_("files"))
+        self.btn_import_notes.clicked.connect(lambda: self.import_("notes"))
+
 
         self.tabWidget.currentChanged.connect(self.add_tab_icons)
         
@@ -356,6 +362,14 @@ class Main(QWidget, Ui_Runner):
             # loop over the labels and set the font for each
             for label in labels:
                 label.setFont(font)
+            
+    def export(self, table):
+        return export_data(table)
+
+    def import_(self, table):
+        file = QFileDialog.getOpenFileName(self, "Open a file", "", "CSV Files (*.csv*)")[0]
+        return import_data(table, file)
+
         
 
         
