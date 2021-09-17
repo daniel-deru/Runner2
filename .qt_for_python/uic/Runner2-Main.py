@@ -145,6 +145,7 @@ class Ui_Runner(object):
 "QWidget {\n"
 "    background-color: #007EA6;\n"
 "}\n"
+"\n"
 "")
         self.notes_tab.setObjectName("notes_tab")
         self.notes_tab_layout = QtWidgets.QVBoxLayout(self.notes_tab)
@@ -178,7 +179,9 @@ class Ui_Runner(object):
         self.notes_scroll_area.setObjectName("notes_scroll_area")
         self.notes_scroll_area_widget = QtWidgets.QWidget()
         self.notes_scroll_area_widget.setGeometry(QtCore.QRect(0, 0, 720, 428))
-        self.notes_scroll_area_widget.setStyleSheet("")
+        self.notes_scroll_area_widget.setStyleSheet("QWidget {\n"
+"    background-color: #007EA6;\n"
+"}")
         self.notes_scroll_area_widget.setObjectName("notes_scroll_area_widget")
         self.notes_scroll_layout = QtWidgets.QVBoxLayout(self.notes_scroll_area_widget)
         self.notes_scroll_layout.setObjectName("notes_scroll_layout")
@@ -376,7 +379,7 @@ class Ui_Runner(object):
         self.runner_main_layout.addWidget(self.tabWidget)
 
         self.retranslateUi(Runner)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Runner)
 
     def retranslateUi(self, Runner):

@@ -25,6 +25,10 @@ from class_snippets.MessageBox import Message
 files = []
 
 checkbox_styles = """
+    QCheckBox {
+        color: white;
+        font-size: 14px;
+    }
      QCheckBox::indicator {
         width: 25px;
         height: 25px;

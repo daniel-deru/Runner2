@@ -1,3 +1,4 @@
+from class_snippets.MessageBox import Message
 import os
 import sys
 import json
@@ -37,16 +38,52 @@ from class_snippets.FileBox import make_file_container
 from class_snippets.export import export_data
 from class_snippets.importcsv import import_data
 
+combo_box = """
+    QComboBox::drop-down {
+        border: 0px;
+    }
+    QComboBox::down-arrow {
+        image: url(./images/dropdown.png);
+        width: 15px;
+        height: 15px;
+        border: 0px;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border-image: none;
+        padding-right: 5px;
+    }
+"""
+
+radio_stylesheet = """
+    QRadioButton::indicator:unchecked {
+        image: url(images/radio-off.png);
+        width: 25px;
+        height: 25px;
+    }
+
+    QRadioButton::indicator:checked {
+        image: url(images/radio-on.png);
+        width: 25px;
+        height: 25px;
+    }
+"""
+
 
 class Main(QWidget, Ui_Runner):
     def __init__(self):
         super(Main, self).__init__()  
         self.setupUi(self)
         self.add_tab_icons()
-        
+        self.tabWidget.setCurrentIndex(0)
         self.setWindowTitle("WorkMate")
         self.setWindowIcon(QIcon("images/WorkMate.png"))
-        self.tabWidget.setCurrentIndex(0)
+
+        dropdown = self.cmb_font.styleSheet()
+        self.cmb_font.setStyleSheet(dropdown+combo_box)
+
+        for i in range(self.hbox_order.count()):
+            self.hbox_order.itemAt(i).widget().setStyleSheet(radio_stylesheet)
+        
 
         db = DB()
         db.first_state()
@@ -92,15 +129,23 @@ class Main(QWidget, Ui_Runner):
     
     # Open select window to select which window to edit
     def edit_category_clicked(self):
-        edit_category = SelectWindow("categories")
-        edit_category.edit_signal.connect(self.update)
-        edit_category.exec_()
+        apps = DB().read("categories")
+        if len(apps) > 0:
+            edit_category = SelectWindow("categories")
+            edit_category.edit_signal.connect(self.update)
+            edit_category.exec_()
+        else:
+            Message("There are no apps to edit. Please insert apps if you want to use this function.", "No Apps")
     
     # Open the delete window to delete categories
     def delete_category_clicked(self):
-        delete_category = DeleteWindow("categories")
-        delete_category.delete_signal.connect(self.show_files)
-        delete_category.exec_()
+        apps = DB().read("categories")
+        if len(apps) > 0:
+            delete_category = DeleteWindow("categories")
+            delete_category.delete_signal.connect(self.show_files)
+            delete_category.exec_()
+        else:
+            Message("There are no apps to delete. Please insert apps if you want to use this function.", "No Apps")
 
     # run the selected categories and files
     def run_clicked(self):
@@ -112,33 +157,36 @@ class Main(QWidget, Ui_Runner):
         run_list = set()
 
         for i in range(item_count):
+            apps = DB().read("categories")
+            if len(apps) > 0:
+                # get category widget
+                category = category_container.itemAt(i).widget()
+                if category:
+                    # get the category items
+                    category_widget_item = category.children()
+                    # category name
+                    title = category_widget_item[2].text()
+                    # category is active checkbox
+                    checkbox = category_widget_item[3]
+                    # files container
+                    frame = category_widget_item[1]
 
-            # get category widget
-            category = category_container.itemAt(i).widget()
-            if category:
-                # get the category items
-                category_widget_item = category.children()
-                # category name
-                title = category_widget_item[2].text()
-                # category is active checkbox
-                checkbox = category_widget_item[3]
-                # files container
-                frame = category_widget_item[1]
+                    # check if the category is active
+                    if checkbox.isChecked():
+                        files = frame.children()[1:]
+                        # get the checked files
+                        filtered_files = list(filter(lambda x: x.isChecked(), files))
 
-                # check if the category is active
-                if checkbox.isChecked():
-                    files = frame.children()[1:]
-                    # get the checked files
-                    filtered_files = list(filter(lambda x: x.isChecked(), files))
+                        for file in filtered_files:
+                            db = DB()
+                            paths = db.read("files", "name", file.text())
 
-                    for file in filtered_files:
-                        db = DB()
-                        paths = db.read("files", "name", file.text())
-
-                        run_list.add(paths[0][1])
-        
-        for file in run_list:
-            os.startfile(file)
+                            run_list.add(paths[0][1])
+            
+                for file in run_list:
+                    os.startfile(file)
+            else:
+                Message("There are no apps to run. Please insert apps if you want to use this function", "No apps")
                         
 
     # open the notes window to add notes
@@ -149,15 +197,23 @@ class Main(QWidget, Ui_Runner):
 
     # open the delete window to delete notes
     def notes_delete_clicked(self):
-        delete_notes = DeleteWindow("notes")
-        delete_notes.delete_signal.connect(self.update)
-        delete_notes.exec_()
+        notes = DB().read("notes")
+        if len(notes) > 0:
+            delete_notes = DeleteWindow("notes")
+            delete_notes.delete_signal.connect(self.update)
+            delete_notes.exec_()
+        else:
+            Message("There are no notes to delete. Please insert notes if you want to use this function", "No notes")
 
     # open the select window to select which note to edit
     def notes_edit_clicked(self):
-        select_notes = SelectWindow("notes")
-        select_notes.edit_signal.connect(self.update)
-        select_notes.exec_()
+        notes = DB().read("notes")
+        if len(notes) > 0:
+            select_notes = SelectWindow("notes")
+            select_notes.edit_signal.connect(self.update)
+            select_notes.exec_()
+        else:
+            Message("There are no notes to edit. Please insert notes if you want to use this function", "No notes")
     
     # Helper methods
     def update(self):
@@ -318,7 +374,7 @@ class Main(QWidget, Ui_Runner):
     # set the color of the window
     def load_color(self, old_color, new_color, reset_color):
         #list pf widgets to apply the color to
-        widgets = [self.tabWidget, self.apps_tab, self.notes_tab, self.settings_tab]
+        widgets = [self.tabWidget, self.apps_tab, self.notes_tab, self.settings_tab, self.notes_scroll_area_widget]
         # loop over the list and get the stylesheet for every widget change the stylesheet and update the widget
         for widget in widgets:
             stylesheet = widget.styleSheet()
@@ -368,7 +424,8 @@ class Main(QWidget, Ui_Runner):
 
     def import_(self, table):
         file = QFileDialog.getOpenFileName(self, "Open a file", "", "CSV Files (*.csv*)")[0]
-        return import_data(table, file)
+        import_data(table, file)
+        self.update()
 
         
 

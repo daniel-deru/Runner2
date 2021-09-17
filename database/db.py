@@ -69,17 +69,19 @@ class DB:
 
     # read method to read data from the database
     def read(self, table, field=None, value=None):
-
-        query = ""
-
+        
         if field == None and value == None:
-            query = f"""SELECT * FROM {table}"""
+            query = ""
             if table == "notes":
                 order = DB().read("settings")[0][3]
                 query = f"SELECT * FROM notes ORDER BY {order}"
+            elif table != "settings":
+                query = f"""SELECT * FROM {table} ORDER BY name;"""
+            else:
+                query = f"""SELECT * FROM {table}"""
             self.cur.execute(query)
         else:
-            query = f"""SELECT * FROM {table} WHERE {field} = (?)"""
+            query = f"""SELECT * FROM {table} WHERE {field} = (?) ORDER BY name"""
             self.cur.execute(query, (value,))
 
         # execute the query and get all the data

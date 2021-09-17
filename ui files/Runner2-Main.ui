@@ -60,7 +60,7 @@ QTabBar::tab:selected {
 </string>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="apps_tab">
       <property name="styleSheet">
@@ -245,6 +245,7 @@ QPushButton:pressed {
 QWidget {
 	background-color: #007EA6;
 }
+
 </string>
       </property>
       <attribute name="icon">
@@ -350,7 +351,9 @@ QWidget {
              </rect>
             </property>
             <property name="styleSheet">
-             <string notr="true"/>
+             <string notr="true">QWidget {
+	background-color: #007EA6;
+}</string>
             </property>
             <layout class="QVBoxLayout" name="notes_scroll_layout"/>
            </widget>
