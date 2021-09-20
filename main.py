@@ -73,8 +73,9 @@ class Main(QWidget, Ui_Runner):
     def __init__(self):
         super(Main, self).__init__()  
         self.setupUi(self)
-        self.add_tab_icons()
+        # set the tab index before adding the icons
         self.tabWidget.setCurrentIndex(0)
+        self.add_tab_icons()
         self.setWindowTitle("WorkMate")
         self.setWindowIcon(QIcon("images/WorkMate.png"))
 
@@ -183,8 +184,8 @@ class Main(QWidget, Ui_Runner):
 
                             run_list.add(paths[0][1])
             
-                for file in run_list:
-                    os.startfile(file)
+                        for file in run_list:
+                            os.startfile(file)
             else:
                 Message("There are no apps to run. Please insert apps if you want to use this function", "No apps")
                         
@@ -275,16 +276,19 @@ class Main(QWidget, Ui_Runner):
     
     # add the tabicons and change them depending on which window is active
     def add_tab_icons(self): 
+        
         self.tabWidget.setTabIcon(0, QIcon("images/AppsIconBlack.png"))
         self.tabWidget.setTabIcon(1, QIcon("images/NotesIconBlack.png"))
         self.tabWidget.setTabIcon(2, QIcon("images/SettingIconBlack.png"))
         active_tab_index = self.tabWidget.currentIndex()
         if active_tab_index == 0:
-            self.tabWidget.setTabIcon(active_tab_index, QIcon("images/AppsIconWhite.png"))
+            self.tabWidget.setTabIcon(0, QIcon("images/AppsIconWhite.png"))
         elif active_tab_index == 1:
-            self.tabWidget.setTabIcon(active_tab_index, QIcon("images/NotesIconWhite.png"))
-        else:
-            self.tabWidget.setTabIcon(active_tab_index, QIcon("images/SettingsIconWhite.png"))
+            self.tabWidget.setTabIcon(1, QIcon("images/NotesIconWhite.png"))
+        elif active_tab_index == 2:
+            self.tabWidget.setTabIcon(2, QIcon("images/SettingsIconWhite.png"))
+ 
+
     
     # open color dialog and update the color example
     def select_color(self):

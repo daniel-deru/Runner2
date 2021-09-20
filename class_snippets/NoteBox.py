@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout,QSpacerIte
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 
+
 import os
 import sys
 
@@ -39,6 +40,7 @@ def make_note_container(data):
 
 
     note = QLabel(note_text)
+    note.setTextInteractionFlags(Qt.TextSelectableByMouse)
     note.setWordWrap(True)
     note.setObjectName("note")
     note.setFont(app_font)
